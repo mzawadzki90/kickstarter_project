@@ -1,7 +1,7 @@
 from genetic_algorithm import AbstractGeneticAlgorithm
 
-population = AbstractGeneticAlgorithm.init_population(5, 10)
-print(population)
+aga = AbstractGeneticAlgorithm(5, 10)
+print(aga.population)
 
-fitness = AbstractGeneticAlgorithm.calculate_population_fitness(population)
+fitness = aga.calculate_population_fitness()
 print(fitness)
