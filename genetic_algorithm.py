@@ -4,33 +4,34 @@ import numpy as np
 class AbstractGeneticAlgorithm:
 
     def __init__(self, function_dimension, population_size):
-        self.population = self.init_population(function_dimension, population_size)
-        self.best_three_last_generations = np.zeros(shape=(1, 3))
+        self.function_dimension = function_dimension
+        self.population_size = population_size
+        self.population = self.init_population()
+        self.best_hundred_last_generations = np.ones(shape=(100, function_dimension))
 
     def calculate(self):
-        fitness = self.calculate_population_fitness()
+        fitness = self.calculate_population_fitness(self.population)
         self.save_best_for_generation(fitness)
+        generation_counter = 1
         while not self.post_condition():
-            parent1, parent2 = self.select_parents(fitness)
-            crossovers = self.crossover(parent1, parent2)
+            parents = self.select_parents(fitness)
+            crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
             offspring = self.select_survivor(mutates)
-            self.replace_worst_element(offspring, fitness)
-            fitness = self.calculate_population_fitness()
+            generation_counter += 1
+            self.replace_worst_element(offspring, fitness, generation_counter)
+            fitness = self.calculate_population_fitness(self.population)
             self.save_best_for_generation(fitness)
         return self.get_best()
 
-    def calculate_population_fitness(self):
-        fitness = np.sum(self.population ** 2, axis=1)
-        return fitness
-
     def save_best_for_generation(self, fitness):
-        self.best_three_last_generations[3] = self.best_three_last_generations[2]
-        self.best_three_last_generations[2] = self.best_three_last_generations[1]
-        self.best_three_last_generations[0] = self.population[fitness.argmin()[0]]
+        self.best_hundred_last_generations = np.roll(self.best_hundred_last_generations, 1, axis=0)
+        self.best_hundred_last_generations[0] = self.population[fitness.argmin()]
+        print("The best from the last 100 generations:", self.best_hundred_last_generations)
 
     def post_condition(self):
-        return self.best_three_last_generations.std() < 0.005
+        best_hundred_last_generations_fitness = self.calculate_population_fitness(self.best_hundred_last_generations)
+        return best_hundred_last_generations_fitness.std() < 0.01 or np.min(best_hundred_last_generations_fitness) == 0
 
     def select_parents(self, fitness):
         pass
@@ -42,14 +43,26 @@ class AbstractGeneticAlgorithm:
         pass
 
     def select_survivor(self, mutates):
-        pass
+        mutate1 = mutates[0]
+        mutate2 = mutates[1]
+        return np.where(self.calculate_fitness(mutate1) > self.calculate_fitness(mutate2), mutate2, mutate1)
 
-    def replace_worst_element(self, offspring, fitness):
-        np.put(self.population, fitness.argmax()[0], offspring)
+    def replace_worst_element(self, offspring, fitness, counter):
+        self.population[fitness.argmax()] = offspring
+        print("Generation: ", counter, "; Current population: ", self.population)
 
     def get_best(self):
-        return np.min(self.best_three_last_generations)
+        return np.min(np.sum(self.best_hundred_last_generations ** 2, axis=1))
+
+    def init_population(self):
+        population = np.random.uniform(low=0.0, high=10.0, size=(self.population_size, self.function_dimension))
+        print("Generation: 1; Population: ", population)
+        return population
 
     @staticmethod
-    def init_population(function_dimension, population_size):
-        return np.random.uniform(low=0.0, high=10.0, size=(population_size, function_dimension))
+    def calculate_population_fitness(population):
+        return np.sum(population ** 2, axis=1)
+
+    @staticmethod
+    def calculate_fitness(chromosome):
+        return np.sum(chromosome ** 2)

@@ -14,6 +14,6 @@ class OnePointCrossover:
     @staticmethod
     def select_crossover_point(size):
         if size % 2 == 0:
-            return size / 2
+            return int(size / 2)
         else:
             return int(size / 2 + 1)
