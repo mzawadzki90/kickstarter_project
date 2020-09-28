@@ -35,7 +35,7 @@ class AbstractGeneticAlgorithm:
     def select_parents(self, fitness):
         pass
 
-    def crossover(self, parent1, parent2):
+    def crossover(self, parents):
         pass
 
     def mutate(self, crossovers):
