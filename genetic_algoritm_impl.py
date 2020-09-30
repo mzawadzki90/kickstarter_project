@@ -1,6 +1,6 @@
 from genetic_algorithm import AbstractGeneticAlgorithm
 from one_point_crossover import OnePointCrossover
-from swap_mutation import SwapMutation
+from random_mutation import RandomMutation
 from tournament_selection import TournamentSelection
 
 
@@ -13,4 +13,4 @@ class GeneticAlgorithmImpl(AbstractGeneticAlgorithm):
         return OnePointCrossover().crossover(parents)
 
     def mutate(self, crossovers):
-        return SwapMutation().mutate(crossovers)
+        return RandomMutation().mutate(crossovers)
