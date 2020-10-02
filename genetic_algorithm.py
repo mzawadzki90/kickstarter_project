@@ -1,7 +1,22 @@
 import numpy as np
 
 
+# not abstract
 class AbstractGeneticAlgorithm:
+
+    # class QuadraticFunctionGenome(Genome):
+    #     _parameters: np.ndarray
+    #
+    #     def init(self, dimensions: int):
+    #         self._parameters = np.random.random(dimensions)
+    #
+    #     def rank(self) -> float:
+    #         return ...
+    #
+    # # ===
+    #
+    # def rank(genome: QuadraticFunctionGenome) -> float:
+    #     return ...
 
     def __init__(self, function_dimension, population_size):
         self.function_dimension = function_dimension
@@ -29,6 +44,7 @@ class AbstractGeneticAlgorithm:
         self.best_hundred_last_generations[0] = self.population[fitness.argmin()]
         print("The best from the last 100 generations:", self.best_hundred_last_generations)
 
+    # add to separete file
     def post_condition(self):
         best_hundred_last_generations_fitness = self.calculate_population_fitness(self.best_hundred_last_generations)
         return best_hundred_last_generations_fitness.std() < 0.01 or np.min(best_hundred_last_generations_fitness) == 0
@@ -42,6 +58,7 @@ class AbstractGeneticAlgorithm:
     def mutate(self, crossovers):
         pass
 
+    # add to separete file
     def select_survivor(self, mutates):
         mutate1 = mutates[0]
         mutate2 = mutates[1]
@@ -59,10 +76,14 @@ class AbstractGeneticAlgorithm:
         print("Generation: 1; Population: ", population)
         return population
 
+    # not static
     @staticmethod
     def calculate_population_fitness(population):
         return np.sum(population ** 2, axis=1)
 
+    # public
+    # _  # protected
+    # __  # private
     @staticmethod
     def calculate_fitness(chromosome):
         return np.sum(chromosome ** 2)

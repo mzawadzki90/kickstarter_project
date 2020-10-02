@@ -16,12 +16,17 @@ class TournamentSelection:
         population_rows = population.shape[0]
         candidates = np.random.choice(a=population_rows, size=self.get_candidates_size(population_rows),
                                       p=self.get_probability_arr(fitness))
+        # fitness[candidates]
+        # map(np.take, arrays_and_indices)
+        # arrays_and_indices: Iterable[Tuple[np.ndarray, np.ndarray]] = None
         candidates_fitness = np.take(fitness, candidates)
         min_candidate_index = np.where(fitness == np.min(candidates_fitness))
         return population[min_candidate_index][0], min_candidate_index[0][0]
 
     @staticmethod
     def get_probability_arr(fitness):
+        # 1 - x / np.sum(x)
+        # 1 - (x - np.min(x)) / np.sum(x - np.min(x))
         fitness_rows = fitness.shape[0]
         if fitness_rows == 1:
             return np.array([1])

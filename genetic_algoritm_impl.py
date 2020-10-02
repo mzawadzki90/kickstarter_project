@@ -4,6 +4,7 @@ from random_mutation import RandomMutation
 from tournament_selection import TournamentSelection
 
 
+# remove
 class GeneticAlgorithmImpl(AbstractGeneticAlgorithm):
 
     def select_parents(self, fitness):
