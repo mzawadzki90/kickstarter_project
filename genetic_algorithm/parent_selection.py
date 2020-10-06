@@ -1,32 +1,30 @@
 import numpy as np
 
 
-class TournamentSelection:
+class ParentSelection:
+    def select_parents(self, population: np.ndarray, fitness: np.ndarray) -> np.ndarray:
+        pass
 
-    def select_parents(self, population, fitness):
+
+class TournamentSelection(ParentSelection):
+    def select_parents(self, population: np.ndarray, fitness: np.ndarray) -> np.ndarray:
         population_copy = np.copy(population)
         fitness_copy = np.copy(fitness)
-        parent1, index1 = self.select_parent(population_copy, fitness_copy)
+        parent1, index1 = self.__select_parent(population_copy, fitness_copy)
         population_copy = np.delete(population_copy, index1, axis=0)
         fitness_copy = np.delete(fitness_copy, index1)
-        parent2, index2 = self.select_parent(population_copy, fitness_copy)
+        parent2, index2 = self.__select_parent(population_copy, fitness_copy)
         return np.array([parent1, parent2])
 
-    def select_parent(self, population, fitness):
+    def __select_parent(self, population: np.ndarray, fitness: np.ndarray) -> [np.ndarray, int]:
         population_rows = population.shape[0]
-        candidates = np.random.choice(a=population_rows, size=self.get_candidates_size(population_rows),
-                                      p=self.get_probability_arr(fitness))
-        # fitness[candidates]
-        # map(np.take, arrays_and_indices)
-        # arrays_and_indices: Iterable[Tuple[np.ndarray, np.ndarray]] = None
-        candidates_fitness = np.take(fitness, candidates)
+        candidates = np.random.choice(a=population_rows, size=self.__get_candidates_size(population_rows),
+                                      p=self.__get_probability_arr(fitness))
+        candidates_fitness = fitness[candidates]
         min_candidate_index = np.where(fitness == np.min(candidates_fitness))
         return population[min_candidate_index][0], min_candidate_index[0][0]
 
-    @staticmethod
-    def get_probability_arr(fitness):
-        # 1 - x / np.sum(x)
-        # 1 - (x - np.min(x)) / np.sum(x - np.min(x))
+    def __get_probability_arr(self, fitness: np.ndarray) -> iter:
         fitness_rows = fitness.shape[0]
         if fitness_rows == 1:
             return np.array([1])
@@ -40,6 +38,5 @@ class TournamentSelection:
 
         return reshaped.tolist()
 
-    @staticmethod
-    def get_candidates_size(population_rows):
+    def __get_candidates_size(self, population_rows: int) -> int:
         return max(2, int(population_rows * 0.3))
