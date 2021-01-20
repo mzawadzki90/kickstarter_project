@@ -1,13 +1,15 @@
-# Our goal in this section is to plot our 300 dimensions vectors into 2 dimensional graphs, and see if we can spot
-# interesting patterns.
-# For that we are going to use t-SNE implementation from scikit-learn.
-# To make the visualizations more relevant, we will look at the relationships between a query word (in red),
-# its most similar words in the model (in blue), and other words from the vocabulary (in green).
+"""
+Our goal in this section is to plot our 300 dimensions vectors into 2 dimensional graphs, and see if we can spot
+interesting patterns.
+For that we are going to use t-SNE implementation from scikit-learn.
+To make the visualizations more relevant, we will look at the relationships between a query word (in red),
+its most similar words in the model (in blue), and other words from the vocabulary (in green).
 
-# t-SNE visualizations:
-# t-SNE is a non-linear dimensionality reduction algorithm that attempts to represent high-dimensional data and the
-# underlying relationships between vectors in a lower-dimensional space.
-# Here is a good tutorial on it: https://medium.com/@luckylwk/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b
+t-SNE visualizations:
+t-SNE is a non-linear dimensionality reduction algorithm that attempts to represent high-dimensional data and the
+underlying relationships between vectors in a lower-dimensional space.
+Here is a good tutorial on it: https://medium.com/@luckylwk/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b
+"""
 
 import matplotlib.pyplot as plt
 import numpy as np
