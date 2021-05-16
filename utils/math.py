@@ -7,6 +7,14 @@ import numpy as np
 class MathUtil:
 
     @staticmethod
+    def flip_bit(bitfield: np.ndarray, pos: int) -> np.ndarray:
+        if bitfield[pos] == 0:
+            bitfield[pos] = 1
+        else:
+            bitfield[pos] = 0
+        return bitfield
+
+    @staticmethod
     def float_to_bitfield(number: float) -> np.ndarray:
         bits = MathUtil.__float_to_bits(number)
         return MathUtil.__bits_to_bitfield(bits)
