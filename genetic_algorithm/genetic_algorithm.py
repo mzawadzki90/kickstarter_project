@@ -6,21 +6,25 @@ from genetic_algorithm.genome import Genome
 class GeneticAlgorithm:
     genome: Genome
     population_size: int
+    generation_count: int
+    best_last_generations_size: int
     population: np.ndarray
     best_last_generations: np.ndarray
 
-    def __init__(self, genome: Genome, population_size: int = 10, best_last_generations_size: int = 100):
+    def __init__(self, genome: Genome, population_size: int = 10, generation_count: int = 100,
+                 best_last_generations_size: int = 100):
         self.genome = genome
         self.population_size = population_size
-        self.population = self.init_population()
+        self.generation_count = generation_count
         self.best_last_generations_size = best_last_generations_size
+        self.population = self.init_population()
         self.best_last_generations = np.ones(shape=(best_last_generations_size, genome.dimension))
 
     def calculate(self) -> float:
         fitness = self.__calculate_population_fitness(self.population)
         self.__save_best_for_generation(fitness)
         generation_counter = 1
-        while not self.__post_condition():
+        while not self.__post_condition(generation_counter):
             parents = self.select_parents(fitness)
             crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
@@ -48,10 +52,8 @@ class GeneticAlgorithm:
         self.best_last_generations[0] = self.population[fitness.argmin()]
         print("The best from the last ", self.best_last_generations_size, " generations:", self.best_last_generations)
 
-    def __post_condition(self) -> bool:
-        best_hundred_last_generations_fitness = self.__calculate_population_fitness(self.best_last_generations)
-        return best_hundred_last_generations_fitness.std() < 0.0000005 or np.min(
-            best_hundred_last_generations_fitness) == 0
+    def __post_condition(self, generation_counter: int) -> bool:
+        return generation_counter > self.generation_count
 
     def __select_survivor(self, mutates: np.ndarray) -> np.ndarray:
         mutate1 = mutates[0]

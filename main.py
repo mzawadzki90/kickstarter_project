@@ -42,10 +42,12 @@ class GeneticAlgorithmImpl2(GeneticAlgorithm):
 
 quadratic_rank: Callable[[np.ndarray], float] = lambda array: float(np.sum(array ** 2))
 genome = Genome(gene_low=-10.0, gene_high=10.0, dimension=10, rank=quadratic_rank)
-algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=20, best_last_generations_size=100)
+algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=1000,
+                                      best_last_generations_size=5)
 # algorithm_impl.calculate()
 
 linear_rank: Callable[[np.ndarray], float] = lambda array: float(np.sum(array))
 genome2 = Genome(gene_low=0.0001, gene_high=1, dimension=1, rank=linear_rank)
-algorithm_impl2 = GeneticAlgorithmImpl2(genome=genome2, population_size=1000, best_last_generations_size=10)
+algorithm_impl2 = GeneticAlgorithmImpl2(genome=genome2, population_size=5, generation_count=1000,
+                                        best_last_generations_size=5)
 algorithm_impl2.calculate()
