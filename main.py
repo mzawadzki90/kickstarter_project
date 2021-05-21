@@ -48,6 +48,6 @@ algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generati
 
 linear_rank: Callable[[np.ndarray], float] = lambda array: float(np.sum(array))
 genome2 = Genome(gene_low=0.0001, gene_high=1, dimension=1, rank=linear_rank)
-algorithm_impl2 = GeneticAlgorithmImpl2(genome=genome2, population_size=5, generation_count=1000,
+algorithm_impl2 = GeneticAlgorithmImpl2(genome=genome2, population_size=10, generation_count=10,
                                         best_last_generations_size=5)
 algorithm_impl2.calculate()

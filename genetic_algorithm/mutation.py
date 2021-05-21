@@ -46,7 +46,7 @@ class FlipBitMutation(Mutation):
     def get_mutate(self, crossover: np.ndarray) -> np.ndarray:
         mutate = crossover[0]
         mutate_bitfield = MathUtil.float_to_bitfield(mutate)
-        flip_position = randint(int(mutate_bitfield.size * 0.5), mutate_bitfield.size - 1)
+        flip_position = randint(int(mutate_bitfield.size * (1 / 10)), mutate_bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position)
         mutate = MathUtil.bitfield_to_float(mutate_bitfield)
         return np.array([mutate])
