@@ -11,13 +11,14 @@ class PopulationInitializer:
         self.population_size = population_size
         self.genome = genome
 
-    def _init_population(self, low: float, high: float) -> np.ndarray:
+    def init_population(self) -> np.ndarray:
         pass
 
 
 class RandomInitialization(PopulationInitializer):
 
-    def __init_population(self, low: float, high: float) -> np.ndarray:
-        population = np.random.uniform(low=low, high=high, size=(self.population_size, self.genome.dimension))
+    def init_population(self) -> np.ndarray:
+        population = np.random.uniform(low=self.genome.gene_low, high=self.genome.gene_high,
+                                       size=(self.population_size, self.genome.dimension))
         print("Generation: 1; Population: ", population)
         return population

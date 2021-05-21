@@ -4,14 +4,16 @@ import numpy as np
 
 
 class Genome:
+    gene_low: float
+    gene_high: float
     dimension: int
     rank: Callable[[np.ndarray], float]
-    convert_to_binary: bool
 
-    def __init__(self, dimension: int, rank: Callable[[np.ndarray], float], convert_to_binary: bool):
+    def __init__(self, gene_low: float, gene_high: float, dimension: int, rank: Callable[[np.ndarray], float]):
+        self.gene_low = gene_low
+        self.gene_high = gene_high
         self.dimension = dimension
         self.rank = rank
-        self.convert_to_binary = convert_to_binary
 
     def rank(self, array: np.ndarray) -> float:
         return self.rank(array)

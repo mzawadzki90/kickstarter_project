@@ -9,11 +9,10 @@ class GeneticAlgorithm:
     population: np.ndarray
     best_last_generations: np.ndarray
 
-    def __init__(self, genome: Genome, population_size: int, gene_low: float = 0.0, gene_high: float = 10.0,
-                 best_last_generations_size: int = 100):
+    def __init__(self, genome: Genome, population_size: int = 10, best_last_generations_size: int = 100):
         self.genome = genome
         self.population_size = population_size
-        self.population = self.init_population(gene_low, gene_high)
+        self.population = self.init_population()
         self.best_last_generations_size = best_last_generations_size
         self.best_last_generations = np.ones(shape=(best_last_generations_size, genome.dimension))
 
@@ -32,7 +31,7 @@ class GeneticAlgorithm:
             self.__save_best_for_generation(fitness)
         return self.__get_best()
 
-    def init_population(self, low: float, high: float) -> np.ndarray:
+    def init_population(self) -> np.ndarray:
         pass
 
     def select_parents(self, fitness: np.ndarray) -> np.ndarray:
@@ -51,7 +50,8 @@ class GeneticAlgorithm:
 
     def __post_condition(self) -> bool:
         best_hundred_last_generations_fitness = self.__calculate_population_fitness(self.best_last_generations)
-        return best_hundred_last_generations_fitness.std() < 0.05 or np.min(best_hundred_last_generations_fitness) == 0
+        return best_hundred_last_generations_fitness.std() < 0.0000005 or np.min(
+            best_hundred_last_generations_fitness) == 0
 
     def __select_survivor(self, mutates: np.ndarray) -> np.ndarray:
         mutate1 = mutates[0]
@@ -63,7 +63,9 @@ class GeneticAlgorithm:
         print("Generation: ", counter, "; Current population: ", self.population)
 
     def __get_best(self) -> float:
-        return self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
+        best = self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
+        print("Best: ", best)
+        return best
 
     def __calculate_population_fitness(self, population: np.ndarray) -> np.ndarray:
         return np.apply_along_axis(self.genome.rank, axis=1, arr=population)
