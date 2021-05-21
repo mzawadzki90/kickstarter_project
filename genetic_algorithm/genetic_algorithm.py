@@ -63,7 +63,7 @@ class GeneticAlgorithm:
         print("Generation: ", counter, "; Current population: ", self.population)
 
     def __get_best(self) -> float:
-        return np.min(self.__calculate_population_fitness(self.best_last_generations))
+        return self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
 
     def __calculate_population_fitness(self, population: np.ndarray) -> np.ndarray:
         return np.apply_along_axis(self.genome.rank, axis=1, arr=population)
