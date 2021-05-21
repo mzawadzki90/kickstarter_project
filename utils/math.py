@@ -7,6 +7,18 @@ import numpy as np
 class MathUtil:
 
     @staticmethod
+    def set_equal_length(arr1: np.ndarray, arr2: np.ndarray) -> [np.ndarray, np.ndarray]:
+        if len(arr1) < len(arr2):
+            new_arr1 = arr1.copy()
+            new_arr1 = new_arr1.resize(arr2.shape)
+            new_arr2 = arr2.copy()
+        else:
+            new_arr2 = arr2.copy()
+            new_arr2 = new_arr2.resize(arr1.shape)
+            new_arr1 = arr1.copy()
+        return new_arr1, new_arr2
+
+    @staticmethod
     def flip_bit(bitfield: np.ndarray, pos: int) -> np.ndarray:
         if bitfield[pos] == 0:
             bitfield[pos] = 1
