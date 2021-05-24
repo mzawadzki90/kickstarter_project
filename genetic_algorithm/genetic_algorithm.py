@@ -53,7 +53,7 @@ class GeneticAlgorithm:
         print("The best from the last ", self.best_last_generations_size, " generations:", self.best_last_generations)
 
     def __post_condition(self, generation_counter: int) -> bool:
-        return generation_counter > self.generation_count
+        return generation_counter >= self.generation_count
 
     def __select_survivor(self, mutates: np.ndarray) -> np.ndarray:
         mutate1 = mutates[0]
