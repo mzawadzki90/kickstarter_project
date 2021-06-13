@@ -26,11 +26,12 @@ class RandomInitialization(PopulationInitializer):
         for x in range(0, self.population_size):
             genes = []
             for gene in init_genes:
+                label = gene.label
                 minimum = gene.minimum
                 maximum = gene.maximum
                 if gene.get_type() == int.__class__:
-                    genes.append(Gene(random.randint(minimum, maximum), minimum, maximum))
+                    genes.append(Gene(label, random.randint(minimum, maximum), minimum, maximum))
                 elif gene.get_type() == float.__class__:
-                    genes.append(Gene(random.uniform(minimum, maximum), minimum, maximum))
+                    genes.append(Gene(label, random.uniform(minimum, maximum), minimum, maximum))
             population.append(Genome(genes, rank))
         return population
