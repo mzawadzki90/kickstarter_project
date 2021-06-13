@@ -1,19 +1,16 @@
+from collections.abc import Iterable
 from typing import Callable
 
-import numpy as np
+from genetic_algorithm.gene import Gene
 
 
 class Genome:
-    gene_low: float
-    gene_high: float
-    dimension: int
-    rank: Callable[[np.ndarray], float]
+    genes: Iterable[Gene]
+    rank: Callable[[Iterable[Gene]], float]
 
-    def __init__(self, gene_low: float, gene_high: float, dimension: int, rank: Callable[[np.ndarray], float]):
-        self.gene_low = gene_low
-        self.gene_high = gene_high
-        self.dimension = dimension
+    def __init__(self, genes: Iterable[Gene], rank: Callable[[Iterable[Gene]], float]):
+        self.genes = genes
         self.rank = rank
 
-    def rank(self, array: np.ndarray) -> float:
-        return self.rank(array)
+    def rank(self) -> float:
+        return self.rank(self.genes)
