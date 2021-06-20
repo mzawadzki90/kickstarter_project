@@ -1,52 +1,64 @@
-from random import random, randint
+import copy
+from collections import Sequence
+from random import randint
+from typing import Union
 
-import numpy as np
-
+from genetic_algorithm.gene import Gene, IntegerGene, FloatGene
+from genetic_algorithm.genome import Genome
 from utils.math import MathUtil
+
+numeric = Union[int, float]
 
 
 class Mutation:
-    def mutate(self, crossovers: np.ndarray) -> np.ndarray:
+    def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         mutate1 = self.get_mutate(crossovers[0])
         mutate2 = self.get_mutate(crossovers[1])
-        return np.array([mutate1, mutate2])
+        return [mutate1, mutate2]
 
-    def get_mutate(self, crossover: np.ndarray) -> np.ndarray:
+    def get_mutate(self, crossover: Genome) -> Genome:
         pass
 
 
 class RandomMutation(Mutation):
 
-    def get_mutate(self, crossover: np.ndarray) -> np.ndarray:
-        mutate = np.copy(crossover)
-        mutation_position = randint(0, crossover.size - 1)
-        mutate[mutation_position] = random() * 10
+    def get_mutate(self, crossover: Genome) -> Genome:
+        mutate = copy.deepcopy(crossover)
+        mutation_position = randint(0, len(crossover.genes) - 1)
+        crossover.genes[mutation_position] = self.__get_mutate_gene(crossover.genes[mutation_position])
         return mutate
 
+    def __get_mutate_gene(self, gene: Gene) -> Gene:
+        if isinstance(gene, IntegerGene):
+            return self.__mutate_integer_gene(gene)
+        if isinstance(gene, FloatGene):
+            return self.__mutate_float_gene(gene)
 
-class SwapMutation(Mutation):
+    def __mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
+        mutate_gene = copy.deepcopy(gene)
+        bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
+        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
+        mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
+        mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
+        mutate_gene.value = mutate_value
+        return mutate_gene
 
-    def get_mutate(self, crossover: np.ndarray) -> np.ndarray:
-        mutate = np.copy(crossover)
-        swap_point, opposite_swap = self.__get_swap_points(crossover.size)
-        mutate[swap_point], mutate[opposite_swap] = mutate[opposite_swap], mutate[swap_point]
-        return mutate
+    def __mutate_float_gene(self, gene: FloatGene) -> FloatGene:
+        mutate_gene = copy.deepcopy(gene)
+        bitfield = MathUtil.float_to_bitfield(mutate_gene.value)
+        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
+        mutate_value = MathUtil.bitfield_to_float(mutate_bitfield)
+        mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
+        mutate_gene.value = mutate_value
+        return mutate_gene
 
-    def __get_swap_points(self, size: int) -> [int, int]:
-        swap_point = int(random() * size)
-        if swap_point > (size - 1) / 2:
-            opposite_swap = -1 - swap_point
-        else:
-            opposite_swap = size - swap_point - 1
-        return swap_point, opposite_swap
-
-
-class FlipBitMutation(Mutation):
-
-    def get_mutate(self, crossover: np.ndarray) -> np.ndarray:
-        mutate = crossover[0]
-        mutate_bitfield = MathUtil.float_to_bitfield(mutate)
-        flip_position = randint(int(mutate_bitfield.size * (1 / 10)), mutate_bitfield.size - 1)
-        mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position)
-        mutate = MathUtil.bitfield_to_float(mutate_bitfield)
-        return np.array([mutate])
+    def __crop_to_boundries(self, mutate_gene: Gene, mutate_value: numeric) -> numeric:
+        maximum = mutate_gene.maximum
+        if mutate_value > maximum:
+            mutate_value = maximum
+        minimum = mutate_gene.minimum
+        if mutate_value < minimum:
+            mutate_value = minimum
+        return mutate_value

@@ -1,14 +1,14 @@
 from collections.abc import Sequence
-from typing import Callable
+from typing import Callable, MutableSequence
 
 from genetic_algorithm.gene import Gene
 
 
 class Genome:
-    genes: Sequence[Gene]
+    genes: MutableSequence[Gene]
     rank_func: Callable[[Sequence[Gene]], float]
 
-    def __init__(self, genes: Sequence[Gene], rank: Callable[[Sequence[Gene]], float]):
+    def __init__(self, genes: MutableSequence[Gene], rank: Callable[[Sequence[Gene]], float]):
         self.genes = genes
         self.rank_func = rank
 

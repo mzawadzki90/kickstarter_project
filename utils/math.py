@@ -36,6 +36,16 @@ class MathUtil:
         bits = MathUtil.__bitfield_to_bits(bitfield)
         return MathUtil.__bits_to_float(bits)
 
+    @staticmethod
+    def integer_to_bitfield(number: int) -> np.ndarray:
+        bits = MathUtil.__integer_to_bits(number)
+        return MathUtil.__bits_to_bitfield(bits)
+
+    @staticmethod
+    def bitfield_to_integer(bitfield: np.ndarray) -> int:
+        bits = MathUtil.__bitfield_to_bits(bitfield)
+        return MathUtil.__bits_to_integer(bits)
+
     @classmethod
     def __float_to_bits(cls, number: float) -> int:
         s = struct.pack('>f', number)
@@ -45,6 +55,16 @@ class MathUtil:
     def __bits_to_float(cls, bits: Number) -> float:
         s = struct.pack('>l', bits)
         return struct.unpack('>f', s)[0]
+
+    @classmethod
+    def __integer_to_bits(cls, number: int) -> int:
+        s = struct.pack('>i', number)
+        return struct.unpack('>l', s)[0]
+
+    @classmethod
+    def __bits_to_integer(cls, bits: Number) -> int:
+        s = struct.pack('>l', bits)
+        return struct.unpack('>i', s)[0]
 
     @classmethod
     def __bits_to_bitfield(cls, bits: int) -> np.ndarray:
