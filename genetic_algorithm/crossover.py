@@ -1,10 +1,11 @@
-import numpy as np
+import copy
+from collections import Sequence
 
-from utils.math import MathUtil
+from genetic_algorithm.genome import Genome
 
 
 class Crossover:
-    def crossover(self, parents: np.ndarray) -> np.ndarray:
+    def crossover(self, parents: Sequence[Genome]) -> Sequence[Genome]:
         pass
 
 
@@ -16,26 +17,13 @@ def select_crossover_point(size: int) -> int:
 
 
 class OnePointCrossover(Crossover):
-    def crossover(self, parents: np.ndarray) -> np.ndarray:
-        parent1 = parents[0]
-        parent2 = parents[1]
-        crossover_point = select_crossover_point(parent1.size)
-        crossover1 = np.concatenate((parent1[0:crossover_point], parent2[crossover_point:]))
-        crossover2 = np.concatenate((parent2[0:crossover_point], parent1[crossover_point:]))
-        return np.array([crossover1, crossover2])
-
-
-class OnePointBinaryCrossover(Crossover):
-    def crossover(self, parents: np.ndarray) -> np.ndarray:
-        parent1 = parents[0][0]
-        parent2 = parents[1][0]
-        parent1_bitfield = MathUtil.float_to_bitfield(parent1)
-        parent2_bitfield = MathUtil.float_to_bitfield(parent2)
-        if len(parent1_bitfield) != len(parent2_bitfield):
-            parent1_bitfield, parent2_bitfield = MathUtil.set_equal_length(parent1_bitfield, parent2_bitfield)
-        crossover_point = select_crossover_point(parent1_bitfield.size)
-        crossover1_bitfield = np.concatenate((parent1_bitfield[0:crossover_point], parent2_bitfield[crossover_point:]))
-        crossover2_bitfield = np.concatenate((parent1_bitfield[0:crossover_point], parent2_bitfield[crossover_point:]))
-        crossover1 = MathUtil.bitfield_to_float(crossover1_bitfield)
-        crossover2 = MathUtil.bitfield_to_float(crossover2_bitfield)
-        return np.array([np.array([crossover1]), np.array([crossover2])])
+    def crossover(self, parents: Sequence[Genome]) -> Sequence[Genome]:
+        crossover1 = copy.deepcopy(parents[0])
+        crossover2 = copy.deepcopy(parents[1])
+        genes1 = crossover1.genes
+        genes2 = crossover2.genes
+        size = len(genes1)
+        crossover_point = select_crossover_point(size)
+        crossover1.genes = list(genes1[0:crossover_point]) + list(genes2[crossover_point:])
+        crossover2.genes = list(genes2[0:crossover_point]) + list(genes1[crossover_point:])
+        return [crossover1, crossover2]
