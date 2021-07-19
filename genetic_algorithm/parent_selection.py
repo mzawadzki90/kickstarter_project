@@ -1,28 +1,33 @@
+import copy
+from collections import MutableSequence, Sequence
+
 import numpy as np
+
+from genetic_algorithm.genome import Genome
 
 
 class ParentSelection:
-    def select_parents(self, population: np.ndarray, fitness: np.ndarray) -> np.ndarray:
+    def select_parents(self, population: MutableSequence[Genome], fitness: np.ndarray) -> Sequence[Genome]:
         pass
 
 
 class TournamentSelection(ParentSelection):
-    def select_parents(self, population: np.ndarray, fitness: np.ndarray) -> np.ndarray:
-        population_copy = np.copy(population)
+    def select_parents(self, population: MutableSequence[Genome], fitness: np.ndarray) -> Sequence[Genome]:
+        population_copy = copy.deepcopy(population)
         fitness_copy = np.copy(fitness)
         parent1, index1 = self.__select_parent(population_copy, fitness_copy)
-        population_copy = np.delete(population_copy, index1, axis=0)
+        del population_copy[index1]
         fitness_copy = np.delete(fitness_copy, index1)
         parent2, index2 = self.__select_parent(population_copy, fitness_copy)
-        return np.array([parent1, parent2])
+        return [parent1, parent2]
 
-    def __select_parent(self, population: np.ndarray, fitness: np.ndarray) -> [np.ndarray, int]:
-        population_rows = population.shape[0]
+    def __select_parent(self, population: MutableSequence[Genome], fitness: np.ndarray) -> [Genome, int]:
+        population_rows = len(population)
         candidates = np.random.choice(a=population_rows, size=self.__get_candidates_size(population_rows),
                                       p=self.__get_probability_arr(fitness))
         candidates_fitness = fitness[candidates]
         min_candidate_index = np.where(fitness == np.min(candidates_fitness))
-        return population[min_candidate_index][0], min_candidate_index[0][0]
+        return population[min_candidate_index[0][0]], min_candidate_index[0][0]
 
     def __get_probability_arr(self, fitness: np.ndarray) -> iter:
         fitness_rows = fitness.shape[0]
