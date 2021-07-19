@@ -2,7 +2,7 @@ import random
 from collections.abc import Sequence
 
 from genetic_algorithm.gene import Gene
-from genetic_algorithm.genome import Genome
+from genetic_algorithm.genome import Genome, LabeledSequence
 
 
 class PopulationInitializer:
@@ -24,7 +24,7 @@ class RandomInitialization(PopulationInitializer):
         rank = self.initial_genome.rank_func
         population = []
         for x in range(0, self.population_size):
-            genes = []
+            genes = LabeledSequence()
             for gene in init_genes:
                 label = gene.label
                 minimum = gene.minimum
