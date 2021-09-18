@@ -1,5 +1,5 @@
 import copy
-from collections import MutableSequence, Sequence
+from typing import MutableSequence, Sequence
 
 import numpy as np
 

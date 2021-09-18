@@ -1,6 +1,5 @@
 from collections import deque
-from collections.abc import MutableSequence
-from collections.abc import Sequence
+from typing import MutableSequence, Sequence
 
 import numpy as np
 
@@ -13,7 +12,7 @@ class GeneticAlgorithm:
     generation_count: int
     best_last_generations_size: int
     population: MutableSequence[Genome]
-    best_last_generations: deque[Genome]
+    best_last_generations: deque
 
     def __init__(self, genome: Genome, population_size: int = 10, generation_count: int = 100,
                  best_last_generations_size: int = 5):

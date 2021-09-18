@@ -1,10 +1,32 @@
-from abc import ABC
-from typing import Callable, MutableSequence
+from typing import Callable, MutableSequence, Generic, TypeVar
 
 from genetic_algorithm.gene import Gene
 
+T = TypeVar('T')
 
-class LabeledSequence(MutableSequence[Gene], ABC):
+
+class LabeledSequence(MutableSequence[Gene], Generic[T]):
+
+    def __init__(self):
+        self.data = []
+
+    def insert(self, index: int, value: T) -> None:
+        self.data.insert(index, value)
+
+    def __getitem__(self, i: int) -> T:
+        if isinstance(i, slice):
+            return self.__class__(self.data[i])
+        else:
+            return self.data[i]
+
+    def __setitem__(self, i: int, o: T) -> None:
+        self.data[i] = o
+
+    def __delitem__(self, i: int) -> None:
+        del self.data[i]
+
+    def __len__(self) -> int:
+        return len(self.data)
 
     def get_by_label(self, label):
         return next((x for x in self if x.label == label), None)

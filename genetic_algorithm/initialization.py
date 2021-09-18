@@ -1,5 +1,5 @@
 import random
-from collections.abc import Sequence
+from typing import Sequence
 
 from genetic_algorithm.gene import Gene
 from genetic_algorithm.genome import Genome, LabeledSequence

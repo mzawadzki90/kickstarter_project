@@ -1,7 +1,6 @@
 import copy
-from collections import Sequence
 from random import randint
-from typing import Union
+from typing import Union, Sequence
 
 from genetic_algorithm.gene import Gene, IntegerGene, FloatGene
 from genetic_algorithm.genome import Genome

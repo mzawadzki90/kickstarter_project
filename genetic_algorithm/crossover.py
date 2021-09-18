@@ -1,5 +1,5 @@
 import copy
-from collections import Sequence
+from typing import Sequence
 
 from genetic_algorithm.genome import Genome
 
