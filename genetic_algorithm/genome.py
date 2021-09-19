@@ -15,7 +15,7 @@ class LabeledSequence(MutableSequence[Gene], Generic[T]):
 
     def __getitem__(self, i: int) -> T:
         if isinstance(i, slice):
-            return self.__class__(self.data[i])
+            return self.__class__()
         else:
             return self.data[i]
 

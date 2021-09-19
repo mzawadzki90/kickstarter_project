@@ -23,8 +23,10 @@ class TournamentSelection(ParentSelection):
 
     def __select_parent(self, population: MutableSequence[Genome], fitness: np.ndarray) -> [Genome, int]:
         population_rows = len(population)
-        candidates = np.random.choice(a=population_rows, size=self.__get_candidates_size(population_rows),
-                                      p=self.__get_probability_arr(fitness))
+        candidates_size = self.__get_candidates_size(population_rows)
+        probability_arr = self.__get_probability_arr(fitness)
+        candidates = np.random.choice(a=population_rows, size=candidates_size,
+                                      p=probability_arr)
         candidates_fitness = fitness[candidates]
         min_candidate_index = np.where(fitness == np.min(candidates_fitness))
         return population[min_candidate_index[0][0]], min_candidate_index[0][0]

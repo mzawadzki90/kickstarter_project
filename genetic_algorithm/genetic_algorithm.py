@@ -80,4 +80,4 @@ class GeneticAlgorithm:
         fitness_arr = []
         for genome in population:
             fitness_arr.append(genome.rank())
-        return np.ndarray(fitness_arr)
+        return np.array(fitness_arr)
