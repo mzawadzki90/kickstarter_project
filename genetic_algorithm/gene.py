@@ -18,6 +18,11 @@ class Gene(Generic[T]):
     def get_type(self) -> type:
         pass
 
+    def __str__(self) -> str:
+        return 'Gene{label:' + self.label + ',minimum:' + str(self.minimum) + ',maximum:' + str(
+            self.maximum) + ',value:' \
+               + str(self.value) + '}'
+
 
 class IntegerGene(Gene[int]):
 

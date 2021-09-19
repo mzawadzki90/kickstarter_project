@@ -54,7 +54,9 @@ class GeneticAlgorithm:
         if len(self.best_last_generations) == self.best_last_generations_size:
             self.best_last_generations.popleft()
         self.best_last_generations.append(self.population[fitness.argmin()])
-        print("The best from the last ", self.best_last_generations_size, " generations:", self.best_last_generations)
+        print("The best from the last ", self.best_last_generations_size, " generations:")
+        for genome in self.best_last_generations:
+            print(genome)
 
     def __post_condition(self, generation_counter: int) -> bool:
         return generation_counter >= self.generation_count
@@ -69,11 +71,14 @@ class GeneticAlgorithm:
 
     def __replace_worst_element(self, offspring: Genome, fitness: np.ndarray, counter: int):
         self.population[fitness.argmax()] = offspring
-        print("Generation: ", counter, "; Current population: ", self.population)
+        print("Generation: ", counter, "; Current population: ")
+        for genome in self.population:
+            print(genome)
 
     def __get_best(self) -> Genome:
         best = self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
         print("Best: ", best)
+        print("Best score: ", best.rank())
         return best
 
     def __calculate_population_fitness(self, population: MutableSequence[Genome]) -> np.ndarray:

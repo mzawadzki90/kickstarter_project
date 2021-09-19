@@ -42,3 +42,12 @@ class Genome:
 
     def rank(self) -> float:
         return self.rank_func(self.genes)
+
+    def __str__(self) -> str:
+        string_representation = ''
+        string_representation += 'Genome{genes:'
+        for gene in self.genes:
+            string_representation += gene.__str__()
+            string_representation += ','
+        string_representation += '}'
+        return string_representation
