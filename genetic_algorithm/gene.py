@@ -30,7 +30,7 @@ class IntegerGene(Gene[int]):
         super().__init__(label, minimum, maximum, value)
 
     def get_type(self) -> type:
-        return int.__class__
+        return int
 
 
 class FloatGene(Gene[float]):
@@ -39,4 +39,4 @@ class FloatGene(Gene[float]):
         super().__init__(label, minimum, maximum, value)
 
     def get_type(self) -> type:
-        return float.__class__
+        return float
