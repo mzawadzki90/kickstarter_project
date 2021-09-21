@@ -30,8 +30,10 @@ class RandomInitialization(PopulationInitializer):
                 minimum = gene.minimum
                 maximum = gene.maximum
                 if gene.get_type() == int.__class__:
-                    genes.append(Gene(label, random.randint(minimum, maximum), minimum, maximum))
+                    genes.append(
+                        Gene(label=label, minimum=minimum, maximum=maximum, value=random.randint(minimum, maximum)))
                 elif gene.get_type() == float.__class__:
-                    genes.append(Gene(label, random.uniform(minimum, maximum), minimum, maximum))
+                    genes.append(
+                        Gene(label=label, minimum=minimum, maximum=maximum, value=random.uniform(minimum, maximum)))
             population.append(Genome(genes, rank))
         return population
