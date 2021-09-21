@@ -23,10 +23,10 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
 
 
 labeled_sequence = LabeledSequence()
-labeled_sequence.append(FloatGene(label='A', minimum=-10.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='B', minimum=-10.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='C', minimum=-10.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='D', minimum=-10.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='A', minimum=0.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='B', minimum=0.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='C', minimum=0.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='D', minimum=0.0, maximum=10.0))
 
 
 def rank(params: LabeledSequence[Gene]):
@@ -35,6 +35,6 @@ def rank(params: LabeledSequence[Gene]):
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
-algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=1000,
+algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=10,
                                       best_last_generations_size=5)
 algorithm_impl.calculate()

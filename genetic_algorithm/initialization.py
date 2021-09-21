@@ -1,7 +1,7 @@
 import random
 from typing import Sequence
 
-from genetic_algorithm.gene import Gene
+from genetic_algorithm.gene import IntegerGene, FloatGene
 from genetic_algorithm.genome import Genome, LabeledSequence
 
 
@@ -29,11 +29,13 @@ class RandomInitialization(PopulationInitializer):
                 label = gene.label
                 minimum = gene.minimum
                 maximum = gene.maximum
-                if gene.get_type() == int:
+                if isinstance(gene, IntegerGene):
                     genes.append(
-                        Gene(label=label, minimum=minimum, maximum=maximum, value=random.randint(minimum, maximum)))
-                elif gene.get_type() == float:
+                        IntegerGene(label=label, minimum=minimum, maximum=maximum,
+                                    value=random.randint(minimum, maximum)))
+                elif isinstance(gene, FloatGene):
                     genes.append(
-                        Gene(label=label, minimum=minimum, maximum=maximum, value=random.uniform(minimum, maximum)))
+                        FloatGene(label=label, minimum=minimum, maximum=maximum,
+                                  value=random.uniform(minimum, maximum)))
             population.append(Genome(genes, rank))
         return population

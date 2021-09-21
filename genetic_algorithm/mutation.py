@@ -30,7 +30,7 @@ class RandomMutation(Mutation):
     def __get_mutate_gene(self, gene: Gene) -> Gene:
         if isinstance(gene, IntegerGene):
             return self.__mutate_integer_gene(gene)
-        if isinstance(gene, FloatGene):
+        elif isinstance(gene, FloatGene):
             return self.__mutate_float_gene(gene)
 
     def __mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
