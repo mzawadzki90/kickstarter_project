@@ -35,6 +35,6 @@ def rank(params: LabeledSequence[Gene]):
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
-algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=10,
+algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=100,
                                       best_last_generations_size=5)
 algorithm_impl.calculate()

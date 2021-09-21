@@ -36,7 +36,7 @@ class RandomMutation(Mutation):
     def __mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
-        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        flip_position = randint(int(bitfield.size * (1 / 5)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
         mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
@@ -46,7 +46,7 @@ class RandomMutation(Mutation):
     def __mutate_float_gene(self, gene: FloatGene) -> FloatGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.float_to_bitfield(mutate_gene.value)
-        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        flip_position = randint(int(bitfield.size * (1 / 5)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
         mutate_value = MathUtil.bitfield_to_float(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
