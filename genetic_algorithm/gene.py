@@ -16,8 +16,8 @@ class Gene(Generic[T]):
         self.maximum = maximum
 
     def __str__(self) -> str:
-        return 'Gene{label:' + self.label + ',minimum:' + str(self.minimum) + ',maximum:' + str(
-            self.maximum) + ',value:' \
+        return 'Gene{lab:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
+            self.maximum) + ',val:' \
                + str(self.value) + '}'
 
 
@@ -27,8 +27,8 @@ class IntegerGene(Gene[int]):
         super().__init__(label, minimum, maximum, value)
 
     def __str__(self) -> str:
-        return 'IntegerGene{label:' + self.label + ',minimum:' + str(self.minimum) + ',maximum:' + str(
-            self.maximum) + ',value:' \
+        return 'IntegerGene{label:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
+            self.maximum) + ',val:' \
                + str(self.value) + '}'
 
 
@@ -38,6 +38,6 @@ class FloatGene(Gene[float]):
         super().__init__(label, minimum, maximum, value)
 
     def __str__(self) -> str:
-        return 'FloatGene{label:' + self.label + ',minimum:' + str(self.minimum) + ',maximum:' + str(
-            self.maximum) + ',value:' \
+        return 'FloatGene{lab:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
+            self.maximum) + ',val:' \
                + str(self.value) + '}'

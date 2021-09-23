@@ -23,8 +23,10 @@ class RandomMutation(Mutation):
 
     def get_mutate(self, crossover: Genome) -> Genome:
         mutate = copy.deepcopy(crossover)
-        mutation_position = randint(0, len(crossover.genes) - 1)
-        crossover.genes[mutation_position] = self.__get_mutate_gene(crossover.genes[mutation_position])
+        mutation_position1 = randint(0, len(crossover.genes) - 1)
+        mutate.genes[mutation_position1] = self.__get_mutate_gene(crossover.genes[mutation_position1])
+        mutation_position2 = randint(0, len(crossover.genes) - 1)
+        mutate.genes[mutation_position2] = self.__get_mutate_gene(crossover.genes[mutation_position2])
         return mutate
 
     def __get_mutate_gene(self, gene: Gene) -> Gene:
