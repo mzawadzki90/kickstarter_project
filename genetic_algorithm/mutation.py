@@ -23,10 +23,10 @@ class RandomMutation(Mutation):
 
     def get_mutate(self, crossover: Genome) -> Genome:
         mutate = copy.deepcopy(crossover)
-        mutation_position1 = randint(0, len(crossover.genes) - 1)
-        mutate.genes[mutation_position1] = self.__get_mutate_gene(crossover.genes[mutation_position1])
-        mutation_position2 = randint(0, len(crossover.genes) - 1)
-        mutate.genes[mutation_position2] = self.__get_mutate_gene(crossover.genes[mutation_position2])
+        mutation_position_1 = randint(0, len(crossover.genes) - 1)
+        mutate.genes[mutation_position_1] = self.__get_mutate_gene(crossover.genes[mutation_position_1])
+        mutation_position_2 = randint(0, len(crossover.genes) - 1)
+        mutate.genes[mutation_position_2] = self.__get_mutate_gene(crossover.genes[mutation_position_2])
         return mutate
 
     def __get_mutate_gene(self, gene: Gene) -> Gene:
@@ -40,6 +40,8 @@ class RandomMutation(Mutation):
         bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
         flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
+        flip_position_2 = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position_2)
         mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value

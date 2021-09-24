@@ -30,11 +30,11 @@ labeled_sequence.append(FloatGene(label='D', minimum=0.0, maximum=10.0))
 
 
 def rank(params: LabeledSequence[Gene]):
-    return 4 * params.get_by_label('A').value - 2 * params.get_by_label('B').value + 3 * params.get_by_label(
-        'C').value - params.get_by_label('D').value
+    return params.get_by_label('A').value * params.get_by_label('B').value * params.get_by_label(
+        'C').value * params.get_by_label('D').value
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
-algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=100,
+algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=20,
                                       best_last_generations_size=5)
 algorithm_impl.calculate()
