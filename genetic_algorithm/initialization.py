@@ -1,8 +1,8 @@
-import random
 from typing import Sequence
 
 from genetic_algorithm.gene import IntegerGene, FloatGene
 from genetic_algorithm.genome import Genome, LabeledSequence
+from utils.math import MathUtil
 
 
 class PopulationInitializer:
@@ -32,10 +32,10 @@ class RandomInitialization(PopulationInitializer):
                 if isinstance(gene, IntegerGene):
                     genes.append(
                         IntegerGene(label=label, minimum=minimum, maximum=maximum,
-                                    value=random.randint(minimum, maximum)))
+                                    value=MathUtil.random_int_from_range(minimum, maximum)))
                 elif isinstance(gene, FloatGene):
                     genes.append(
                         FloatGene(label=label, minimum=minimum, maximum=maximum,
-                                  value=random.uniform(minimum, maximum)))
+                                  value=MathUtil.random_float_from_range(minimum, maximum)))
             population.append(Genome(genes, rank))
         return population

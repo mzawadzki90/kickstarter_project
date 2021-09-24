@@ -2,6 +2,7 @@ import copy
 from typing import Sequence
 
 from genetic_algorithm.genome import Genome, LabeledSequence
+from utils.math import MathUtil
 
 
 class Crossover:
@@ -10,10 +11,7 @@ class Crossover:
 
 
 def select_crossover_point(size: int) -> int:
-    if size % 2 == 0:
-        return int(size / 2)
-    else:
-        return int(size / 2 + 1)
+    return MathUtil.random_int_from_range(1, size - 2)
 
 
 class OnePointCrossover(Crossover):

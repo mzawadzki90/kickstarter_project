@@ -1,5 +1,6 @@
 import struct
 from numbers import Number
+from random import SystemRandom
 
 import numpy as np
 
@@ -45,6 +46,16 @@ class MathUtil:
     def bitfield_to_integer(bitfield: np.ndarray) -> int:
         bits = MathUtil.__bitfield_to_bits(bitfield)
         return MathUtil.__bits_to_integer(bits)
+
+    @staticmethod
+    def random_int_from_range(min_val: int, max_val: int) -> int:
+        crypto_gen = SystemRandom()
+        return crypto_gen.randint(min_val, max_val)
+
+    @staticmethod
+    def random_float_from_range(min_val: float, max_val: float) -> float:
+        crypto_gen = SystemRandom()
+        return crypto_gen.uniform(min_val, max_val)
 
     @classmethod
     def __float_to_bits(cls, number: float) -> int:

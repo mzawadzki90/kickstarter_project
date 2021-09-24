@@ -1,5 +1,4 @@
 import copy
-from random import randint
 from typing import Union, Sequence
 
 from genetic_algorithm.gene import Gene, IntegerGene, FloatGene
@@ -23,9 +22,9 @@ class RandomMutation(Mutation):
 
     def get_mutate(self, crossover: Genome) -> Genome:
         mutate = copy.deepcopy(crossover)
-        mutation_position_1 = randint(0, len(crossover.genes) - 1)
+        mutation_position_1 = MathUtil.random_int_from_range(0, len(crossover.genes) - 1)
         mutate.genes[mutation_position_1] = self.__get_mutate_gene(crossover.genes[mutation_position_1])
-        mutation_position_2 = randint(0, len(crossover.genes) - 1)
+        mutation_position_2 = MathUtil.random_int_from_range(0, len(crossover.genes) - 1)
         mutate.genes[mutation_position_2] = self.__get_mutate_gene(crossover.genes[mutation_position_2])
         return mutate
 
@@ -38,9 +37,9 @@ class RandomMutation(Mutation):
     def __mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
-        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        flip_position = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
-        flip_position_2 = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        flip_position_2 = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position_2)
         mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
@@ -50,8 +49,10 @@ class RandomMutation(Mutation):
     def __mutate_float_gene(self, gene: FloatGene) -> FloatGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.float_to_bitfield(mutate_gene.value)
-        flip_position = randint(int(bitfield.size * (1 / 10)), bitfield.size - 1)
-        mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
+        flip_position_1 = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position_1)
+        flip_position_2 = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
+        mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position_2)
         mutate_value = MathUtil.bitfield_to_float(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value
