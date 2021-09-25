@@ -78,7 +78,7 @@ class GeneticAlgorithm:
             print(genome)
 
     def __get_best(self) -> Genome:
-        best = self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
+        best = min(self.best_last_generations, key=lambda g: g.fitness)
         print("Best: ", best)
         print("Best score: ", best.fitness)
         return best
