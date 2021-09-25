@@ -10,6 +10,7 @@ class GeneticAlgorithm:
     genome: Genome
     population_size: int
     generation_count: int
+    population_fitness: np.ndarray
     best_last_generations_size: int
     population: MutableSequence[Genome]
     best_last_generations: deque
@@ -21,21 +22,20 @@ class GeneticAlgorithm:
         self.generation_count = generation_count
         self.best_last_generations_size = best_last_generations_size
         self.population = self.init_population()
+        self.population_fitness = self.__calculate_population_fitness(self.population)
         self.best_last_generations = deque(maxlen=self.best_last_generations_size)
 
     def calculate(self) -> Genome:
-        fitness = self.__calculate_population_fitness(self.population)
-        self.__save_best_for_generation(fitness)
+        self.__save_best_for_generation()
         generation_counter = 1
         while not self.__post_condition(generation_counter):
-            parents = self.select_parents(fitness)
+            parents = self.select_parents(self.population_fitness)
             crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
             offspring = self.__select_survivor(mutates)
             generation_counter += 1
-            self.__replace_worst_element(offspring, fitness, generation_counter)
-            fitness = self.__calculate_population_fitness(self.population)
-            self.__save_best_for_generation(fitness)
+            self.__replace_worst_element(offspring, generation_counter)
+            self.__save_best_for_generation()
         return self.__get_best()
 
     def init_population(self) -> MutableSequence[Genome]:
@@ -50,10 +50,10 @@ class GeneticAlgorithm:
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         pass
 
-    def __save_best_for_generation(self, fitness: np.ndarray):
+    def __save_best_for_generation(self):
         if len(self.best_last_generations) == self.best_last_generations_size:
             self.best_last_generations.popleft()
-        self.best_last_generations.append(self.population[fitness.argmin()])
+        self.best_last_generations.append(self.population[self.population_fitness.argmin()])
         print("The best from the last ", self.best_last_generations_size, " generations:")
         for genome in self.best_last_generations:
             print(genome)
@@ -69,8 +69,10 @@ class GeneticAlgorithm:
         else:
             return mutate2
 
-    def __replace_worst_element(self, offspring: Genome, fitness: np.ndarray, counter: int):
-        self.population[fitness.argmax()] = offspring
+    def __replace_worst_element(self, offspring: Genome, counter: int):
+        worst_index = self.population_fitness.argmax()
+        self.population[worst_index] = offspring
+        self.population_fitness[worst_index] = offspring.fitness
         print("Generation: ", counter, "; Current population: ")
         for genome in self.population:
             print(genome)
@@ -78,7 +80,7 @@ class GeneticAlgorithm:
     def __get_best(self) -> Genome:
         best = self.best_last_generations[self.__calculate_population_fitness(self.best_last_generations).argmin()]
         print("Best: ", best)
-        print("Best score: ", best.rank())
+        print("Best score: ", best.fitness)
         return best
 
     def __calculate_population_fitness(self, population: MutableSequence[Genome]) -> np.ndarray:

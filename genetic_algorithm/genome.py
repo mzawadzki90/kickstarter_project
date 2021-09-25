@@ -35,13 +35,15 @@ class LabeledSequence(MutableSequence[Gene], Generic[T]):
 class Genome:
     genes: LabeledSequence[Gene]
     rank_func: Callable[[LabeledSequence[Gene]], float]
+    fitness: float
 
     def __init__(self, genes: LabeledSequence[Gene], rank_funk: Callable[[LabeledSequence[Gene]], float]):
         self.genes = genes
         self.rank_func = rank_funk
 
     def rank(self) -> float:
-        return self.rank_func(self.genes)
+        self.fitness = self.rank_func(self.genes)
+        return self.fitness
 
     def __str__(self) -> str:
         string_representation = ''
