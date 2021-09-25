@@ -39,8 +39,6 @@ class RandomMutation(Mutation):
         bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
         flip_position = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield, flip_position)
-        flip_position_2 = MathUtil.random_int_from_range(int(bitfield.size * (1 / 10)), bitfield.size - 1)
-        mutate_bitfield = MathUtil.flip_bit(mutate_bitfield, flip_position_2)
         mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
         mutate_value = self.__crop_to_boundries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value
