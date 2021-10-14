@@ -1,0 +1,81 @@
+%! Author = Michał_Komputer
+%! Date = 14.10.2021
+
+% Preamble
+\documentclass[a4paper,11pt]{article}
+
+% Packages
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+
+\restylefloat{table}
+
+\title{Praca Inżynierska}
+\author{Michał Zawadzki}
+\date{Czerwiec 2021}
+
+
+% Document
+\begin{document}
+
+    \maketitle
+
+    \tableofcontents
+
+
+    \section{Wstęp}
+
+    \subsection{Cel pracy}
+    Korzystając ze zbioru danych o utworach muzycznych dostępnych na platformie streaming-owej Spotify, stworzono kilka modeli szacujących jaką popularność osiągnie na tej platformie nowy utwór. Modele te są prostymi sieciami neuronowymi o różnej architekturze. Do optymalizacji ich hiper-parametrów uczenia wykorzystano algorytm genetyczny.
+
+    \subsection{Teza główna}
+    Algorytm genetyczny może znacząco przyspieszyć proces wyboru optymalnych hiper-parametrów uczenia dla wstępnie zaprojektowanej sieci neuronowej.
+
+
+    \section{Wpływ cech utworów muzycznych na popularność}
+
+
+    \section{Opis zbioru danych}
+    Zbiór danych zawiera informacje o ponad 170 tysiącach utworów muzycznych, opublikowanych w latach 1921-2020 i dostępnych na szwedzkiej platformie streaming-owej Spotify. Dataset został stworzony przy wykorzystaniu oficjalnego, publicznego API deweloperskiego Spotify i udostępniony na platformie Kaggle w formacie CSV przez użytkownika Yamaç Eren Ay.
+
+    Oryginalny dataset to zbiór tabelaryczny zawierający 170653 rekordów podzielonych na 19 kolumn. Kolumny te to kolejno:
+    \begin{itemize}
+        \item valence (pl.ozdobnik) - Miara w skali od 0.0 do 1.0 określająca stopień 'pozytywności' przekazywany przez utwór. Utwory z wysoką wartością współczynnika 'valence' brzmią bardziej pozytywnie (szczęśliwie, radośnie, euforycznie), podczas gdy niska wartość tego współczynnika objawia się brzmieniem negatywnym (smutnym, depresyjnym, zdenerwowanym, wściekłym).
+        \item year (pl. rok) - Rok publikacji utwory. Wartości między 1921 a 2020 włącznie.
+        \item acousticness (pl. akustyczność) - Miara w skali od 0.0 do 1.0 określająca pewność, z jaką dany utwór można zakwalifikować jako akustyczny. 1.0 - wskazuje na wysoką pewność, 0.0 na bardzo niską.
+        \item artists (pl. artyści) - Lista imion i nazwisk lub pseudonimów artystycznych artystów wykonujących dany utwór.
+        \item danceability (pl. taneczność) - Miara w skali od 0.0 do 1.0 określająca, w jakim stopniu dany utwór jest odpowiedni do tańca, wyliczana jako kombinacja takich parametrów muzycznych ja tempo, stabilność rytmu, moc taktu i ogólna regularność. 1.0 oznacza wysoką taneczność, a 0.0 - bardzo niską.
+        \item duration\_ms (pl. czas trwania) - Czas trwania utworu w milisekundach.
+        \item energy (pl. energia) - Miara w skali od 0.0 do 1.0 reprezentująca odczuwalny stopień intensywności i aktywności utworu. Typowy utwory 'energetyczne' są odbierane jako szybkie, głośne czy wręcz hałaśliwe. Przykładem wysokiej energetyczności mogą byś utwory death-metalowe, podczas gdy preludia Bacha będą cechowały się niską energetycznością. Postrzegalne czynniki wpływające na tą cechę to dynamiczny zakres, odbierana głośność, tembr, onset rate (pl. współczynnik rozpoczęć ??) i ogólna entropia.
+        \item explicit (pl. odważny, śmiały) - Wartość 'true' (pl. prawda)/ 'false' (pl. fałsz). Flaga określająca czy dany utwór zawiera wulgaryzmy, treści erotyczne, treści nacechowane przemocą, wzmianki o nielegalny używkach i tym podobne; w ogólności treści skierowane do odbiorców pełnoletnich.
+        \item id - (pl. identyfikator) Unikalne, alfanumeryczne Spotify ID dla utworu.
+        \item instrumentalness (pl. instrumentalność) - Miara prawdopodobieństwa określająca, czy dany utwór nie zawiera wstawek wokalnych (fragmentów śpiewanych). Wyrazy dźwiękonaśladowcze takie jak 'ooh' czy 'aah' przez algorytm/klasyfikator są traktowane jako instrumentalne. Rap czy zwykła mowa traktowana jako 'czysty wokal'. In bliżej wartości parametru 'instrumentalness' do wartości 1.0, tym wyższe prawdopodobieństwo braku wokali. Wartości powyżej 0.5 w założeniu mają reprezentować utwory instrumentalne, natomiast prawdopodobieństwo prawidłowej klasyfikacji rośnie wraz ze zbliżaniem się wskaźnika do wartości 1.0.
+        \item key(pl. tonacja). Tonacja utworu przedstawiona jako liczba całkowita nieujemna: 0,1,2\ldots . Liczby zmapowane są na standardową notację muzyczną: 0 = C, 1 = C♯/D♭, 2 = D i tak dalej.
+        \item liveness - (pl. żywość, żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości 'liveness' powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był 'na żywo'.
+        \item loudness (pl. głośność) - Ogólna głośność utworu mierzona w decybelach. Wartości głośności są wyliczane poprzez uśrednienie głośności całego utworu, co sprawia, że metryka staje się użyteczna do porównywania utworów. Głośność jest cechą dźwięku ściśle skorelowaną z amplitudą fali dźwiękowej. Wartości w większości przypadków wahają się między -60 a 0 db.
+    \end{itemize}
+    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify.
+
+
+    \section{Sieci neuronowe}
+
+
+    \section{Algorytmy Genetyczne}
+
+
+    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
+
+
+    \section{Rezultaty eksperymentów}
+
+
+    \section{Wnioski}
+
+
+\end{document}
