@@ -5,6 +5,7 @@
 \documentclass[a4paper,11pt]{article}
 
 % Packages
+\usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
@@ -14,15 +15,20 @@
 \usepackage{latexsym}
 \usepackage{polski}
 \usepackage{tabularx}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
 
-\restylefloat{table}
-\DeclareUnicodeCharacter{266D}{\includegraphics[height=1ex]{music_flat_sign}}
-\DeclareUnicodeCharacter{266F}{\includegraphics[height=1ex]{music_sharp_sign}}
 
+% Title page
 \title{Praca Inżynierska}
 \author{Michał Zawadzki}
 \date{Czerwiec 2021}
 
+
+% Additial settings
+\DeclareUnicodeCharacter{266D}{\includegraphics[height=1ex]{music_flat_sign}}
+\DeclareUnicodeCharacter{266F}{\includegraphics[height=1ex]{music_sharp_sign}}
+\addbibresource{references.bib}
+\restylefloat{table}
 
 % Document
 \begin{document}
@@ -68,7 +74,7 @@
         \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy 'talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie wastwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieńswto nie występowania mowy w utworze.
         \item \textit{tempo} (pl. tempo) - Ogólne szacowane tempo utworu w taktach na minutę (ang. \textit{BPM}). W terminologi muzycznej, tempo jest szybkością danego fragmentu/kawałka utworu wyliczną bezpośrednio w oparciu o średnią długość taktu.
     \end{itemize}
-    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify.
+    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
     \bigskip
     \\ Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
 
@@ -88,4 +94,5 @@
     \section{Wnioski}
 
 
+    \printbibliography
 \end{document}
