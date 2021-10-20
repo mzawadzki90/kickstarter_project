@@ -49,6 +49,15 @@
 
     \section{Wpływ cech utworów muzycznych na popularność}
 
+
+    \section{Sieci neuronowe}
+
+
+    \section{Algorytmy Genetyczne}
+
+
+    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
+
     \subsection{Opis zbioru danych}
     Zbiór danych zawiera informacje o ponad 170 tysiącach utworów muzycznych, opublikowanych w latach 1921-2020 i dostępnych na szwedzkiej platformie streaming-owej Spotify. Dataset został stworzony przy wykorzystaniu oficjalnego, publicznego API deweloperskiego Spotify i udostępniony na platformie Kaggle w formacie CSV przez użytkownika Yamaç Eren Ay.
     \bigskip
@@ -77,15 +86,6 @@
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
     \bigskip
     \\ Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
-
-
-    \section{Sieci neuronowe}
-
-
-    \section{Algorytmy Genetyczne}
-
-
-    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
 
 
     \section{Rezultaty eksperymentów}
