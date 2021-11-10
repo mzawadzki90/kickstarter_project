@@ -1,5 +1,6 @@
 /out
 /dictionaries
 /auxil
+/genetic_algorithm/out
 *.pdf
 *.gz
