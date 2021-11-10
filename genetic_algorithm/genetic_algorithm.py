@@ -100,7 +100,7 @@ class GeneticAlgorithm:
             [generation_counter, best, worst, mean, average, standard_deviation])
 
     def __post_condition(self, generation_counter: int) -> bool:
-        return generation_counter >= self.generation_count
+        return generation_counter > self.generation_count
 
     def __select_survivor(self, mutates: Sequence[Genome]) -> Genome:
         mutate1 = mutates[0]
