@@ -23,7 +23,7 @@
 % Title page
 \title{Optymalizacja hiperparametrów procesu uczenia sieci neuronowych z wykorzystaniem algorytmu genetycznego}
 \author{Michał Zawadzki}
-\date{Czerwiec 2021}
+\date{Listopad 2021}
 
 
 % Additial settings
@@ -51,7 +51,7 @@
 
     \section{Wpływ cech utworów muzycznych na popularność}
 
-    Zaczynając rozważania nad przyczynami, które sprawiają że niektóre utwory muzyczne osiągają ogromną popularność, podczas gdy inne nie zdobywają uznania szerokiego audytorium, trzeba najpierw zdefiniować podstawowe czynniki jakimi kieruje się odbiorca przy dokonywaniu wyborów muzycznych. Magdalena Parus-Jankowska i Szymon Nożyński w swojej pracy "Preferencje Muzyczne w Dobie Popularności Strumieniowego Słuchania Muzyki"\cite{PreferencjeMuzyczneWCzasachSteamingu2020} wymieniają 3 takie czynniki:
+    Zaczynając rozważania nad przyczynami, które sprawiają że niektóre utwory muzyczne osiągają ogromną popularność, podczas gdy inne nie zdobywają uznania szerokiego audytorium, trzeba najpierw zdefiniować podstawowe czynniki jakimi kieruje się odbiorca przy dokonywaniu wyborów muzycznych. Magdalena Parus-Jankowska i Szymon Nożyński w swojej pracy ``Preferencje Muzyczne w Dobie Popularności Strumieniowego Słuchania Muzyki''\cite{PreferencjeMuzyczneWCzasachSteamingu2020} wymieniają 3 takie czynniki:
     \begin{itemize}
         \item \textit{upodobania} - Przywiązanie do konkretnych gatunków muzycznych, wraz z otaczającym je kontekstem kulturowym.
         \item \textit{smak/gust} - Umiejętność dostrzegania i oceny poszczególnych elementów składowych utworu, także znajomość i zrozumienie przesłania utworu.
@@ -81,27 +81,43 @@
 
     \bigskip
 
-    Christoph Dr{\"o}sser, popularny w Niemczech dziennikarz popularnonaukowy, napisał "Muzyka jest [\ldots] doświadczeniem całościowym, w znacznym stopniu nierozsądnym, którego nie da się ogarnąć za pomocą zimnego, racjonalnego instrumentarium nauki"\cite{MuzykaDajSieUwiesc2021}. Ale czy to aby na pewno prawda? Na początku 20-go wieku w mainstreamie zaczęło funkcjonować pojęcie \textit{Hit Song Science} (pl. nauka o przebojach muzycznych), za którego twórcę i głównego promotora uważa się Mike'a McCready\cite{HitSongScienceWiki}. McCready wraz ze współpracownikami, działając w ramach firmy Polyphonic HMI, starał się rozwijać i sprzedawać wytwórniom muzycznym narzędzia, oparte o techniki \textit{MIR} (music information retrieval, pl. pozyskiwanie informacji muzycznych z utworu) i \textit{data science}, ułatwiające przewidywanie czy dany utwór ma szanse stać się 'hitem'\cite{PolyphonicHMIWiki}. Odnośnie podstaw naukowych \textit{Hit Song Science} od lat, w szczególności w społeczności \textit{MIR}, toczy się burzliwa, nie rozstrzygnięta do końca debata\cite{HitSongScienceWiki}.
+    Christoph Dr{\"o}sser, popularny w Niemczech dziennikarz popularnonaukowy, napisał ``Muzyka jest [\ldots] doświadczeniem całościowym, w znacznym stopniu nierozsądnym, którego nie da się ogarnąć za pomocą zimnego, racjonalnego instrumentarium nauki''\cite{MuzykaDajSieUwiesc2021}. Ale czy to aby na pewno prawda? Na początku 20-go wieku w mainstreamie zaczęło funkcjonować pojęcie \textit{Hit Song Science} (pl. nauka o przebojach muzycznych), za którego twórcę i głównego promotora uważa się Mike'a McCready\cite{HitSongScienceWiki}. McCready wraz ze współpracownikami, działając w ramach firmy Polyphonic HMI, starał się rozwijać i sprzedawać wytwórniom muzycznym narzędzia, oparte o techniki \textit{MIR} (music information retrieval, pl. pozyskiwanie informacji muzycznych z utworu) i \textit{data science}, ułatwiające przewidywanie czy dany utwór ma szanse stać się 'hitem'\cite{PolyphonicHMIWiki}. Odnośnie podstaw naukowych \textit{Hit Song Science} od lat, w szczególności w społeczności \textit{MIR}, toczy się burzliwa, nie rozstrzygnięta do końca debata\cite{HitSongScienceWiki}.
 
     \bigskip
 
-    François Pachet i Pierre Roy z firmy Sony Computer Science Laboratories, Inc. w artykule "Hit Song Science Is Not Yet a Science" z 2009-go roku\cite{HitSongScienceNotYet2009} opisują swoją nieudaną próbę stworzenia klasyfikatora szacującego popularność utworów muzycznych na podstawie ich cech muzycznych oraz subiektywnych "ludzkich" etykiet przypisanych przez profesjonalnych ankieterów. Danymi, na których pracowali była baza 32978 dostarczona przez firmę HiFind. W swoim ekperymencie oprócz zaawansowanych technik \textit{MIR} wykorzystali oni \textit{Support Vector Machine} (pl. maszyna wektorów nośnych). Wyniki uzykane dla poszczególnych prób tylko nieznacznie różniły się od losowych. Za przyczynę niepowodzenia uznano niewłaściwy dobór zestawu parametrów użytych do stworzenia modelu.
+    François Pachet i Pierre Roy z firmy Sony Computer Science Laboratories, Inc. w artykule ``Hit Song Science Is Not Yet a Science'' z 2009-go roku\cite{HitSongScienceNotYet2009} opisują swoją nieudaną próbę stworzenia klasyfikatora szacującego popularność utworów muzycznych na podstawie ich cech muzycznych oraz subiektywnych `ludzkich' etykiet przypisanych przez profesjonalnych ankieterów. Danymi, na których pracowali była baza 32978 dostarczona przez firmę HiFind. W swoim eksperymencie oprócz zaawansowanych technik \textit{MIR} wykorzystali oni \textit{Support Vector Machine} (pl. maszyna wektorów nośnych). Wyniki uzykane dla poszczególnych prób tylko nieznacznie różniły się od losowych. Za przyczynę niepowodzenia uznano niewłaściwy dobór zestawu parametrów użytych do stworzenia modelu.
 
     \bigskip
 
-    O wiele bardziej obiecujące wyniki uzyskali Yizhao Ni, Ra´ul Santos-Rodr´ıguez, Matt Mcvicar i Tijl De Bie z kooperacji uniwersytetów University of Bristol i Universidad Carlos III de Madrid. W swoim artykule "Hit Song Science Once Again a Science?" z 2011-go roku\cite{HitSongScienceOnceAgain2011} (już poprzez sam tytuł ustawiając się w kontrapunkcie do poprzedników) przedstawiają wyniki swojego eksperymentu przeprowadzonego na zbiorze 5947 utworów z brytyjkiej listy przebojów z lat 1960-2010. Do ekstrakcji wartości paramerów muzycznych wykorzystali oni narzędzie EchoNest. Jako model wykorzystani oni prosty ruchomy percepron (ang. \textit{Shifting perceptron}) będący funkcją czasu. Wyniki eksperymentów tym razem różniły się znacząco na korzyść w porównaniu do odczytów losowych. Badaczom udało się też sformułować na ich podstawie szereg cennych wniosków.
+    O wiele bardziej obiecujące wyniki uzyskali Yizhao Ni, Raúl Santos-Rodríguez, Matt Mcvicar i Tijl De Bie z kooperacji uniwersytetów University of Bristol i Universidad Carlos III de Madrid. W swoim artykule ``Hit Song Science Once Again a Science?'' z 2011-go roku\cite{HitSongScienceOnceAgain2011} (już poprzez sam tytuł ustawiając się w kontrapunkcie do poprzedników) przedstawiają wyniki swojego eksperymentu przeprowadzonego na zbiorze 5947 utworów z brytyjskiej listy przebojów z lat 1960-2010. Do ekstrakcji wartości parametrów muzycznych wykorzystali oni narzędzie EchoNest. Jako model wykorzystani oni prosty ruchomy perceptron (ang. \textit{Shifting perceptron}) będący funkcją czasu. Wyniki eksperymentów tym razem różniły się znacząco na korzyść w porównaniu do odczytów losowych. Badaczom udało się też sformułować na ich podstawie szereg cennych wniosków.
 
     \bigskip
-    Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromy postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokami sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnioe przez serwisy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
+
+    Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromy postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokimi sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnione przez serwisy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
 
 
-    \section{Sieci neuronowe}
+    \section{Wykorzystanie sieci neuronowych do problemu regresji dla tabelarycznego zbioru danych}
+
+    \subsection{Sztuczne sieci neuronowe a biologia}
+
+    \subsection{Pierwsze implementacje sztucznych sieci neuronowych}
+
+    \subsection{Uczenie wielowarstowarstwowych sieci przy użyciu propagacji wstecznej}
 
 
     \section{Algorytmy Genetyczne}
 
+    \subsection{Algorytm genetyczny a teoria ewolucji}
 
-    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
+    \subsection{Cykl życia populacji}
+
+    \subsection{Wybór rodziców}
+
+    \subsection{Krzyżówki}
+
+    \subsection{Mutacje}
+
+    \subsection{Wybór potomstwa}
 
 
     \section{Opis zbioru danych}
@@ -112,24 +128,24 @@
 
     Oryginalny dataset to zbiór tabelaryczny zawierający 170653 rekordów podzielonych na 19 kolumn. Kolumny te to kolejno:
     \begin{itemize}
-        \item \textit{valence} (pl.ozdobnik) - Miara w skali od 0.0 do 1.0 określająca stopień 'pozytywności' przekazywany przez utwór. Utwory z wysoką wartością współczynnika \textit{valence} brzmią bardziej pozytywnie (szczęśliwie, radośnie lub euforycznie), podczas gdy niska wartość tego współczynnika objawia się brzmieniem negatywnym (smutnym, depresyjnym, zdenerwowanym lub wściekłym).
+        \item \textit{valence} (pl.ozdobnik) - Miara w skali od 0.0 do 1.0 określająca stopień `pozytywności' przekazywany przez utwór. Utwory z wysoką wartością współczynnika \textit{valence} brzmią bardziej pozytywnie (szczęśliwie, radośnie lub euforycznie), podczas gdy niska wartość tego współczynnika objawia się brzmieniem negatywnym (smutnym, depresyjnym, zdenerwowanym lub wściekłym).
         \item \textit{year} (pl. rok) - Rok publikacji utwory. Wartości między 1921 a 2020 włącznie.
         \item \textit{acousticness} (pl. akustyczność) - Miara w skali od 0.0 do 1.0 określająca pewność, z jaką dany utwór można zakwalifikować jako akustyczny. 1.0 - wskazuje na wysoką pewność, 0.0 na bardzo niską.
         \item \textit{artists} (pl. artyści) - Lista imion i nazwisk lub pseudonimów artystycznych artystów wykonujących dany utwór.
         \item \textit{danceability} (pl. taneczność) - Miara w skali od 0.0 do 1.0 określająca, w jakim stopniu dany utwór jest odpowiedni do tańca, wyliczana jako kombinacja takich parametrów muzycznych ja tempo, stabilność rytmu, moc taktu i ogólna regularność. 1.0 oznacza wysoką taneczność, a 0.0 - bardzo niską.
         \item \textit{duration\_ms} (pl. czas trwania) - Czas trwania utworu w milisekundach.
-        \item \textit{energy} (pl. energia) - Miara w skali od 0.0 do 1.0 reprezentująca odczuwalny stopień intensywności i aktywności utworu. Typowy utwory 'energetyczne' są odbierane jako szybkie, głośne czy wręcz hałaśliwe. Przykładem wysokiej energetyczności mogą byś utwory death-metalowe, podczas gdy preludia Bacha będą cechowały się niską energetycznością. Postrzegalne czynniki wpływające na tą cechę to dynamiczny zakres, odbierana głośność, tembr, \textit{onset rate} (pl. współczynnik rozpoczęć ??) i ogólna entropia.
+        \item \textit{energy} (pl. energia) - Miara w skali od 0.0 do 1.0 reprezentująca odczuwalny stopień intensywności i aktywności utworu. Typowy utwory `energetyczne' są odbierane jako szybkie, głośne czy wręcz hałaśliwe. Przykładem wysokiej energetyczności mogą byś utwory death-metalowe, podczas gdy preludia Bacha będą cechowały się niską energetycznością. Postrzegalne czynniki wpływające na tą cechę to dynamiczny zakres, odbierana głośność, tembr, \textit{onset rate} (pl. współczynnik rozpoczęć ??) i ogólna entropia.
         \item \textit{explicit} (pl. odważny, śmiały) - Wartość \textit{true} (pl. prawda)/\textit{false} (pl. fałsz). Flaga określająca czy dany utwór zawiera wulgaryzmy, treści erotyczne, treści nacechowane przemocą, wzmianki o nielegalny używkach i tym podobne; w ogólności treści skierowane do odbiorców pełnoletnich.
         \item \textit{id} (pl. identyfikator) - Unikalne, alfanumeryczne Spotify ID dla utworu.
-        \item \textit{instrumentalness} (pl. instrumentalność) - Miara prawdopodobieństwa określająca, czy dany utwór nie zawiera wstawek wokalnych (fragmentów śpiewanych). Wyrazy dźwiękonaśladowcze takie jak 'ooh' czy 'aah' przez algorytm/klasyfikator są traktowane jako instrumentalne. Rap czy zwykła mowa traktowana jako 'czysty wokal'. In bliżej wartości parametru \textit{instrumentalness} do wartości 1.0, tym wyższe prawdopodobieństwo braku wokali. Wartości powyżej 0.5 w założeniu mają reprezentować utwory instrumentalne, natomiast prawdopodobieństwo prawidłowej klasyfikacji rośnie wraz ze zbliżaniem się wskaźnika do wartości 1.0.
+        \item \textit{instrumentalness} (pl. instrumentalność) - Miara prawdopodobieństwa określająca, czy dany utwór nie zawiera wstawek wokalnych (fragmentów śpiewanych). Wyrazy dźwiękonaśladowcze takie jak `ooh' czy `aah' przez algorytm/klasyfikator są traktowane jako instrumentalne. Rap czy zwykła mowa traktowana jako `czysty wokal'. In bliżej wartości parametru \textit{instrumentalness} do wartości 1.0, tym wyższe prawdopodobieństwo braku wokali. Wartości powyżej 0.5 w założeniu mają reprezentować utwory instrumentalne, natomiast prawdopodobieństwo prawidłowej klasyfikacji rośnie wraz ze zbliżaniem się wskaźnika do wartości 1.0.
         \item \textit{key} (pl. tonacja). Tonacja utworu przedstawiona jako liczba całkowita nieujemna: 0,1,2\ldots . Liczby zmapowane są na standardową notację muzyczną: 0 = C, 1 = G, 2 = D i tak dalej.
-        \item \textit{liveness} - (pl. żywość, żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości \textit{liveness} powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był 'na żywo'.
+        \item \textit{liveness} - (pl. żywość, żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości \textit{liveness} powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był `na żywo'.
         \item \textit{loudness} (pl. głośność) - Ogólna głośność utworu mierzona w decybelach. Wartości głośności są wyliczane poprzez uśrednienie głośności całego utworu, co sprawia, że metryka staje się użyteczna do porównywania utworów. Głośność jest cechą dźwięku ściśle skorelowaną z amplitudą fali dźwiękowej. Wartości w większości przypadków wahają się między -60 a 0 db.
         \item \textit{mode} (pl. tryb, dominanta) - Parametr 'mode' oznacza modalność utworu: \textit{major} (pl. główna, pierwszorzędna) lub \textit{minor} (pl. pomniejsza, drugorzędna), w znaczeniu typu skali, w której znajduje się warstwa melodyczna. 1 oznacza \textit{major}, 0 to \textit{minor}.
         \item \textit{name} (pl. nazwa) - Tytuł piosenki, utworu lub nagrania.
         \item \textit{popularity} (pl. popularność) - Popularność utworu w skali od 0 do 100, gdzie 100 oznacza najwyższą popularność. Popularność wyliczana jest przez algorytm, bazujący przede wszystkim na liczbie odtworzeń utworu, ale także na tym jak świeże (odległe od chwili obecnej) są te odtworzenia.
         \item \textit{release\_date} (pl. data publikacji) - Data publikacji utworu lub albumu, na którym znalazł się utwór.
-        \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy 'talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie warstwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieństwo nie występowania mowy w utworze.
+        \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy `talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie warstwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieństwo nie występowania mowy w utworze.
         \item \textit{tempo} (pl. tempo) - Ogólne szacowane tempo utworu w taktach na minutę (ang. \textit{BPM}). W terminologi muzycznej, tempo jest szybkością danego fragmentu/kawałka utworu wyliczaną bezpośrednio w oparciu o średnią długość taktu.
     \end{itemize}
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
@@ -181,11 +197,38 @@
     Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
 
 
+    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
+
+    \subsection{Wstępna obróbka danych}
+
+    \subsection{Ogólny zarys architektury zastosowanej sieci neuronowej}
+
+    \subsection{Inicjacja wag funkcją HE}
+
+    \subsection{Funkcja aktywacji ELU}
+
+    \subsection{Normalizacja wsadowa}
+
+    \subsection{Regularyzacja przez Porzucenie}
+
+    \subsection{Optymalizator Adam}
+
+    \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
+
+    \subsection{Wybór rodziców z wykorzystaniem \textit{Fitness Proportionate Selection} (pl. Selekcja proporcjonalna) (wariant \textit{Roulette Wheel Selection} (pl. Selekcja kołowa))}
+
+    \subsection{Krzyżówka \textit{One Point Crossover} (pl. Krzyżówka z jednym punktem przecięcia)}
+
+    \subsection{Mutacja \textit{Bit Flip Mutation} (pl. Mutacja przez przerzucenie bitu)}
+
+
     \section{Rezultaty eksperymentów}
 
 
     \section{Wnioski}
 
+
     \nocite{*}
     \printbibliography
+
 \end{document}
