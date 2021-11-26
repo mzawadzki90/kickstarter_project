@@ -5,19 +5,21 @@
 \documentclass[a4paper,11pt]{article}
 
 % Packages
-\usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+\usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{graphicx}
+\usepackage{indentfirst}
 \usepackage{latexsym}
+\usepackage{mathtools}
+\usepackage{placeins}
 \usepackage{polski}
 \usepackage{tabularx}
-\usepackage[backend=bibtex,style=alphabetic]{biblatex}
-\usepackage{placeins}
-\usepackage{graphicx}
 
 
 % Title page
@@ -65,6 +67,9 @@
         \item \textit{smak/gust} - Umiejętność dostrzegania i oceny poszczególnych elementów składowych utworu, także znajomość i zrozumienie przesłania utworu.
         \item \textit{preferencje} - Upodobanie dla konkretnych utworów lub twórców muzycznych.
     \end{itemize}
+
+    \smallskip
+
     Czynniki te często kształtują się równolegle i przenikają semantycznie, dlatego też dla uproszczenia w dalszej części posłużono się szeroko rozumianym pojęciem preferencji muzycznych.
 
     \bigskip
@@ -156,6 +161,9 @@
         \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy `talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie warstwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieństwo nie występowania mowy w utworze.
         \item \textit{tempo} (pl. tempo) - Ogólne szacowane tempo utworu w taktach na minutę (ang. \textit{BPM}). W terminologi muzycznej, tempo jest szybkością danego fragmentu/kawałka utworu wyliczaną bezpośrednio w oparciu o średnią długość taktu.
     \end{itemize}
+
+    \smallskip
+
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
 
     \begin{figure}[H]
@@ -213,6 +221,62 @@
 
     \subsection{Inicjacja wag funkcją HE}
 
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych) \cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej, sigmoidalnej funkcji aktywacji oraz iniciacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+
+    \bigskip
+
+    Wzory dla inicjacji Xaviera (Glorot), dla logistycznej funkcji aktywacji przedstawiają się następująco:
+
+    \bigskip
+
+    Odchylenie standardowe dla rozkładu normalnego o średniej 0:
+    \begin{equation}
+        \label{equ:std_dev_xavier}
+        \sigma = \sqrt{\frac{2}{n_{input} + n_{output}}}
+    \end{equation}
+
+    \smallskip
+
+    Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$):
+    \begin{equation}
+        \label{equ:radius_xavier}
+        r = \sqrt{\frac{6}{n_{input} + n_{output}}}
+    \end{equation}
+
+    \smallskip
+
+    Gdzie:
+
+    \smallskip
+
+    \begin{tabular}{@{}>{$}l<{$}l@{}}
+        n\textsubscript{input}  & liczba połączeń wejściowych w warstwie \\
+        n\textsubscript{output} & liczba połączeń wyjściowych w warstwie \\
+    \end{tabular}
+
+    \bigskip
+
+    Zaproponowana przez Glorot i Benglo metoda inicjacji wag spradzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicializacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0:
+
+    \begin{equation}
+        \label{equ:std_dev_he}
+        \sigma = \sqrt{\frac{2}{n_{input}}}
+    \end{equation}
+
+    \smallskip
+
+    Gdzie:
+
+    \smallskip
+
+    \begin{tabular}{@{}>{$}l<{$}l@{}}
+        n\textsubscript{input}  & liczba połączeń wejściowych w warstwie \\
+    \end{tabular}
+
     \subsection{Funkcja aktywacji ELU}
 
     \subsection{Normalizacja wsadowa}
@@ -236,7 +300,6 @@
     \section{Wnioski}
 
 
-    \nocite{*}
     \printbibliography
 
 \end{document}
