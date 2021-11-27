@@ -2,5 +2,6 @@
 /dictionaries
 /auxil
 /genetic_algorithm/out
+/plotting/out/
 *.pdf
 *.gz

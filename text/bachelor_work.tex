@@ -13,7 +13,6 @@
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{latexsym}
 \usepackage{mathtools}
@@ -50,13 +49,9 @@
     \subsection{Teza główna}
     Algorytm genetyczny może znacząco przyspieszyć proces wyboru optymalnych hiperparametrów uczenia dla wstępnie zaprojektowanej sieci neuronowej.
 
-    % między 5 a 10
+    \subsection{Słowa kluczowe} % między 5 a 10
 
-    \subsection{Słowa kluczowe}
-
-    % bardzo skondensowane streszczenie pracy z użyciem słów kluczowych
-
-    \subsection{Abstrakt}
+    \subsection{Abstrakt} % bardzo skondensowane streszczenie pracy z użyciem słów kluczowych
 
 
     \section{Wpływ cech utworów muzycznych na popularność}
@@ -256,7 +251,7 @@
 
     \bigskip
 
-    Zaproponowana przez Glorot i Benglo metoda inicjacji wag spradzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicializacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
+    Zaproponowana przez Glorot i Benglo metoda inicjacji wag spradzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -278,6 +273,80 @@
     \end{tabular}
 
     \subsection{Funkcja aktywacji ELU}
+
+    Początkowo uważano, że najlepsze jako funkcje aktywacji będą funkcje sigmoidalne. Przekonanie to brało się stąd, że podobnymi funkcjami można opisać przetwarzanie sygnału przez neurony biologiczne. To intuicyjne skojarzenie okazało się jednak mylne. Po pewnym czasie odkryto, że o wiele lepiej do tego celu nadaje się funkcja ReLU(ang. \textit{Rectified Linear Unit} pl. prosta liniowa funkcja aktywacji)\cite{UczenieMaszynowe2018}. Głównymi zaletami funkcji ReLU są:
+    \begin{itemize}
+        \item nie uleganie nasyceniu dla wartości dodatnich
+        \item ma bardzo niski koszt obliczeniowy
+    \end{itemize}
+
+    \bigskip
+
+    Wzór dla funkcji aktywacji ReLU:
+    \begin{equation}
+        ReLU(x) =
+        \begin{cases}
+            0 & \quad \text{jeśli } x < 0 \\
+            x & \quad \text{jeśli } x \geq 0
+        \end{cases}
+    \end{equation}
+
+    \begin{figure}[H]
+        \label{fig:relu}
+        \centering
+        \includegraphics[width=\textwidth]{relu}
+        \caption{Wykres funkcji ReLU.}
+    \end{figure}
+
+    \bigskip
+
+    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy że zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
+    \begin{itemize}
+        \item `przeciekająca' funkcja ReLU
+        \item losowa `przeciekająca' funkcja ReLU
+        \item parametryczna `przeciekająca' funkcja ReLU
+        \item ELU (ang. \textit{exponential linear unit} pl. jednostka wykładniczo liniowa)
+    \end{itemize}
+
+    \bigskip
+    W 2015 roku Djork-Arné Clevert wraz z zespołem odkrył nową funkcję aktywacji - ELU \cite{FastAndAccurateDeepNetworkLearningByELU2016}. Po przeprowadzonych eksperymentach okazało się, że góruje ona zarówno nad tradycyjną funkcją ReLU, jak i jej modyfikacjami. Umożliwiała skrócenie procesu uczenia, a także przyczyniła się wydatnie do poprawy wyników dla zbioru testowego\cite{UczenieMaszynowe2018}. Główne zalety ELU w zestawieniu z ReLU to:
+    \begin{itemize}
+        \item rozwiązanie `problemu zanikających gradientów' dzięki przyjmowaniu ujemnych wartości dla x < 0
+        \item rozwiązanie problemu `umierających neuronów' dzięki niezerowemu gradientowi dla x < 0
+        \item przyspieszenie procesu uczenia metodą gradientu prostego dzięki gładkości funkcji na cały przebiegu
+    \end{itemize}
+
+    \smallskip
+
+    Wadą jest natomiast niewątpliwie większy koszt obliczeniowy w porównaniu z ReLU spowodowany obecnością składowej wykładniczej.
+
+    \bigskip
+
+    Wzór dla funkcji aktywacji ELU:
+    \begin{equation}
+        ELU_{\alpha}(x) =
+        \begin{cases}
+            \alpha(\exp(x)-1) & \quad \text{jeśli } x < 0 \\
+            x & \quad \text{jeśli } x \geq 0
+        \end{cases}
+    \end{equation}
+
+    \smallskip
+
+    Gdzie:
+
+    \smallskip
+
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
+    \end{tabular}
+
+    \begin{figure}[H]
+        \label{fig:elu}
+        \centering
+        \includegraphics[width=\textwidth]{elu}
+        \caption{Wykres funkcji ELU dla $\alpha$=1.}
+    \end{figure}
 
     \subsection{Normalizacja wsadowa}
 
