@@ -238,13 +238,10 @@
         r = \sqrt{\frac{6}{n_{input} + n_{output}}}
     \end{equation}
 
-    \smallskip
+    \bigskip
 
-    Gdzie:
-
-    \smallskip
-
-    \begin{tabular}{@{}>{$}l<{$}l@{}}
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
         n\textsubscript{input}  & liczba połączeń wejściowych w warstwie \\
         n\textsubscript{output} & liczba połączeń wyjściowych w warstwie \\
     \end{tabular}
@@ -262,14 +259,11 @@
         \sigma = \sqrt{\frac{2}{n_{input}}}
     \end{equation}
 
-    \smallskip
+    \bigskip
 
-    Gdzie:
-
-    \smallskip
-
-    \begin{tabular}{@{}>{$}l<{$}l@{}}
-        n\textsubscript{input}  & liczba połączeń wejściowych w warstwie \\
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
+        n\textsubscript{input} & liczba połączeń wejściowych w warstwie \\
     \end{tabular}
 
     \subsection{Funkcja aktywacji ELU}
@@ -331,13 +325,10 @@
         \end{cases}
     \end{equation}
 
-    \smallskip
-
-    Gdzie:
-
-    \smallskip
+    \bigskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
         $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
     \end{tabular}
 
@@ -348,7 +339,78 @@
         \caption{Wykres funkcji ELU dla $\alpha$=1.}
     \end{figure}
 
-    \subsection{Normalizacja wsadowa}
+    \subsection{Normalizacja wsadowa (ang. \textit{Batch Normalization})}
+
+    Zastosowanie kombinacji inicjacji He w połączeniu z funkcją aktywacji ELU nie rozwiązało całkowicie problemu zanikających i eksplodujących gradientów. Problem nadal występował na dalszych etapach procesu uczenia. Dopiero zaproponowane w 2015 roku przez Sergeya Ioffe i Christiana Szegedy rozwiązanie - normalizacja wsadowa (ang. \textit{Batch Normalization}), w połączeniu z wcześniej wymienionymi pozwoliło ostatecznie pokonać trudność \cite{BatchNormalization2015}.
+
+    \bigskip
+
+    Operację normalizacji wsadowej wykonuje się na każdej warstwie bezpośrednio przed funkcją aktywacji. Najpierw wyśrodkowuje się i normalizuje się dane wyjściowe. Następnie przeskalowywuje się i przesuwa się wyniki za pomocą dwóch parametrów wyliczanych dla każdej warstwy ($\gamma$ - parametr skalowania, $\beta$ - parametr przesunięcia)\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Algorytm normalizacji wsadowej:
+
+    \bigskip
+
+    Wyliczenie średniej dla minigrupy: \\
+    \begin{equation}
+        \mu_{B} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} x^{(i)}
+    \end{equation}
+
+    \smallskip
+
+    Wyliczenie odchylenia standardowego dla minigrupy: \\
+    \begin{equation}
+        \sigma_{B}^{2} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} (x^{(i)} - \mu_{B})^{2}
+    \end{equation}
+
+    \smallskip
+
+    Wyśrodkowanie i znormalizowanie danych wejściowych: \\
+    \begin{equation}
+        \widehat{x}^{(i)} = \frac{x^{(i)} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}
+    \end{equation}
+
+    \smallskip
+
+    Przeskalowanie i przesunięcie wyniku: \\
+    \begin{equation}
+        z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
+    \end{equation}
+
+    \bigskip
+
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
+        $\mu_{B}$           & średnia empiryczna wyliczona dla całej minigrupy B                                                                                                                \\
+        $\sigma_{B}$        & empiryczne odchylenie standardowe wyliczone dla całej minigrupy B                                                                                                 \\
+        $m_{B}$             & liczba przykładów w minigrupie                                                                                                                                    \\
+        $\widehat{x}^{(i)}$ & wyśrodkowane i znormalizowane dane wejściowe                                                                                                                      \\
+        $\gamma$            & parametr skalowania w danej warstwie                                                                                                                              \\
+        $\beta$             & parametr przesunięcia w danej warstwie                                                                                                                            \\
+        $\epsilon$          & niewielka liczba służąca do uniknięcia operacji dzielenia przez 0 (zazwyczaj ma wartość $10^{-5}$; jest to tzw, człon wygładzający (ang. \textit{smoothing term}) \\
+        $z^{(i)}$           & wynik operacji normalizacji wsadowej: przeskalowana i przesunięta wersja danych wejściowych                                                                       \\
+    \end{tabular}
+
+    \bigskip
+
+    Główne zalety normalizacji wsadowej to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item ograniczenie `problemu zanikających gradientów' w stopniu pozwalającym na używanie nasycających funkcji aktywacji takich jak tangens hiperboliczny
+        \item zmniejszenie wrażliwości sieci na inicjację wag
+        \item umożliwienie wykorzystywania większej wartości współczynnika uczenia, a co za tym idzie znaczne przyspieszenie całego procesu uczenia
+        \item poprawa wyników dla zagadnień klasyfikacji i regresji
+        \item częściowe spełnianie roli regularyzatora
+    \end{itemize}
+
+    \bigskip
+
+    Największe wady to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item zwiększenie skomplikowania modelu
+        \item spowolnienie działania modelu ze względu na konieczność przeprowadzenia dodatkowych obliczeń dla każdej warstwy (spowalnia to w szczególności początek procesu uczenia, gdyż algorytm gradientu prostego wyszukuje optymalne skale i przesunięcia dla każdej warstwy, następnie proces przyspiesza)
+    \end{itemize}
 
     \subsection{Regularyzacja przez Porzucenie}
 
@@ -356,11 +418,11 @@
 
     \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
 
-    \subsection{Wybór rodziców z wykorzystaniem \textit{Fitness Proportionate Selection} (pl. Selekcja proporcjonalna) (wariant \textit{Roulette Wheel Selection} (pl. Selekcja kołowa))}
+    \subsection{Wybór rodziców z wykorzystaniem \textit{Fitness Proportionate Selection} (pl. selekcja proporcjonalna) (wariant \textit{Roulette Wheel Selection} (pl. selekcja kołowa))}
 
-    \subsection{Krzyżówka \textit{One Point Crossover} (pl. Krzyżówka z jednym punktem przecięcia)}
+    \subsection{Krzyżówka \textit{One Point Crossover} (pl. krzyżówka z jednym punktem przecięcia)}
 
-    \subsection{Mutacja \textit{Bit Flip Mutation} (pl. Mutacja przez przerzucenie bitu)}
+    \subsection{Mutacja \textit{Bit Flip Mutation} (pl. mutacja przez przerzucenie bitu)}
 
 
     \section{Rezultaty eksperymentów}
