@@ -9,6 +9,7 @@
 \usepackage[backend=bibtex,style=alphabetic]{biblatex}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
 \usepackage{array}
 \usepackage{enumerate}
 \usepackage{float}
@@ -56,7 +57,7 @@
 
     \section{Wpływ cech utworów muzycznych na popularność}
 
-    Zaczynając rozważania nad przyczynami, które sprawiają że niektóre utwory muzyczne osiągają ogromną popularność, podczas gdy inne nie zdobywają uznania szerokiego audytorium, trzeba najpierw zdefiniować podstawowe czynniki jakimi kieruje się odbiorca przy dokonywaniu wyborów muzycznych. Magdalena Parus-Jankowska i Szymon Nożyński w swojej pracy ``Preferencje Muzyczne w Dobie Popularności Strumieniowego Słuchania Muzyki''\cite{PreferencjeMuzyczneWCzasachSteamingu2020} wymieniają 3 takie czynniki:
+    Zaczynając rozważania nad przyczynami, które sprawiają, że niektóre utwory muzyczne osiągają ogromną popularność, podczas gdy inne nie zdobywają uznania szerokiego audytorium, trzeba najpierw zdefiniować podstawowe czynniki jakimi kieruje się odbiorca przy dokonywaniu wyborów muzycznych. Magdalena Parus-Jankowska i Szymon Nożyński w swojej pracy ``Preferencje Muzyczne w Dobie Popularności Strumieniowego Słuchania Muzyki''\cite{PreferencjeMuzyczneWCzasachSteamingu2020} wymieniają 3 takie czynniki:
     \begin{itemize}
         \item \textit{upodobania} - Przywiązanie do konkretnych gatunków muzycznych, wraz z otaczającym je kontekstem kulturowym.
         \item \textit{smak/gust} - Umiejętność dostrzegania i oceny poszczególnych elementów składowych utworu, także znajomość i zrozumienie przesłania utworu.
@@ -216,7 +217,7 @@
 
     \subsection{Inicjacja wag funkcją HE}
 
-    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych) \cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej, sigmoidalnej funkcji aktywacji oraz iniciacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej, sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
 
     \bigskip
 
@@ -248,7 +249,7 @@
 
     \bigskip
 
-    Zaproponowana przez Glorot i Benglo metoda inicjacji wag spradzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
+    Zaproponowana przez Glorot i Benglo metoda inicjacji wag sprawdzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -303,7 +304,8 @@
     \end{itemize}
 
     \bigskip
-    W 2015 roku Djork-Arné Clevert wraz z zespołem odkrył nową funkcję aktywacji - ELU \cite{FastAndAccurateDeepNetworkLearningByELU2016}. Po przeprowadzonych eksperymentach okazało się, że góruje ona zarówno nad tradycyjną funkcją ReLU, jak i jej modyfikacjami. Umożliwiała skrócenie procesu uczenia, a także przyczyniła się wydatnie do poprawy wyników dla zbioru testowego\cite{UczenieMaszynowe2018}. Główne zalety ELU w zestawieniu z ReLU to:
+
+    W 2015 roku Djork-Arné Clevert wraz z zespołem odkrył nową funkcję aktywacji - ELU\cite{FastAndAccurateDeepNetworkLearningByELU2016}. Po przeprowadzonych eksperymentach okazało się, że góruje ona zarówno nad tradycyjną funkcją ReLU, jak i jej modyfikacjami. Umożliwiała skrócenie procesu uczenia, a także przyczyniła się wydatnie do poprawy wyników dla zbioru testowego\cite{UczenieMaszynowe2018}. Główne zalety ELU w zestawieniu z ReLU to:
     \begin{itemize}
         \item rozwiązanie `problemu zanikających gradientów' dzięki przyjmowaniu ujemnych wartości dla x < 0
         \item rozwiązanie problemu `umierających neuronów' dzięki niezerowemu gradientowi dla x < 0
@@ -341,11 +343,11 @@
 
     \subsection{Normalizacja wsadowa (ang. \textit{Batch Normalization})}
 
-    Zastosowanie kombinacji inicjacji He w połączeniu z funkcją aktywacji ELU nie rozwiązało całkowicie problemu zanikających i eksplodujących gradientów. Problem nadal występował na dalszych etapach procesu uczenia. Dopiero zaproponowane w 2015 roku przez Sergeya Ioffe i Christiana Szegedy rozwiązanie - normalizacja wsadowa (ang. \textit{Batch Normalization}), w połączeniu z wcześniej wymienionymi pozwoliło ostatecznie pokonać trudność \cite{BatchNormalization2015}.
+    Zastosowanie kombinacji inicjacji He w połączeniu z funkcją aktywacji ELU nie rozwiązało całkowicie problemu zanikających i eksplodujących gradientów. Problem nadal występował na dalszych etapach procesu uczenia. Dopiero zaproponowane w 2015 roku przez Sergeya Ioffe i Christiana Szegedy rozwiązanie - normalizacja wsadowa (ang. \textit{Batch Normalization}), w połączeniu z wcześniej wymienionymi pozwoliło ostatecznie pokonać trudność\cite{BatchNormalization2015}.
 
     \bigskip
 
-    Operację normalizacji wsadowej wykonuje się na każdej warstwie bezpośrednio przed funkcją aktywacji. Najpierw wyśrodkowuje się i normalizuje się dane wyjściowe. Następnie przeskalowywuje się i przesuwa się wyniki za pomocą dwóch parametrów wyliczanych dla każdej warstwy ($\gamma$ - parametr skalowania, $\beta$ - parametr przesunięcia)\cite{UczenieMaszynowe2018}.
+    Operację normalizacji wsadowej wykonuje się na każdej warstwie bezpośrednio przed funkcją aktywacji. Najpierw wyśrodkowuje się i normalizuje się dane wyjściowe. Następnie przeskalowuje się i przesuwa się wyniki za pomocą dwóch parametrów wyliczanych dla każdej warstwy ($\gamma$ - parametr skalowania, $\beta$ - parametr przesunięcia)\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -412,7 +414,39 @@
         \item spowolnienie działania modelu ze względu na konieczność przeprowadzenia dodatkowych obliczeń dla każdej warstwy (spowalnia to w szczególności początek procesu uczenia, gdyż algorytm gradientu prostego wyszukuje optymalne skale i przesunięcia dla każdej warstwy, następnie proces przyspiesza)
     \end{itemize}
 
-    \subsection{Regularyzacja przez Porzucenie}
+    \subsection{Regularyzacja przez Porzucanie (ang. \textit{Dropout})}
+
+    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E. Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1-2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
+
+    \bigskip
+
+    Algorytm jest bardzo prosty. Podczas każdego przebiegu procesu uczenia dowolny neuron, za wyjątkiem neuronów warstwy wyjściowej, może zostać `porzucony', to znaczy całkowicie pominięty w procesie uczenia, z ustalonym z góry prawdopodobieństwem \textit{p}. Następnie już po zakończeniu treningu konieczne jest przemożenie każdej wagi połączenia wejściowego przez tak zwane `prawdopodobieństwo utrzymania' (ang. \textit{keep probability}) równe 1 - \textit{p}. Alternatywą jest podzielenie wartości wejścia każdego neuronu przez `prawdopodobieństwo utrzymania' w trakcie nauki\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    W praktyce dla każdej `epoki' mamy do czynienia z unikalną siecią. Istnieje $2^{N}$ możliwych kombinacji gdzie N oznacza całkowitą liczbę neuronów, które mogą zostać porzucone. Te sztucznie pomniejszone sieci są wobec siebie całkowicie niezależne. Finalna sieć jest pewnym rodzajem uśrednienia\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Podsumowując, główne korzyści płynące z zastosowania techniki `porzucania' to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item uczone neurony nie mogą uzależniać się od swoich sąsiadów; same muszą wnosić jak najwięcej `wartości dodanej' przy przetwarzaniu sygnału; muszą skupiać się na poszczególnych wejściach, a nie traktować ich kombinacji całościowo
+        \item wynikające z powyższego zmniejszenie wrażliwości na drobne zmiany na wejściach
+        \item patrząc całościowo uzyskany w wyniku `porzucania' model jest lepszą generalizacją
+    \end{itemize}
+
+    Główną wadą jest spowolnienie procesu konwergencji modelu\cite{UczenieMaszynowe2018}.
+
+    Bardzo ważny jest prawidłowy dobór `współczynnika porzucania' tak, żeby uniknąć zarówno niedotrenowania (zbyt duża wartość) jak i przetrenowania (zbyt mała wartość). Cenną wskazówką jest zastosowanie większej wartości współczynnika dla rozbudowanych warstw, a mniejszej dla niewielkich.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:dropout}
+        \centering
+        \includegraphics[width=\textwidth]{dropout}
+        \caption{Regularyzacja przez `porzucanie'\cite{UczenieMaszynowe2018}.}
+    \end{figure}
 
     \subsection{Optymalizator Adam}
 
