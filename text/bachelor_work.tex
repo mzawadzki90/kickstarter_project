@@ -144,13 +144,13 @@
         \item \textit{danceability} (pl. taneczność) - Miara w skali od 0.0 do 1.0 określająca, w jakim stopniu dany utwór jest odpowiedni do tańca, wyliczana jako kombinacja takich parametrów muzycznych ja tempo, stabilność rytmu, moc taktu i ogólna regularność. 1.0 oznacza wysoką taneczność, a 0.0 - bardzo niską.
         \item \textit{duration\_ms} (pl. czas trwania) - Czas trwania utworu w milisekundach.
         \item \textit{energy} (pl. energia) - Miara w skali od 0.0 do 1.0 reprezentująca odczuwalny stopień intensywności i aktywności utworu. Typowy utwory `energetyczne' są odbierane jako szybkie, głośne czy wręcz hałaśliwe. Przykładem wysokiej energetyczności mogą byś utwory death-metalowe, podczas gdy preludia Bacha będą cechowały się niską energetycznością. Postrzegalne czynniki wpływające na tą cechę to dynamiczny zakres, odbierana głośność, tembr, \textit{onset rate} (pl. współczynnik rozpoczęć ??) i ogólna entropia.
-        \item \textit{explicit} (pl. odważny, śmiały) - Wartość \textit{true} (pl. prawda)/\textit{false} (pl. fałsz). Flaga określająca czy dany utwór zawiera wulgaryzmy, treści erotyczne, treści nacechowane przemocą, wzmianki o nielegalny używkach i tym podobne; w ogólności treści skierowane do odbiorców pełnoletnich.
+        \item \textit{explicit} (pl. odważny/śmiały) - Wartość \textit{true} (pl. prawda)/\textit{false} (pl. fałsz). Flaga określająca czy dany utwór zawiera wulgaryzmy, treści erotyczne, treści nacechowane przemocą, wzmianki o nielegalny używkach i tym podobne; w ogólności treści skierowane do odbiorców pełnoletnich.
         \item \textit{id} (pl. identyfikator) - Unikalne, alfanumeryczne Spotify ID dla utworu.
         \item \textit{instrumentalness} (pl. instrumentalność) - Miara prawdopodobieństwa określająca, czy dany utwór nie zawiera wstawek wokalnych (fragmentów śpiewanych). Wyrazy dźwiękonaśladowcze takie jak `ooh' czy `aah' przez algorytm/klasyfikator są traktowane jako instrumentalne. Rap czy zwykła mowa traktowana jako `czysty wokal'. In bliżej wartości parametru \textit{instrumentalness} do wartości 1.0, tym wyższe prawdopodobieństwo braku wokali. Wartości powyżej 0.5 w założeniu mają reprezentować utwory instrumentalne, natomiast prawdopodobieństwo prawidłowej klasyfikacji rośnie wraz ze zbliżaniem się wskaźnika do wartości 1.0.
         \item \textit{key} (pl. tonacja). Tonacja utworu przedstawiona jako liczba całkowita nieujemna: 0,1,2\ldots . Liczby zmapowane są na standardową notację muzyczną: 0 = C, 1 = G, 2 = D i tak dalej.
-        \item \textit{liveness} - (pl. żywość, żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości \textit{liveness} powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był `na żywo'.
+        \item \textit{liveness} - (pl. żywość/żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości \textit{liveness} powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był `na żywo'.
         \item \textit{loudness} (pl. głośność) - Ogólna głośność utworu mierzona w decybelach. Wartości głośności są wyliczane poprzez uśrednienie głośności całego utworu, co sprawia, że metryka staje się użyteczna do porównywania utworów. Głośność jest cechą dźwięku ściśle skorelowaną z amplitudą fali dźwiękowej. Wartości w większości przypadków wahają się między -60 a 0 db.
-        \item \textit{mode} (pl. tryb, dominanta) - Parametr 'mode' oznacza modalność utworu: \textit{major} (pl. główna, pierwszorzędna) lub \textit{minor} (pl. pomniejsza, drugorzędna), w znaczeniu typu skali, w której znajduje się warstwa melodyczna. 1 oznacza \textit{major}, 0 to \textit{minor}.
+        \item \textit{mode} (pl. tryb/dominanta) - Parametr 'mode' oznacza modalność utworu: \textit{major} (pl. główna, pierwszorzędna) lub \textit{minor} (pl. pomniejsza, drugorzędna), w znaczeniu typu skali, w której znajduje się warstwa melodyczna. 1 oznacza \textit{major}, 0 to \textit{minor}.
         \item \textit{name} (pl. nazwa) - Tytuł piosenki, utworu lub nagrania.
         \item \textit{popularity} (pl. popularność) - Popularność utworu w skali od 0 do 100, gdzie 100 oznacza najwyższą popularność. Popularność wyliczana jest przez algorytm, bazujący przede wszystkim na liczbie odtworzeń utworu, ale także na tym jak świeże (odległe od chwili obecnej) są te odtworzenia.
         \item \textit{release\_date} (pl. data publikacji) - Data publikacji utworu lub albumu, na którym znalazł się utwór.
@@ -163,44 +163,100 @@
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
 
     \begin{figure}[H]
-        \label{fig:histograms1}
+        \label{fig:valence}
         \centering
-        \includegraphics[width=\textwidth]{histograms_1}
-        \caption{Histogramy dla wybranych do eksperymentu cech (1/3).}
+        \includegraphics[width=\textwidth]{valence}
+        \caption{Histogram dla cechy \textit{valence} (pl. ozdobnik).}
     \end{figure}
 
     \begin{figure}[H]
-        \label{fig:histograms2}
+        \label{fig:acousticness}
         \centering
-        \includegraphics[width=\textwidth]{histograms_2}
-        \caption{Histogramy dla wybranych do eksperymentu cech (2/3).}
+        \includegraphics[width=\textwidth]{acousticness}
+        \caption{Histogram dla cechy \textit{acousticness} (pl. akustyczność).}
     \end{figure}
 
     \begin{figure}[H]
-        \label{fig:histograms3}
+        \label{fig:danceability}
         \centering
-        \includegraphics[width=\textwidth]{histograms_3}
-        \caption{Histogramy dla wybranych do eksperymentu cech (3/3).}
+        \includegraphics[width=\textwidth]{danceability}
+        \caption{Histogram dla cechy \textit{danceability} (pl. taneczność).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:duration_ms}
+        \centering
+        \includegraphics[width=\textwidth]{duration_ms}
+        \caption{Histogram dla cechy \textit{duration\_ms} (pl. czas trwania w milisekundach).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:energy}
+        \centering
+        \includegraphics[width=\textwidth]{energy}
+        \caption{Histogram dla cechy \textit{energy} (pl. energia/energetyczność).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:instrumentalness}
+        \centering
+        \includegraphics[width=\textwidth]{instrumentalness}
+        \caption{Histogram dla cechy \textit{instrumentalness} (pl. instrumentalność).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:liveness}
+        \centering
+        \includegraphics[width=\textwidth]{liveness}
+        \caption{Histogram dla cechy \textit{liveness} (pl. żywość/żywiołowość).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:loudness}
+        \centering
+        \includegraphics[width=\textwidth]{loudness}
+        \caption{Histogram dla cechy \textit{loudness} (pl. głośność).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:year}
+        \centering
+        \includegraphics[width=\textwidth]{year}
+        \caption{Histogram dla cechy \textit{year} (pl. rok publikacji).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:speechiness}
+        \centering
+        \includegraphics[width=\textwidth]{speechiness}
+        \caption{Histogram dla cechy \textit{speechiness} (pl. wypełnienie mową).}
+    \end{figure}
+
+    \begin{figure}[H]
+        \label{fig:tempo}
+        \centering
+        \includegraphics[width=\textwidth]{tempo}
+        \caption{Histogram dla cechy \textit{tempo} (pl. tempo).}
     \end{figure}
 
     \begin{figure}[H]
         \label{fig:mode}
         \centering
-        \includegraphics[width=8cm,keepaspectratio]{mode}
+        \includegraphics[width=7cm,keepaspectratio]{mode}
         \caption{Wykres kołowy pokazujący procentowy rozkład dominant dla badanych utworów.}
     \end{figure}
 
     \begin{figure}[H]
         \label{fig:explicit}
         \centering
-        \includegraphics[width=8cm,keepaspectratio]{explicit}
+        \includegraphics[width=7cm,keepaspectratio]{explicit}
         \caption{Wykres kołowy pokazujący procentowy udział utworów zawierających treści przeznaczone dla odbiorców pełnoletnich.}
     \end{figure}
 
     \begin{figure}[H]
         \label{fig:key}
         \centering
-        \includegraphics[width=12cm,keepaspectratio]{key}
+        \includegraphics[width=10cm,keepaspectratio]{key}
         \caption{Wykres kołowy pokazujący procentowy rozkład tonacji dla badanych utworów.}
     \end{figure}
 
