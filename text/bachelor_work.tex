@@ -47,7 +47,7 @@
     \subsection{Cel pracy}
     Korzystając ze zbioru danych o utworach muzycznych dostępnych na platformie streaming-owej Spotify, stworzono kilka modeli szacujących jaką popularność osiągnie na tej platformie nowy utwór. Modele te są prostymi sieciami neuronowymi o różnej architekturze. Do optymalizacji ich hiperparametrów uczenia wykorzystano algorytm genetyczny.
 
-    \subsection{Teza główna}
+    \subsection{Teza główna} % uwaga od promotora: jeżeli piszesz tezę to musi być ona znacznie bardziej konkretna, musi opisywać coś mierzalnego
     Algorytm genetyczny może znacząco przyspieszyć proces wyboru optymalnych hiperparametrów uczenia dla wstępnie zaprojektowanej sieci neuronowej.
 
     \subsection{Słowa kluczowe} % między 5 a 10
@@ -66,7 +66,7 @@
 
     \smallskip
 
-    Czynniki te często kształtują się równolegle i przenikają semantycznie, dlatego też dla uproszczenia w dalszej części posłużono się szeroko rozumianym pojęciem preferencji muzycznych.
+    Czynniki te często kształtują się równolegle i przenikają znaczeniowo, dlatego też dla uproszczenia w dalszej części posłużono się szeroko rozumianym pojęciem preferencji muzycznych.
 
     \bigskip
 
@@ -86,7 +86,7 @@
 
     \bigskip
 
-    Nie ulega wątpliwości, że wewnętrzna polityka serwisów muzycznych w zakresie promowania i pozycjonowania treści (w którą niestety nie ma wglądu, a która z ogromną dozą prawdopodobieństwa dyktowana jest przede wszystkim chęcią powiększania zasięgów i poprawy wyników finansowych) ma niebagatelny wpływ na wybory dokonywane przez użytkowników\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Zdaniem autora niniejszej pracy szczególnie duże znaczenie w tym aspekcie mają kryteria, na których oparty jest mechanizm wyszukiwania, a także (a może przede wszystkim) mechanizm losowania kolejnych utworów w usłudze \textit{radio}. Z drugiej strony prawdziwe zdaje się być twierdzenie, że dobra muzyka obroni się sama. Bez względu na to jak bardzo konsument będzie zasypywany promowanymi treściami i tak regularnie będzie wracać tylko do tego co najbardziej trafiło w jego gusta, czy mówiąc bardziej górnolotnie (ale chyba w wielu przypadkach zasadnie) do jego duszy.
+    Wewnętrzna polityka serwisów muzycznych w zakresie promowania i pozycjonowania treści (w którą niestety nie ma wglądu, a która z ogromną dozą prawdopodobieństwa dyktowana jest przede wszystkim chęcią powiększania zasięgów i poprawy wyników finansowych) ma niebagatelny wpływ na wybory dokonywane przez użytkowników\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Zdaniem autora niniejszej pracy szczególnie duże znaczenie w tym aspekcie mają kryteria, na których oparty jest mechanizm wyszukiwania, a także (a może przede wszystkim) mechanizm losowania kolejnych utworów w usłudze \textit{radio}. Z drugiej strony prawdziwe zdaje się być twierdzenie, że dobra muzyka obroni się sama. Bez względu na to jak bardzo konsument będzie zasypywany promowanymi treściami i tak regularnie będzie wracać tylko do tego co najbardziej trafiło w jego gusta.
 
     \bigskip
 
@@ -160,7 +160,7 @@
 
     \smallskip
 
-    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}.
+    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}. Metoda wyznaczania własności subiektywnych jest własnością intelektualną firmy Spotify i nie jest dostępna publicznie.
 
     \begin{figure}[H]
         \label{fig:valence}
@@ -273,7 +273,7 @@
 
     \subsection{Inicjacja wag funkcją HE}
 
-    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej, sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
 
     \bigskip
 
