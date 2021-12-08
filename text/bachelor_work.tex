@@ -9,6 +9,8 @@
 \usepackage[backend=bibtex,style=alphabetic]{biblatex}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{enumerate}
@@ -335,6 +337,7 @@
 
     Wzór dla funkcji aktywacji ReLU:
     \begin{equation}
+        \label{equ:relu}
         ReLU(x) =
         \begin{cases}
             0 & \quad \text{jeśli } x < 0 \\
@@ -376,6 +379,7 @@
 
     Wzór dla funkcji aktywacji ELU:
     \begin{equation}
+        \label{equ:elu}
         ELU_{\alpha}(x) =
         \begin{cases}
             \alpha(\exp(x)-1) & \quad \text{jeśli } x < 0 \\
@@ -407,12 +411,13 @@
 
     \bigskip
 
-    Algorytm normalizacji wsadowej:
+    Normalizacja wsadowa danych wejściowych dla pojedynczej warstwy:
 
     \bigskip
 
     Wyliczenie średniej dla minigrupy: \\
     \begin{equation}
+        \label{equ:minibatch_mean}
         \mu_{B} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} x^{(i)}
     \end{equation}
 
@@ -420,6 +425,7 @@
 
     Wyliczenie odchylenia standardowego dla minigrupy: \\
     \begin{equation}
+        \label{equ:minibatch_std_dev}
         \sigma_{B}^{2} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} (x^{(i)} - \mu_{B})^{2}
     \end{equation}
 
@@ -427,6 +433,7 @@
 
     Wyśrodkowanie i znormalizowanie danych wejściowych: \\
     \begin{equation}
+        \label{equ:centering_and_normalizing_input}
         \widehat{x}^{(i)} = \frac{x^{(i)} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}
     \end{equation}
 
@@ -434,6 +441,7 @@
 
     Przeskalowanie i przesunięcie wyniku: \\
     \begin{equation}
+        \label{equ:rescaling_and_translating_result}
         z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
     \end{equation}
 
@@ -505,6 +513,65 @@
     \end{figure}
 
     \subsection{Optymalizator Adam}
+
+    Optymalizatory są kolejnym elementem wprowadzonym w celu przyspieszenia procesu uczenia głębokich sieci neuronowych. Są one bardziej efektywne od standardowego algorytmu gradientu prostego. W praktyce, ze względu na koszty pamięciowe, wykorzystuje się jedynie optymalizatory bazujące na pochodnych cząstkowych pierwszego rzędu (jakobinach) \cite{UczenieMaszynowe2018}. Najpopularniejsze z nich to:
+    \begin{itemize}
+        \item optymalizacja momentum (ang. \textit{Momentum Optimization})
+        \item przyspieszony spadek wzdłuż gradienku (algorytm Nesterova)
+        \item AdaGrad (ang. \textit{Adaptive Subgradient Method})
+        \item RMSProp
+        \item Adam (ang. \textit{Adaptive Moment Estimation})
+    \end{itemize}
+
+    \bigskip
+
+    Algorytm Adam został opracowany w 2015 roku przez Diederik P. Kingma i Jimmy Lei Ba\cite{AdamOptimization2015}. Jest połączeniem pomysłów wykorzystanych w optymalizacji momentum i optymalizatorze RMSProp. Z optymalizacji momentum zaczerpnięte jest śledzenie rozkładu wykładniczego średniej wcześniejszych gradientów, a z RMSProp - śledzenie rozkładu wykładniczego średniej wcześniejszych kwadratómomentów\cite{UczenieMaszynowe2018}. Poniżej przedstawiono pseudokod z oryginalnej publikacji Kingma i Ba.
+
+    \bigskip
+
+    \begin{algorithm}[H]
+        \label{alg:adam_optimizer}
+        \caption{Algorytm Adam. Źródło: \cite{AdamOptimization2015}.}
+        \begin{algorithmic}
+            \Require $\alpha$
+            \Comment{współczynnik uczenia, który zazwyczaj inicjowany jest wartością $\alpha = 0.001$}
+            \Require $\beta_{1},\beta_{2} \in (0,1]$
+            \Comment{$\beta_{1}$ to hiperparametr rozkładu momentu, który zazwyczaj inicjowany wartością $\beta_{1} = 0.9$; $\beta_{2}$ to hiperparametr rozkładu skalowania, który zazwyczaj inicjowany wartością $\beta_{2} = 0.999$}
+            \Require $\epsilon$
+            \Comment{człon wygładzający, który zazwyczaj przyjmuje wartość $\epsilon = 10^{-8}$}
+            \Require $f(\theta)$
+            \Comment{funkcja stochastyczna $f$ z wektorem parametrów $\theta$}
+            \Require $\theta_{0}$
+            \Comment{postać początkowa wektora parametrów $\theta$}
+            \State $m_{0} \gets 0$
+            \Comment{inicjacja pierwszego wektora momentu}
+            \State $v_{0} \gets 0$
+            \Comment{inicjacja drugiego wektora momentu}
+            \State $t \gets 0$
+            \Comment{inicjacja licznika przebiegów}
+            \While{$\theta_{t}$ nie zbiegnie}
+                \State $t \gets t + 1$
+                \State $g_{t} \gets \nabla_{\theta}f_{t}(\theta_{t-1})$
+                \Comment{uzyskanie gradientów dla stochastycznej funkcji kosztu w przebiegu $t$}
+                \State $m_{t} \gets \beta_{1} \cdot m_{t-1} + (1 - \beta_{1}) \cdot g_{t}$
+                \Comment{aktualizacja szacunkowej wartości pierwszego wektora momentu}
+                \State $v_{t} \gets \beta_{2} \cdot v_{t-1} + (1 - \beta_{2}) \cdot g_{t}^{2}$
+                \Comment{aktualizacja szacunkowej wartości drugiego wektora momentu}
+                \State $\widehat{m_{t}} \gets \frac{m_{t}}{1 - \beta_{1}^{t}}$
+                \Comment{obliczenie szacunkowkowej wartości pierwszego wektora momentu}
+                \State $\widehat{v_{t}} \gets \frac{v_{t}}{1 - \beta_{2}^{t}}$
+                \Comment{obliczenie szacunkowkowej wartości drugiego wektora momentu}
+                \State $\theta_{t} \gets \theta_{t-1} - \frac{\alpha \cdot \widehat{m_{t}}}{\sqrt{\widehat{v_{t}}} + \epsilon}$
+                \Comment{aktualizacja wektora parametrów}
+            \EndWhile
+            \State \Return $\theta_{t}$
+            \Comment{wynikowy wektor parametrów}
+        \end{algorithmic}
+    \end{algorithm}
+
+    \bigskip
+
+    Optymalizator Adam, podobnie jak RMSProp, wykorzystuje adaptacyjny współczynnik uczenia. Z tego też powodu nie ma koniczności wyznaczania jego optymalnej wartości, wystarczy jedynie skorzystać z domyślnej wartości $\alpha = 0.001$\cite{UczenieMaszynowe2018}. To z kolei sprawia, że Adam jest w praktyce prostszy w użyciu od metody gradientu prostego.
 
     \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
 
