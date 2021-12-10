@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import MutableSequence
 
 from genetic_algorithm.gene import IntegerGene, FloatGene
 from genetic_algorithm.genome import Genome, LabeledSequence
@@ -13,13 +13,13 @@ class PopulationInitializer:
         self.population_size = population_size
         self.initial_genome = initial_genome
 
-    def init_population(self) -> Sequence[Genome]:
+    def init_population(self) -> MutableSequence[Genome]:
         pass
 
 
 class RandomInitialization(PopulationInitializer):
 
-    def init_population(self) -> Sequence[Genome]:
+    def init_population(self) -> MutableSequence[Genome]:
         init_genes = self.initial_genome.genes
         rank = self.initial_genome.rank_func
         population = []

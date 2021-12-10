@@ -1,3 +1,7 @@
+from typing import Sequence, MutableSequence
+
+import numpy as np
+
 from genetic_algorithm.crossover import OnePointCrossover
 from genetic_algorithm.gene import Gene, FloatGene
 from genetic_algorithm.genetic_algorithm import GeneticAlgorithm
@@ -9,16 +13,16 @@ from genetic_algorithm.parent_selection import TournamentSelection
 
 class GeneticAlgorithmImpl(GeneticAlgorithm):
 
-    def init_population(self, ):
+    def init_population(self) -> MutableSequence[Genome]:
         return RandomInitialization(self.population_size, self.genome).init_population()
 
-    def select_parents(self, fitness):
-        return TournamentSelection().select_parents(self.population, fitness)
+    def select_parents(self, fitness: np.ndarray, worst_from_previous_generations: float) -> Sequence[Genome]:
+        return TournamentSelection().select_parents(self.population, fitness, self.worst_from_previous_generations)
 
-    def crossover(self, parents):
+    def crossover(self, parents: Sequence[Genome]) -> Sequence[Genome]:
         return OnePointCrossover().crossover(parents)
 
-    def mutate(self, crossovers):
+    def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         return RandomMutation().mutate(crossovers)
 
 
