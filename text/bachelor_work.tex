@@ -575,7 +575,49 @@
 
     \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
 
-    \subsection{Wybór rodziców z wykorzystaniem \textit{Fitness Proportionate Selection} (pl. selekcja proporcjonalna) (wariant \textit{Roulette Wheel Selection} (pl. selekcja kołowa))}
+    \subsection{Wybór rodziców z wykorzystaniem selekcji proporcjonalnej (ang. \textit{Fitness Proportionate Selection / FPS})}
+
+    Selekcja proporcjonalna (ang. \textit{Fitness Proportionate Selection / FPS}) lub inaczej selekcja ruletkowa (ang. \textit{Roulette Wheel Selection}) jest popularną metodą wykorzystywaną do wyboru odpowiednich osobników (rodziców) do rekombinacji (krzyżowania). Autorem oryginalnego konceptu był J.H Holland z Massachusetts Institute of Technology. Selekcja polega na losowaniu osobnika z prawdopodobieństwem równym stosunkowi absolutnej wartości jego metryki dopasowania (ang. \textit{fitness}) $f_{i}$ do sumy wartości absolutnych metryk dopasowań dla całej populacji $\sum_{j=1}^{\mu} f_{j}$\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Wzór na prawdopodobieństwo wylosowania pojedynczego osobnika prezentuje się następująco: \\
+    \begin{equation}
+        \label{equ:fitness_proportionate_selection}
+        P_{FPS}(i) = \frac{\lvert f_{i} \rvert}{\sum_{j=1}^{\mu} \lvert f_{j} \rvert}
+    \end{equation}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:proportional_selection}
+        \centering
+        \includegraphics[width=\textwidth]{proportional_selection}
+        \caption{Obrazowy przykład działania selekcji proporcjonalnej.}
+    \end{figure}
+
+    \bigskip
+
+    Okazało się, że selekcja propocjonalna wyjątkowo dobrze nadaje się do analizy teoretycznej. Niestety bardzo szybko odkryto też jej główne mankamenty\cite{IntroductionToEvolutionaryComputing2015}:
+    \begin{itemize}
+        \item Najlepsze osobniki bardzo szybko przejmują `kontrolę' nad populacją. To powoduje, że zostaje bardzo zawężony obszar poszukiwań najlepszego rozwiązania, a prawdopodobieństwo uzyskania dobrego wyniku jest nikłe. Problem uwidacznia się zwłaszcza we wczesnych generacjach, kiedy wiele losowo utworzonych osobników ma niską wartość metryki dopasowania (ang. \textit{fitness}). Fachowo określa się to terminem przedwczesnej konwergencji (zbiegnięcia) (ang. \textit{premature convergence}).
+        \item Kiedy wartości metryki dopasowania są zbliżone do siebie zanika tak zwana `presja selekcyjna' (ang. \textit{selection pressure}). Rezultatem jest niemal losowa selekcja w kolejnych pokoleniach (generacjach) i bardzo powolna konwergencja (zbieganie) do optymalnego rozwiązania.
+    \end{itemize}
+
+    \bigskip
+
+    Na szczęście opracowane zostały skuteczne techniki zaradcze. Najpopularniejsze to:
+    \begin{itemize}
+        \item okienkowanie (ang. \textit{windowing})
+        \item skalowanie sigma (ang. \textit{sigma scaling})
+    \end{itemize}
+
+    Okienkowanie (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \begin{equation}
+        \label{equ:new_fitness}
+        f'(i) = f(i) - \beta^{t}
+    \end{equation}
 
     \subsection{Krzyżówka \textit{One Point Crossover} (pl. krzyżówka z jednym punktem przecięcia)}
 
