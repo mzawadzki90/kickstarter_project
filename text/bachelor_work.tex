@@ -345,6 +345,8 @@
         \end{cases}
     \end{equation}
 
+    \bigskip
+
     \begin{figure}[H]
         \label{fig:relu}
         \centering
@@ -614,12 +616,31 @@
 
     Okienkowanie (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
 
+    \bigskip
+
     \begin{equation}
         \label{equ:new_fitness}
         f'(i) = f(i) - \beta^{t}
     \end{equation}
 
-    \subsection{Krzyżówka \textit{One Point Crossover} (pl. krzyżówka z jednym punktem przecięcia)}
+    \subsection{Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover})}
+
+    Krzyżówka jest operacją pozwalającą na rekombinacje materiału genetycznego dwóch lub więcej osobników (rodziców, ang. \textit{parents}) w celu powołania do życia potomstwa (ang. \textit{offsprings}), które odziedziczy unikalną kombinację ich cech\cite{GeneticAlgorithmEssentials2017}.
+
+    \bigskip
+
+    Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover}) polega na wyznaczeniu losowego punktu, przez który dzieli się następnie chromosomy rodziców, a z otrzymanych części buduje się finalnie chromosomy potomków. Przykładowo, jeśli chromosomy mają postać ciągów bitowych, pierwszy rodzic to 0010110010, drugi rodzic to 1111010111 a punkt przecięcia został wyznaczony na 4, to w wyniku operacji krzyżowania otrzymamy następujących potomków: 0010110010 i 1111110010\cite{GeneticAlgorithmEssentials2017}.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:one_point_crossover}
+        \centering
+        \includegraphics[width=\textwidth]{one_point_crossover}
+        \caption{Obrazowy przykład działania krzyżowania z jednym punktem przecięcia.}
+    \end{figure}
+
+    Główną motywacją operacji krzyżowania jest chęć uzyskania przynajmniej jednego potomka, który osiągnie lepszą wartość metryki dopasowania od swoich rodziców\cite{GeneticAlgorithmEssentials2017}.
 
     \subsection{Mutacja \textit{Bit Flip Mutation} (pl. mutacja przez przerzucenie bitu)}
 
