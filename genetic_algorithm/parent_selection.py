@@ -15,29 +15,21 @@ class ParentSelection:
 class TournamentSelection(ParentSelection):
     def select_parents(self, population: MutableSequence[Genome], fitness: np.ndarray,
                        worst_from_previous_generations: float) -> Sequence[Genome]:
-        population_copy = copy.deepcopy(population)
-        fitness_copy = np.copy(fitness)
-        parent1, index1 = self.__select_parent(population_copy, fitness_copy, worst_from_previous_generations)
-        del population_copy[index1]
-        fitness_copy = np.delete(fitness_copy, index1)
-        parent2, index2 = self.__select_parent(population_copy, fitness_copy, worst_from_previous_generations)
-        return [parent1, parent2]
-
-    def __select_parent(self, population: MutableSequence[Genome], fitness: np.ndarray,
-                        worst_from_previous_generations: float) -> [Genome, int]:
         population_rows = len(population)
         probability_arr = self.__get_probability_arr(fitness, worst_from_previous_generations)
-        candidate_index = np.random.choice(a=population_rows, size=1,
-                                           p=probability_arr)[0]
-        return population[candidate_index], candidate_index
+        candidate_index1, candidate_index2 = np.random.choice(a=population_rows, size=2,
+                                                              p=probability_arr).tolist()
+        return [population[candidate_index1], population[candidate_index2]]
 
     def __get_probability_arr(self, fitness: np.ndarray, worst_from_previous_generations: float) -> iter:
-        fitness_rows = fitness.shape[0]
+        fitness_copy = copy.deepcopy(fitness)
+        fitness_rows = fitness_copy.shape[0]
         if fitness_rows == 1:
             return np.array([1])
-        if fitness.std() < 0.001:
+        if fitness_copy.std() < 0.001:
             return np.ones(fitness_rows) / fitness_rows
-        fitness_sum = np.sum(fitness)
-        reshaped = (worst_from_previous_generations - fitness) / (
-                (fitness_rows * worst_from_previous_generations) - fitness_sum)
+        fitness_copy = np.power(fitness_copy, -1)
+        worst_from_previous_generations = np.power(worst_from_previous_generations, -1)
+        fitness_sum = np.sum(np.abs(fitness_copy - worst_from_previous_generations))
+        reshaped = np.abs(fitness_copy - worst_from_previous_generations) / fitness_sum
         return reshaped.tolist()
