@@ -3,6 +3,7 @@ from numbers import Number
 from random import SystemRandom
 
 import numpy as np
+from scipy.stats import truncnorm
 
 
 class MathUtil:
@@ -57,6 +58,14 @@ class MathUtil:
         crypto_gen = SystemRandom()
         return crypto_gen.uniform(min_val, max_val)
 
+    @staticmethod
+    def normal_int_delta(min_val: int, max_val: int) -> int:
+        return int(round(MathUtil.__truncated_normal(min_val=min_val, max_val=max_val).rvs()))
+
+    @staticmethod
+    def normal_float_delta(min_val: float, max_val: float) -> float:
+        return MathUtil.__truncated_normal(min_val=min_val, max_val=max_val).rvs()
+
     @classmethod
     def __float_to_bits(cls, number: float) -> int:
         s = struct.pack('>f', number)
@@ -88,3 +97,11 @@ class MathUtil:
         for bit in bitfield:
             out = (out << 1) | bit
         return out
+
+    @classmethod
+    def __truncated_normal(cls, min_val: float,
+                           max_val: float) -> truncnorm:
+        mean = (max_val + min_val) / 2
+        sdt_dev = ((max_val - min_val) / 2) / 3
+        return truncnorm(
+            (min_val - mean) / sdt_dev, (max_val - mean) / sdt_dev, loc=mean, scale=sdt_dev)

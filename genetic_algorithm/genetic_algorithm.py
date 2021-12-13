@@ -11,6 +11,19 @@ import numpy as np
 from genetic_algorithm.genome import Genome
 
 
+def calculate_population_fitness(population: MutableSequence[Genome]) -> np.ndarray:
+    return np.array([genome.rank() for genome in population])
+
+
+def select_survivor(mutates: Sequence[Genome]) -> Genome:
+    mutate1 = mutates[0]
+    mutate2 = mutates[1]
+    if mutate1.rank() <= mutate2.rank():
+        return mutate1
+    else:
+        return mutate2
+
+
 class GeneticAlgorithm:
     genome: Genome
     population_size: int
@@ -38,7 +51,7 @@ class GeneticAlgorithm:
         self.worst_last_generations_size = worst_last_generations_size
         self.worst_from_previous_generations = sys.float_info.max
         self.population = self.init_population()
-        self.population_fitness = self.__calculate_population_fitness(self.population)
+        self.population_fitness = calculate_population_fitness(self.population)
         self.best_last_generations = deque(maxlen=self.best_last_generations_size)
         self.worst_last_generations = deque(maxlen=self.worst_last_generations_size)
         self.stats_file = self.__get_reference_or_create_file()
@@ -53,7 +66,7 @@ class GeneticAlgorithm:
             parents = self.select_parents(self.population_fitness, self.worst_from_previous_generations)
             crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
-            offspring = self.__select_survivor(mutates)
+            offspring = select_survivor(mutates)
             self.__replace_worst_element(offspring, generation_counter)
             self.__save_best_for_generation()
             self.__save_worst_for_generation()
@@ -72,12 +85,6 @@ class GeneticAlgorithm:
 
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         pass
-
-    def __calculate_population_fitness(self, population: MutableSequence[Genome]) -> np.ndarray:
-        fitness_arr = []
-        for genome in population:
-            fitness_arr.append(genome.rank())
-        return np.array(fitness_arr)
 
     def __get_reference_or_create_file(self) -> TextIO:
         current_dir = os.getcwd()
@@ -117,14 +124,6 @@ class GeneticAlgorithm:
 
     def __post_condition(self, generation_counter: int) -> bool:
         return generation_counter > self.generation_count
-
-    def __select_survivor(self, mutates: Sequence[Genome]) -> Genome:
-        mutate1 = mutates[0]
-        mutate2 = mutates[1]
-        if mutate1.rank() <= mutate2.rank():
-            return mutate1
-        else:
-            return mutate2
 
     def __replace_worst_element(self, offspring: Genome, counter: int):
         worst_index = self.population_fitness.argmax()

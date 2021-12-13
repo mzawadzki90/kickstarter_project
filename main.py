@@ -7,7 +7,7 @@ from genetic_algorithm.gene import Gene, FloatGene
 from genetic_algorithm.genetic_algorithm import GeneticAlgorithm
 from genetic_algorithm.genome import Genome, LabeledSequence
 from genetic_algorithm.initialization import RandomInitialization
-from genetic_algorithm.mutation import RandomMutation
+from genetic_algorithm.mutation import NonuniformMutation
 from genetic_algorithm.parent_selection import TournamentSelection
 
 
@@ -23,19 +23,19 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
         return OnePointCrossover().crossover(parents)
 
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
-        return RandomMutation().mutate(crossovers)
+        return NonuniformMutation().mutate(crossovers)
 
 
 labeled_sequence = LabeledSequence()
-labeled_sequence.append(FloatGene(label='A', minimum=0.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='B', minimum=0.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='C', minimum=0.0, maximum=10.0))
-labeled_sequence.append(FloatGene(label='D', minimum=0.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='A', minimum=-10.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='B', minimum=-10.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='C', minimum=-10.0, maximum=10.0))
+labeled_sequence.append(FloatGene(label='D', minimum=-10.0, maximum=10.0))
 
 
 def rank(params: LabeledSequence[Gene]):
-    return params.get_by_label('A').value * params.get_by_label('B').value * params.get_by_label(
-        'C').value * params.get_by_label('D').value
+    return abs(params.get_by_label('A').value * params.get_by_label('B').value * params.get_by_label(
+        'C').value * params.get_by_label('D').value)
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
