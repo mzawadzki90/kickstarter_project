@@ -18,6 +18,12 @@ def crop_to_boundaries(mutate_gene: Gene, mutate_value: numeric) -> numeric:
     return mutate_value
 
 
+def max_min_delta(mutate_gene: Gene) -> Sequence[numeric]:
+    max_val = abs((mutate_gene.maximum - mutate_gene.minimum) / 2)
+    min_val = -max_val
+    return max_val, min_val
+
+
 class Mutation:
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         mutate1 = self.get_mutate(crossovers[0])
@@ -76,7 +82,8 @@ class NonuniformMutation(Mutation):
 
     def mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
         mutate_gene = copy.deepcopy(gene)
-        mutate_delta = MathUtil.normal_int_delta(min_val=mutate_gene.minimum, max_val=mutate_gene.maximum)
+        max_val, min_val = max_min_delta(mutate_gene)
+        mutate_delta = MathUtil.normal_int_delta(min_val=min_val, max_val=max_val)
         mutate_value = mutate_gene.value + mutate_delta
         mutate_value = crop_to_boundaries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value
@@ -84,7 +91,8 @@ class NonuniformMutation(Mutation):
 
     def mutate_float_gene(self, gene: FloatGene) -> FloatGene:
         mutate_gene = copy.deepcopy(gene)
-        mutate_delta = MathUtil.normal_float_delta(min_val=mutate_gene.minimum, max_val=mutate_gene.maximum)
+        max_val, min_val = max_min_delta(mutate_gene)
+        mutate_delta = MathUtil.normal_int_delta(min_val=min_val, max_val=max_val)
         mutate_value = mutate_gene.value + mutate_delta
         mutate_value = crop_to_boundaries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value

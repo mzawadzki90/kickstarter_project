@@ -102,6 +102,6 @@ class MathUtil:
     def __truncated_normal(cls, min_val: float,
                            max_val: float) -> truncnorm:
         mean = (max_val + min_val) / 2
-        sdt_dev = ((max_val - min_val) / 2) / 3
+        sdt_dev = (max_val - min_val) / 6
         return truncnorm(
             (min_val - mean) / sdt_dev, (max_val - mean) / sdt_dev, loc=mean, scale=sdt_dev)
