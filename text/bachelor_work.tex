@@ -89,15 +89,15 @@
 
     \bigskip
 
-    Wewnętrzna polityka serwisów muzycznych w zakresie promowania i pozycjonowania treści (w którą niestety nie ma wglądu, a która z ogromną dozą prawdopodobieństwa dyktowana jest przede wszystkim chęcią powiększania zasięgów i poprawy wyników finansowych) ma niebagatelny wpływ na wybory dokonywane przez użytkowników\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Zdaniem autora niniejszej pracy szczególnie duże znaczenie w tym aspekcie mają kryteria, na których oparty jest mechanizm wyszukiwania, a także (a może przede wszystkim) mechanizm losowania kolejnych utworów w usłudze \textit{radio}. Z drugiej strony prawdziwe zdaje się być twierdzenie, że dobra muzyka obroni się sama. Bez względu na to jak bardzo konsument będzie zasypywany promowanymi treściami i tak regularnie będzie wracać tylko do tego co najbardziej trafiło w jego gusta.
+    Wewnętrzna polityka serwisów muzycznych w zakresie promowania i pozycjonowania treści (w którą niestety nie ma wglądu, a która z ogromną dozą prawdopodobieństwa dyktowana jest przede wszystkim chęcią powiększania zasięgów i poprawy wyników finansowych) ma niebagatelny wpływ na wybory dokonywane przez użytkowników\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Zdaniem autora niniejszej pracy szczególnie duże znaczenie w tym aspekcie mają kryteria, na których oparty jest mechanizm wyszukiwania, a także (a może przede wszystkim) aspekt losowania kolejnych utworów w usłudze \textit{radio}. Z drugiej strony prawdziwe zdaje się być twierdzenie, że dobra muzyka obroni się sama. Bez względu na to jak bardzo konsument będzie zasypywany promowanymi treściami i tak regularnie będzie wracać tylko do tego co najbardziej trafiło w jego gusta.
 
     \bigskip
 
-    Christoph Dr{\"o}sser, popularny w Niemczech dziennikarz popularnonaukowy, napisał ``Muzyka jest [\ldots] doświadczeniem całościowym, w znacznym stopniu nierozsądnym, którego nie da się ogarnąć za pomocą zimnego, racjonalnego instrumentarium nauki''\cite{MuzykaDajSieUwiesc2021}. Ale czy to aby na pewno prawda? Na początku 20-go wieku w mainstreamie zaczęło funkcjonować pojęcie \textit{Hit Song Science} (pl. nauka o przebojach muzycznych), za którego twórcę i głównego promotora uważa się Mike'a McCready\cite{HitSongScienceWiki}. McCready wraz ze współpracownikami, działając w ramach firmy Polyphonic HMI, starał się rozwijać i sprzedawać wytwórniom muzycznym narzędzia, oparte o techniki \textit{MIR} (music information retrieval, pl. pozyskiwanie informacji muzycznych z utworu) i \textit{data science}, ułatwiające przewidywanie czy dany utwór ma szanse stać się 'hitem'\cite{PolyphonicHMIWiki}. Odnośnie podstaw naukowych \textit{Hit Song Science} od lat, w szczególności w społeczności \textit{MIR}, toczy się burzliwa, nie rozstrzygnięta do końca debata\cite{HitSongScienceWiki}.
+    Christoph Dr{\"o}sser, popularny w Niemczech dziennikarz popularnonaukowy, napisał ``Muzyka jest [\ldots] doświadczeniem całościowym, w znacznym stopniu nierozsądnym, którego nie da się ogarnąć za pomocą zimnego, racjonalnego instrumentarium nauki''\cite{MuzykaDajSieUwiesc2021}. Ale czy to aby na pewno prawda? Na początku 20-go wieku w mainstreamie zaczęło funkcjonować pojęcie \textit{Hit Song Science} (pl. nauka o przebojach muzycznych), za którego twórcę i głównego promotora uważa się Mike'a McCready\cite{HitSongScienceWiki}. McCready wraz ze współpracownikami, działając w ramach firmy Polyphonic HMI, starał się rozwijać i sprzedawać wytwórniom muzycznym narzędzia, oparte o techniki \textit{MIR} (music information retrieval, pl. pozyskiwanie informacji muzycznych z utworu) i \textit{data science}, ułatwiające przewidywanie czy dany utwór ma szanse stać się 'hitem'\cite{PolyphonicHMIWiki}. Odnośnie podstaw naukowych \textit{Hit Song Science} od lat, w szczególności w społeczności \textit{MIR}, toczy się burzliwa, nierozstrzygnięta do końca debata\cite{HitSongScienceWiki}.
 
     \bigskip
 
-    François Pachet i Pierre Roy z firmy Sony Computer Science Laboratories, Inc. w artykule ``Hit Song Science Is Not Yet a Science'' z 2009-go roku\cite{HitSongScienceNotYet2009} opisują swoją nieudaną próbę stworzenia klasyfikatora szacującego popularność utworów muzycznych na podstawie ich cech muzycznych oraz subiektywnych `ludzkich' etykiet przypisanych przez profesjonalnych ankieterów. Danymi, na których pracowali była baza 32978 dostarczona przez firmę HiFind. W swoim eksperymencie oprócz zaawansowanych technik \textit{MIR} wykorzystali oni \textit{Support Vector Machine} (pl. maszyna wektorów nośnych). Wyniki uzyskane dla poszczególnych prób tylko nieznacznie różniły się od losowych. Za przyczynę niepowodzenia uznano niewłaściwy dobór zestawu parametrów użytych do stworzenia modelu.
+    François Pachet i Pierre Roy z firmy Sony Computer Science Laboratories, Inc. w artykule ``Hit Song Science Is Not Yet a Science'' z 2009-go roku\cite{HitSongScienceNotYet2009} opisują swoją nieudaną próbę stworzenia klasyfikatora szacującego popularność utworów na podstawie ich cech muzycznych oraz subiektywnych `ludzkich' etykiet przypisanych przez profesjonalnych ankieterów. Danymi, na których pracowali była baza 32978 dostarczona przez firmę HiFind. W swoim eksperymencie oprócz zaawansowanych technik \textit{MIR} wykorzystali oni \textit{Support Vector Machine} (pl. maszyna wektorów nośnych). Wyniki uzyskane dla poszczególnych prób tylko nieznacznie różniły się od losowych. Za przyczynę niepowodzenia uznano niewłaściwy dobór zestawu parametrów użytych do stworzenia modelu.
 
     \bigskip
 
@@ -105,7 +105,7 @@
 
     \bigskip
 
-    Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromy postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokimi sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnione przez serwisy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
+    Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromny postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokimi sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnione przez serwisy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
 
 
     \section{Wykorzystanie sieci neuronowych do problemu regresji dla tabelarycznego zbioru danych}
@@ -126,6 +126,9 @@
     \subsection{Wybór rodziców}
 
     \subsection{Krzyżówki}
+
+    % do poprawy i rozszerzenia!!!
+    Krzyżówka jest operacją pozwalającą na rekombinacje materiału genetycznego dwóch lub więcej osobników (rodziców, ang. \textit{parents}) w celu powołania do życia potomstwa (ang. \textit{offsprings}), które odziedziczy unikalną kombinację ich cech\cite{GeneticAlgorithmEssentials2017}.
 
     \subsection{Mutacje}
 
@@ -263,14 +266,13 @@
         \caption{Wykres kołowy pokazujący procentowy rozkład tonacji dla badanych utworów.}
     \end{figure}
 
-    \bigskip
-
-    Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
-
 
     \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
 
     \subsection{Wstępna obróbka danych}
+
+    % do poprawy i rozszerzenia!!!
+    Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
 
     \subsection{Ogólny zarys architektury zastosowanej sieci neuronowej}
 
@@ -357,7 +359,7 @@
 
     \bigskip
 
-    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy że zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
+    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy, że zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
     \begin{itemize}
         \item `przeciekająca' funkcja ReLU
         \item losowa `przeciekająca' funkcja ReLU
@@ -517,7 +519,7 @@
 
     \subsection{Optymalizator Adam}
 
-    Optymalizatory są kolejnym elementem wprowadzonym w celu przyspieszenia procesu uczenia głębokich sieci neuronowych. Są one bardziej efektywne od standardowego algorytmu gradientu prostego. W praktyce, ze względu na koszty pamięciowe, wykorzystuje się jedynie optymalizatory bazujące na pochodnych cząstkowych pierwszego rzędu (jakobinach) \cite{UczenieMaszynowe2018}. Najpopularniejsze z nich to:
+    Optymalizatory są kolejnym elementem wprowadzonym w celu przyspieszenia procesu uczenia głębokich sieci neuronowych. Są one bardziej efektywne od standardowego algorytmu gradientu prostego. W praktyce, ze względu na koszty pamięciowe, wykorzystuje się jedynie optymalizatory bazujące na pochodnych cząstkowych pierwszego rzędu (jakobinach)\cite{UczenieMaszynowe2018}. Najpopularniejsze z nich to:
     \begin{itemize}
         \item optymalizacja momentum (ang. \textit{Momentum Optimization})
         \item przyspieszony spadek wzdłuż gradienku (algorytm Nesterova)
@@ -625,10 +627,6 @@
     \end{equation}
 
     \subsection{Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover})}
-
-    Krzyżówka jest operacją pozwalającą na rekombinacje materiału genetycznego dwóch lub więcej osobników (rodziców, ang. \textit{parents}) w celu powołania do życia potomstwa (ang. \textit{offsprings}), które odziedziczy unikalną kombinację ich cech\cite{GeneticAlgorithmEssentials2017}.
-
-    \bigskip
 
     Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover}) polega na wyznaczeniu losowego punktu, przez który dzieli się następnie chromosomy rodziców, a z otrzymanych części buduje się finalnie chromosomy potomków. Przykładowo, jeśli chromosomy mają postać ciągów bitowych, pierwszy rodzic to 0010110010, drugi rodzic to 1111010111 a punkt przecięcia został wyznaczony na 4, to w wyniku operacji krzyżowania otrzymamy następujących potomków: 0010110010 i 1111110010\cite{GeneticAlgorithmEssentials2017}.
 
