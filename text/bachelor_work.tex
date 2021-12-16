@@ -9,6 +9,7 @@
 \usepackage[backend=bibtex,style=alphabetic]{biblatex}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{algorithmicx}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
@@ -533,7 +534,7 @@
 
     \begin{algorithm}[H]
         \label{alg:adam_optimizer}
-        \caption{Algorytm Adam. Źródło: \cite{AdamOptimization2015}.}
+        \caption{Algorytm Adam. Źródło:\cite{AdamOptimization2015}.}
         \begin{algorithmic}
             \Require $\alpha$
             \Comment{współczynnik uczenia, który zazwyczaj inicjowany jest wartością $\alpha = 0.001$}
@@ -600,7 +601,7 @@
 
     \bigskip
 
-    Okazało się, że selekcja propocjonalna wyjątkowo dobrze nadaje się do analizy teoretycznej. Niestety bardzo szybko odkryto też jej główne mankamenty\cite{IntroductionToEvolutionaryComputing2015}:
+    Okazało się, że selekcja proporcjonalna wyjątkowo dobrze nadaje się do analizy teoretycznej. Niestety bardzo szybko odkryto też jej główne mankamenty\cite{IntroductionToEvolutionaryComputing2015}:
     \begin{itemize}
         \item Najlepsze osobniki bardzo szybko przejmują `kontrolę' nad populacją. To powoduje, że zostaje bardzo zawężony obszar poszukiwań najlepszego rozwiązania, a prawdopodobieństwo uzyskania dobrego wyniku jest nikłe. Problem uwidacznia się zwłaszcza we wczesnych generacjach, kiedy wiele losowo utworzonych osobników ma niską wartość metryki dopasowania (ang. \textit{fitness}). Fachowo określa się to terminem przedwczesnej konwergencji (zbiegnięcia) (ang. \textit{premature convergence}).
         \item Kiedy wartości metryki dopasowania są zbliżone do siebie zanika tak zwana `presja selekcyjna' (ang. \textit{selection pressure}). Rezultatem jest niemal losowa selekcja w kolejnych pokoleniach (generacjach) i bardzo powolna konwergencja (zbieganie) do optymalnego rozwiązania.
@@ -610,11 +611,11 @@
 
     Na szczęście opracowane zostały skuteczne techniki zaradcze. Najpopularniejsze to:
     \begin{itemize}
-        \item okienkowanie (ang. \textit{windowing})
+        \item `okienkowanie' (ang. \textit{windowing})
         \item skalowanie sigma (ang. \textit{sigma scaling})
     \end{itemize}
 
-    Okienkowanie (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
+    `Okienkowanie' (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
 
