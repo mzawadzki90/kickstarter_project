@@ -130,6 +130,10 @@
     % do poprawy i rozszerzenia!!!
     Krzyżówka jest operacją pozwalającą na rekombinacje materiału genetycznego dwóch lub więcej osobników (rodziców, ang. \textit{parents}) w celu powołania do życia potomstwa (ang. \textit{offsprings}), które odziedziczy unikalną kombinację ich cech\cite{GeneticAlgorithmEssentials2017}.
 
+    \bigskip
+
+    Główną motywacją operacji krzyżowania jest chęć uzyskania przynajmniej jednego potomka, który osiągnie lepszą wartość metryki dopasowania od swoich rodziców\cite{GeneticAlgorithmEssentials2017}.
+
     \subsection{Mutacje}
 
     \subsection{Wybór potomstwa}
@@ -639,9 +643,44 @@
         \caption{Obrazowy przykład działania krzyżowania z jednym punktem przecięcia.}
     \end{figure}
 
-    Główną motywacją operacji krzyżowania jest chęć uzyskania przynajmniej jednego potomka, który osiągnie lepszą wartość metryki dopasowania od swoich rodziców\cite{GeneticAlgorithmEssentials2017}.
+    \subsection{Mutacja pełzająca (ang. \textit{Creep Mutation}), niejednorodna (ang. \textit{nonuniform})}
 
-    \subsection{Mutacja \textit{Bit Flip Mutation} (pl. mutacja przez przerzucenie bitu)}
+    Mutacja pełzająca (ang. \textit{Creep Mutation}) jest często stosowanym rozwiązaniem dla allelów (parametrów) typu \textit{integer} (całkowitych) lub \textit{float} (zmienno-przecinkowych). Polega ona na translacji pierwotnej wartości allelu poprzez dodanie niewielkiej (dotatniej lub ujemnej) liczby losowej, tak by rezult mieścił się w granicach $x_{i}^{'} \in [L_{i}, U_{i}]$\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Transformaca wartości parametów osobnika w ramach mutacji: \\
+    \begin{equation}
+        \label{equ:mutation_transformation}
+        \langle x_{1},\dotsc,x_{n}> \rangle \to \langle x_{1}^{'},\dotsc,x_{n}^{'} \rangle \quad \text{gdzie } x_{i}, x_{i}^{'} \in [L_{i}, U_{i}]
+    \end{equation}
+
+    \smallskip
+
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
+        $L_{i}$ & dolna granica dla transformacji \\
+        $U_{i}$ & górna granica dla transformacji \\
+    \end{tabular}
+
+    \bigskip
+
+    Stosować można zarówno mutację jednorodną (ang. \textit{Uniform Mutation}) - opartą o liczby losowe wygenerowane wegług rozkładu jednorodnego, jak i mutację niejednorodną (ang. \textit{Nonuniform Mutation}) - opartą o rozkład Gaussa (rzadziej o rozkład Cauchego)\cite{IntroductionToEvolutionaryComputing2015}. W przypadku niniejszej pracy zdecydowano się na generowanie przesunięć ($\Delta x_{i}$) w oparciu o rozkład Gaussa, a następnie na ograniczanie wyliczonych nowych wartości parametów do z góry wyznaczonych granic ($L_{i}, U_{i}$). Do sterowania losowością przesunięć stosuje się odchylenie standardowe $\sigma$, tu określane jako `miara kroku mutacji' (ang. \textit{mutation step size}). Dla niniejszej pracy przyjęto, ze względu na przebieg funkcji gęstości prawdopodobieństwa dla rozkładu Gaussa, $\sigma = (U_{i} - L_{i}) / 6$.
+
+    Funkcja gęstości prawdopodobieństwa dla rokładu Gaussa: \\
+    \begin{equation}
+        \label{equ:mutation_probabily distribution}
+        p(\Delta x_{i}) = \frac{1}{\sigma \sqrt {2 \pi}} \cdot e \frac{(\Delta x_{i} - \xi)^{2}}{2 \sigma^{2}}
+    \end{equation}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:standard_deviation_diagram}
+        \centering
+        \includegraphics[width=\textwidth]{standard_deviation_diagram}
+        \caption{Wykres dla rozkładu Gaussa. Jednostka dla osi \textit{x} to odchylenie standardowe ($\sigma$). W odległości $1 \cdot \sigma$ od średniej znajduje się 68.27\% elementów; w odległości $2 \cdot \sigma$ - 95.45\% elementów; w odległości $3 \cdot \sigma$ - 99.73\% elementów. Autor: M.W. Toews (Wikipedia Community).}
+    \end{figure}
 
 
     \section{Rezultaty eksperymentów}
