@@ -121,6 +121,42 @@
 
     \subsection{Algorytm genetyczny a teoria ewolucji}
 
+    Algorytm genetyczny powstał głównie jako odpowiedź na wyzwania obliczeniowe, do których trudno było podejść korzystając z tradycyjych narzędzi matematycznych. Czerpie on garściami inspiracje z teorii ewolucji i ogólnej wiedzy o genetyce. Już w 1948 Alan Turing zaproponował koncepcję `ewolucyjnego poszukiwania' (ang. \textit{evolutionary search}). Od lat 60-tych XX wieku podobne prace prowadzony był już w wielu ośrodkach\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł że gatunki ewoluują, to jest dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje zmian w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na zmiany w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziaływuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie, albo że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:darwin_birds}
+        \centering
+        \includegraphics[width=\textwidth]{darwin_birds}
+        \caption{Darwin pracując na Galapagos prowadził między innymi badania nad różnicami w fenotypie zięb. Autor ilustracji: John Gould (`Voyage of the Beagle').}
+    \end{figure}
+
+    \bigskip
+
+    Za ojca genetyki uważany jest Gregor Johann Mendel - niemiecko-czeski zakonnik działający w drugiej połowie XIX wieku. To on, prowadząc eksperymenty z krzyżowaniem roślin, odkrył zjawisko cech dominujących i recesywnych (w dzisiajszym spojrzeniu allelów dominujących i regresywnych). Podstawową jednostką przechowującą informację genetyczną jest gen. Konkretna wartość genu to allel. Jeden gen może mieć wpływ na wiele cech fenotypowych, jak i jedna cecha fenotypowa może być zdefiniowana przez wielę genów. Zmiany w fenotypie są zawsze uzależnione od zmian genetycznych, które z kolei są wynikiem mutacji i rekombinacji (krzyżówki materiału genetycznego rodziców). Genom jest komletną informacją genetyczną osobnika. Genom jest przechowywany w zestawie chromosomów (materiał genetyczny człowieka jest zapisany w 46 chromosomach). Wyższe formy życia (w tym oczywiście ludzie) przechowują podwójną kopię informacji genetycznej w większości komórek - nazywanych diploidami. Gamety, czyli komórki rozrodcze, zawierają jedynie pojedynczy zestaw chromosomów. Połączenie gamety męskiej z żeńską prowadzi do powstania zygoty. Proces ten określa się terminem ontogenezy. Podczas ontogenezy materiał genetyczny nie jest zmieniamy, dlatego nie można przyrównywać tego procesu do krzyżówki znanej z algorytmu genetycznego. Podobny do krzyżówki, jest z koleji proces formowania się gamet - mejoza - szczególny rodzaj podziału komórkowego, który gwarantuje, że w wynikowym produkcie - gamecie - znajdzie się tylko jedna kopia każdego z chromosomów. Na jednym z etapów mejozy ma również miejsce rekombinacja, a mówiąc precyjniej - krzyżówka w losowym punkcie przecięcia. Każda z czterech gamet powstałych w wyniku mejozy ma inną informacje genetyczną od oryginalnego genomu męskiego i żęskiego, co potem przekłada się na różnice genetyczne u potomków\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:punnett_squre_mendel}
+        \centering
+        \includegraphics[width=7cm]{punnett_squre_mendel}
+        \caption{Szachownica Punnetta ilustruje dziedziczenie w przypadku dominacji zupełnej cechy jednogenowej. Autor: Madprime (Wikipedia Community).}
+    \end{figure}
+
+    \bigskip
+
+    Niezmiernie ważne jest, by uświadomić sobie, że wszyskie zmiany (to jest mutacje i rekombinacje) zachodzą na poziomie genetycznym, natomiast selekcja naturalna odbywa się w oparciu o fenotyp\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Komputerowe algorytmy genetyczne nie są odzworowaniem `jeden do jednego' procesów biologicznych, a jedynie się nimi inspirują. Terminologia używana w obu tych domenach jest często podobna, ale znaczenia poszczególnych terminów mogą być całkowicie odmienne. Zasadniczo, najważniejszym wspólnym mianowkiem jest koncepcja selekcji naturalnej, warunkująca dobieranie osobników do rekombinacji i wyznaczanie ocalałych (ang. \textit{survivors}).
+
     \subsection{Cykl życia populacji}
 
     \subsection{Wybór rodziców}
