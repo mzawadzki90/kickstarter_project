@@ -172,12 +172,16 @@
 
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}. Metoda wyznaczania własności subiektywnych jest własnością intelektualną firmy Spotify i nie jest dostępna publicznie.
 
+    \bigskip
+
     \begin{figure}[H]
         \label{fig:valence}
         \centering
         \includegraphics[width=\textwidth]{valence}
         \caption{Histogram dla cechy \textit{valence} (pl. ozdobnik).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:acousticness}
@@ -186,12 +190,16 @@
         \caption{Histogram dla cechy \textit{acousticness} (pl. akustyczność).}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:danceability}
         \centering
         \includegraphics[width=\textwidth]{danceability}
         \caption{Histogram dla cechy \textit{danceability} (pl. taneczność).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:duration_ms}
@@ -200,12 +208,16 @@
         \caption{Histogram dla cechy \textit{duration\_ms} (pl. czas trwania w milisekundach).}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:energy}
         \centering
         \includegraphics[width=\textwidth]{energy}
         \caption{Histogram dla cechy \textit{energy} (pl. energia/energetyczność).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:instrumentalness}
@@ -214,12 +226,16 @@
         \caption{Histogram dla cechy \textit{instrumentalness} (pl. instrumentalność).}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:liveness}
         \centering
         \includegraphics[width=\textwidth]{liveness}
         \caption{Histogram dla cechy \textit{liveness} (pl. żywość/żywiołowość).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:loudness}
@@ -228,12 +244,16 @@
         \caption{Histogram dla cechy \textit{loudness} (pl. głośność).}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:year}
         \centering
         \includegraphics[width=\textwidth]{year}
         \caption{Histogram dla cechy \textit{year} (pl. rok publikacji).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:speechiness}
@@ -242,12 +262,16 @@
         \caption{Histogram dla cechy \textit{speechiness} (pl. wypełnienie mową).}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:tempo}
         \centering
         \includegraphics[width=\textwidth]{tempo}
         \caption{Histogram dla cechy \textit{tempo} (pl. tempo).}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:mode}
@@ -256,12 +280,16 @@
         \caption{Wykres kołowy pokazujący procentowy rozkład dominant dla badanych utworów.}
     \end{figure}
 
+    \smallskip
+
     \begin{figure}[H]
         \label{fig:explicit}
         \centering
         \includegraphics[width=7cm,keepaspectratio]{explicit}
         \caption{Wykres kołowy pokazujący procentowy udział utworów zawierających treści przeznaczone dla odbiorców pełnoletnich.}
     \end{figure}
+
+    \smallskip
 
     \begin{figure}[H]
         \label{fig:key}
@@ -290,7 +318,7 @@
 
     \bigskip
 
-    Odchylenie standardowe dla rozkładu normalnego o średniej 0:
+    Odchylenie standardowe dla rozkładu normalnego o średniej 0: \\
     \begin{equation}
         \label{equ:std_dev_xavier}
         \sigma = \sqrt{\frac{2}{n_{input} + n_{output}}}
@@ -298,13 +326,13 @@
 
     \smallskip
 
-    Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$):
+    Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$): \\
     \begin{equation}
         \label{equ:radius_xavier}
         r = \sqrt{\frac{6}{n_{input} + n_{output}}}
     \end{equation}
 
-    \bigskip
+    \smallskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
         Gdzie: \\
@@ -318,14 +346,13 @@
 
     \bigskip
 
-    Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0:
-
+    Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0: \\
     \begin{equation}
         \label{equ:std_dev_he}
         \sigma = \sqrt{\frac{2}{n_{input}}}
     \end{equation}
 
-    \bigskip
+    \smallskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
         Gdzie: \\
@@ -342,7 +369,7 @@
 
     \bigskip
 
-    Wzór dla funkcji aktywacji ReLU:
+    Wzór dla funkcji aktywacji ReLU: \\
     \begin{equation}
         \label{equ:relu}
         ReLU(x) =
@@ -386,7 +413,7 @@
 
     \bigskip
 
-    Wzór dla funkcji aktywacji ELU:
+    Wzór dla funkcji aktywacji ELU: \\
     \begin{equation}
         \label{equ:elu}
         ELU_{\alpha}(x) =
@@ -396,12 +423,14 @@
         \end{cases}
     \end{equation}
 
-    \bigskip
+    \smallskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
         Gdzie: \\
         $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
     \end{tabular}
+
+    \bigskip
 
     \begin{figure}[H]
         \label{fig:elu}
@@ -454,7 +483,7 @@
         z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
     \end{equation}
 
-    \bigskip
+    \smallskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
         Gdzie: \\
@@ -508,7 +537,11 @@
         \item patrząc całościowo uzyskany w wyniku `porzucania' model jest lepszą generalizacją
     \end{itemize}
 
+    \smallskip
+
     Główną wadą jest spowolnienie procesu konwergencji modelu\cite{UczenieMaszynowe2018}.
+
+    \bigskip
 
     Bardzo ważny jest prawidłowy dobór `współczynnika porzucania' tak, żeby uniknąć zarówno niedotrenowania (zbyt duża wartość) jak i przetrenowania (zbyt mała wartość). Cenną wskazówką jest zastosowanie większej wartości współczynnika dla rozbudowanych warstw, a mniejszej dla niewielkich.
 
@@ -621,6 +654,8 @@
         \item skalowanie sigma (ang. \textit{sigma scaling})
     \end{itemize}
 
+    \bigskip
+
     `Okienkowanie' (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
@@ -666,6 +701,8 @@
     \bigskip
 
     Stosować można zarówno mutację jednorodną (ang. \textit{Uniform Mutation}) - opartą o liczby losowe wygenerowane wegług rozkładu jednorodnego, jak i mutację niejednorodną (ang. \textit{Nonuniform Mutation}) - opartą o rozkład Gaussa (rzadziej o rozkład Cauchego)\cite{IntroductionToEvolutionaryComputing2015}. W przypadku niniejszej pracy zdecydowano się na generowanie przesunięć ($\Delta x_{i}$) w oparciu o rozkład Gaussa, a następnie na ograniczanie wyliczonych nowych wartości parametów do z góry wyznaczonych granic ($L_{i}, U_{i}$). Do sterowania losowością przesunięć stosuje się odchylenie standardowe $\sigma$, tu określane jako `miara kroku mutacji' (ang. \textit{mutation step size}). Dla niniejszej pracy przyjęto, ze względu na przebieg funkcji gęstości prawdopodobieństwa dla rozkładu Gaussa, $\sigma = (U_{i} - L_{i}) / 6$.
+
+    \bigskip
 
     Funkcja gęstości prawdopodobieństwa dla rokładu Gaussa: \\
     \begin{equation}
