@@ -132,7 +132,7 @@
     \begin{figure}[H]
         \label{fig:darwin_birds}
         \centering
-        \includegraphics[width=\textwidth]{darwin_birds}
+        \includegraphics[width=10cm]{darwin_birds}
         \caption{Darwin pracując na Galapagos prowadził między innymi badania nad różnicami w fenotypie zięb. Autor ilustracji: John Gould (`Voyage of the Beagle').}
     \end{figure}
 
@@ -158,6 +158,53 @@
     Komputerowe algorytmy genetyczne nie są odzworowaniem `jeden do jednego' procesów biologicznych, a jedynie się nimi inspirują. Terminologia używana w obu tych domenach jest często podobna, ale znaczenia poszczególnych terminów mogą być całkowicie odmienne. Zasadniczo, najważniejszym wspólnym mianowkiem jest koncepcja selekcji naturalnej, warunkująca dobieranie osobników do rekombinacji i wyznaczanie ocalałych (ang. \textit{survivors}).
 
     \subsection{Cykl życia populacji}
+
+    Algorytm genetyczny jest z założenia generyczny - trzeba go traktować jako szablon, w którym w zależności od potrzeb można wymieniać komponenty składowe. Te kompomenty to:
+    \begin{itemize}
+        \item inicjacja populacji
+        \item ewaluacja osobników
+        \item selekcja rodziców
+        \item rekombinacja/krzyżowanie
+        \item mutacja
+        \item wybór ocalałych
+        \item warunek końcowy
+    \end{itemize}
+
+    \bigskip
+
+    Wspólnym mianownikiem wszystkich algorytmów genetycznych jest populacja osobników (potencjalnych rozwiązań) funkcjonująca w środowisku o ograniczonych zasobach (ograniczenia dla poszczególnych parametrów), gdzie rządzi prawo selekcji naturalnej - przeżywają osobniki najlepiej dopasowane (z najlepszą wartością metryki dopasowania)\cite{IntroductionToEvolutionaryComputing2015}. W przypadku prawidłowo działającego algorytmu obserwujemy ciągłą poprawę średniej wartości metryki dopasowania w ujęciu pokoleniowym. W głównej mierze do poprawy wyników przyczynia się mechanizm selekcji. Mutacja i rekombinacja (krzyżówka) wprowadzają z kolei element losowości, zapewniając lepsze pokrycie przestrzeni potencjalnych rozwiązań.
+
+    \bigskip
+
+    Poniżej przedstawiono pseudokod dla algorytmu genetycznego oraz diagram ilustrujący cykl życia populacji.
+
+    \smallskip
+
+    \begin{algorithm}[H]
+        \label{alg:genetic_algorithm_template}
+        \caption{Generyczny szablon dla algorytmu genetycznego. Źródło:\cite{IntroductionToEvolutionaryComputing2015}.}
+        \begin{algorithmic}
+            \State INICJACJA POPULACJI LOSOWYMI OSOBNIKAMI
+            \State EWALUACJA OSOBNIKÓW
+            \While{NIE SPEŁNIENIE WARUNKU KOŃCOWEGO}
+                \State WYBÓR RODZICÓW
+                \State KRZYŻOWANIE RODZICÓW
+                \State MUTACJA POTOMKÓW
+                \State EWALUACJA POTOMSTWA
+                \State WYBÓR OSOBNIKÓW DO NASTĘPNEGO POKOLENIA
+            \EndWhile
+            \State \Return NAJLEPSZY OSOBNIK
+        \end{algorithmic}
+    \end{algorithm}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:genetic_algoritm_diagram}
+        \centering
+        \includegraphics[width=\textwidth]{genetic_algoritm_diagram}
+        \caption{Cykl życia populacji w algorytmie genetycznym. Źródło:\cite{IntroductionToEvolutionaryComputing2015}}
+    \end{figure}
 
     \subsection{Wybór rodziców}
 
