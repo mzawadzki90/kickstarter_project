@@ -17,7 +17,7 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
         return RandomInitialization(self.population_size, self.genome).init_population()
 
     def select_parents(self, fitness: np.ndarray, worst_from_previous_generations: float) -> Sequence[Genome]:
-        return TournamentSelection().select_parents(self.population, fitness, self.worst_from_previous_generations)
+        return TournamentSelection().select_parents(self.population, fitness, worst_from_previous_generations)
 
     def crossover(self, parents: Sequence[Genome]) -> Sequence[Genome]:
         return OnePointCrossover().crossover(parents)
