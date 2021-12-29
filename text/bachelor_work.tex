@@ -208,6 +208,10 @@
         \caption{Cykl życia populacji w algorytmie genetycznym. Źródło:\cite{IntroductionToEvolutionaryComputing2015}}
     \end{figure}
 
+    \subsection{Inicjacja populacji}
+
+    \subsection{Ewaluacja osobników}
+
     \subsection{Wybór rodziców}
 
     Selekcja rodziców (ang. \textit{parents}) ma na celu dobór najodpowiedniejszych osobników do rekombinacji (krzyżówki). Tak samo jak wybór ocalałych (ang. \textit{survivors}) wymusza ogólną poprawę jakości populacji. W algorytmach genetycznych selekcja rodziców oparta jest najczęściej na prawdopodobieństwie, gdzie osobniki z wysoką wartością metryki dopasowania mają największe szanse na wybór. Niemniej, osobniki gorsze również mają niewielkie szanse na bycie wyznaczonym. Powodem jest chęć zmiejszenia `zachłanności' algorytmu (ang. \textit{greedy algorithm}) i tym samym minimalizacja ryzyka wpadnięcia w optimum lokalne\cite{IntroductionToEvolutionaryComputing2015}.
@@ -227,6 +231,8 @@
     \subsection{Wybór potomstwa}
 
     Wybór potomstwa lub wyrażając się bardziej precyzyjnie wybór osobników do następnego pokolenia, w przeciwieństwie do wyboru rodziców jest operacją w pełni deterninistyczną. Najczęściej przy wyborze brane pod uwagę są dwa kryteria: wartość metryki dopasowania lub wiek osobnika. W pierwszym przypadku z populacji usuwa się najgorsze osobniki, w drugim te, które są w populacji najdłużej, a w przypadkach spornych można odwołać się do wartości metryki dopasowania. W zależności od `dynamiki' algorytmu, rozumianej jako stosunku generowanych potomków do wielkośći populacji operacja może mieć bardziej charakter wymiany - stabilna populacja, mała ilość potomstwa w pokoleniu, lub mocnej selekcji - bardzo duża liczba potomstwa i konieczność ograniczenia się do wyboru jedynie najlepszych nowych osobników\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Warunek końcowy}
 
 
     \section{Opis zbioru danych}
