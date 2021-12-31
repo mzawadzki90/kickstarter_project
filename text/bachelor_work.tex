@@ -240,6 +240,37 @@
 
     \subsection{Warunek końcowy}
 
+    \begin{minipage}{\textwidth}
+        Warunek końcowy, kończy cykl życia populacji i tym samym cały algorytm. Wyróżnia się dwa główne przypadki\cite{IntroductionToEvolutionaryComputing2015}:
+        \begin{itemize}
+            \item znany jest optymalny poziom dopasowania
+            \item docelowy poziom dopasowania oparty jest na założeniach
+        \end{itemize}
+    \end{minipage}
+
+    \bigskip
+
+    W pierwszym przypadku, dla warunków idealnych, zakończenie działania algorytmu następuje w chwili osiągnięcia optimum globalnego. W praktyce, trzeba wziąć pod uwagę uproszczenia wprowadzone do modelu, `szumy' w danych i inne czynniki wpływające na ostateczny wynik. Z tego też powodu, wyznacza się arbitralnie niewielką wartość $\epsilon > 0$, która określa precyzję algorytmu\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \begin{minipage}{\textwidth}
+        Niestety algorytm genetyczny jest z natury stochastyczny (ogromną rolę odgrywa czynnik losowy) i nie ma żadnej gwarancji osiągnięcia (czy choćby zbliżenia się na akceptowalną odległość) do optimum globalnego. Z tego też powodu konieczne jest wprowadzenie dodatkowego warunku. Najczęściej stosowane ograniczenia to\cite{IntroductionToEvolutionaryComputing2015}:
+        \begin{itemize}
+            \item odgórnie przyjęty limit liczby pokoleń
+            \item stagnacja w poprawie wyniku w czasie cyklu życia kilku pokoleń
+            \item różnice w wynikach poszczególnych osobników w populacji (mierzone na przykład odchyleniem standardowym) spadną poniżej określonego progu
+        \end{itemize}
+    \end{minipage}
+
+    \bigskip
+
+    W przypadku kiedy optimum globalne nie jest znane do zakończenia wystarczający jest jeden z warunków z powyższej listy\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Poważnym zagrożeniem w przypadku algorytmów genetycznych jest zbieganie i `utknięcie' w optimum lokalnym. Zwłaszcza w sytuacji kiedy optimum globalne nie jest znane, warto rozważyć dodanie do implementacji stategi restartu algorytmu\cite{GeneticAlgorithmEssentials2017}.
+
 
     \section{Opis zbioru danych}
 
