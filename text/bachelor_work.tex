@@ -212,6 +212,8 @@
 
     \subsection{Inicjacja populacji}
 
+    W większości implementacji inicjacja poplucji odbywa się w możliwie prosty sposób: tworzy się osobniki o w pełni losowych wartościach parametrów, gdzie jedynym ograniczeniem są wyznaczone arbitralnie (w oparciu o doświadczenie i literaturę przedmiotu) minimalne i maksymalne wartość dla każdego z parametrów. W specyficznych przypadkach stosuje się heurystyki w celu umieszczenia w zerowym pokoleniu rozwiązań lepszych od losowych. Trzeba mieć jednak w pamięci, że wiąże się to z dodatkowym kosztem obliczeniowym i nie zawsze przyczynia się do poprawy finalnych wyników\cite{IntroductionToEvolutionaryComputing2015}.
+
     \subsection{Ewaluacja osobników}
 
     Funkcja ewaluacyjna (funkcja dopasowania) reprezentuje wymagania, do których powinna się adaptować populacja. Jest bazą dla mechanizmu selekcji i tym samym przyczynia się do ogólnej poprawy wyników osobników. Mówiąc precyzyjniej - definiuje ona co oznaczna poprawa w kontekście poszukiwanego rozwiązania dla zadanego problemu. Jej wartość jest metryką dopasowania osobnika\cite{IntroductionToEvolutionaryComputing2015}. Dobrymi funkcjami ewaluacyjnymi w przypadku sieci neuronowych są: RMSE (ang. \textit{root mean square error}), MSE (ang. \textit{mean square error}) lub MAE (ang. \textit{mean absolute error}) wyliczane dla zbioru walidacyjnego. Ze względu na to, że w ortodoksyjnym podejściu dąży się do maksymalizacji funkcji dopasowania, często tam gdzie jest to konieczne stosuje się odwrotność oryginalnej wartości funkcji\cite{IntroductionToEvolutionaryComputing2015}.
