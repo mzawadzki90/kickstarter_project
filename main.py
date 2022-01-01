@@ -40,5 +40,7 @@ def rank(params: LabeledSequence[Gene]):
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
 algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=1000,
-                                      best_last_generations_size=5)
+                                      best_last_generations_size=5,
+                                      stats_file_dir_str='C:\\Users\\micha\\Praca inżynierska PJATK\\kickstarter\\genetic_algorithm\\out\\stats',
+                                      stats_file_dir_full=True)
 algorithm_impl.calculate()

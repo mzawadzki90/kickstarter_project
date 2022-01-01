@@ -37,14 +37,16 @@ class GeneticAlgorithm:
     population: MutableSequence[Genome]
     stats_header: list = ['Generation number', 'Best', 'Worst', 'Mean', 'Average', 'Standard deviation']
     stats_file_dir_str: str
+    stats_file_dir_full: bool
     stats_file_name: str = 'genetic_algorithm_stats.csv'
     stats_file: TextIO
 
     def __init__(self, genome: Genome, population_size: int = 10, generation_count: int = 100,
                  best_last_generations_size: int = 5, worst_last_generations_size: int = 5,
-                 stats_file_dir_str: str = 'genetic_algorithm\\out\\stats'):
+                 stats_file_dir_str: str = 'genetic_algorithm\\out\\stats', stats_file_dir_full=False):
         self.genome = genome
         self.stats_file_dir_str = stats_file_dir_str
+        self.stats_file_dir_full = stats_file_dir_full
         self.population_size = population_size
         self.generation_count = generation_count
         self.best_last_generations_size = best_last_generations_size
@@ -87,10 +89,15 @@ class GeneticAlgorithm:
         pass
 
     def __get_reference_or_create_file(self) -> TextIO:
-        current_dir = os.getcwd()
-        dir_path = Path(os.path.join(current_dir, self.stats_file_dir_str))
-        dir_path.mkdir(parents=True, exist_ok=True)
-        file_path_str = os.path.join(current_dir, self.stats_file_dir_str, self.stats_file_name)
+        if self.stats_file_dir_full:
+            dir_path = Path(self.stats_file_dir_str)
+            dir_path.mkdir(parents=True, exist_ok=True)
+            file_path_str = os.path.join(self.stats_file_dir_str, self.stats_file_name)
+        else:
+            current_dir = os.getcwd()
+            dir_path = Path(os.path.join(current_dir, self.stats_file_dir_str))
+            dir_path.mkdir(parents=True, exist_ok=True)
+            file_path_str = os.path.join(current_dir, self.stats_file_dir_str, self.stats_file_name)
         file_path = Path(file_path_str)
         file_path.touch(exist_ok=True)
         return open(file=file_path_str, mode='w')
