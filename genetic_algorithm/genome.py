@@ -46,10 +46,9 @@ class Genome:
         return self.fitness
 
     def __str__(self) -> str:
-        string_representation = ''
-        string_representation += 'Genome{genes:'
+        string_representation = 'Genome{fitness:' + str(self.fitness) + ',genes:['
         for gene in self.genes:
             string_representation += gene.__str__()
             string_representation += ','
-        string_representation += '}'
+        string_representation += ']}'
         return string_representation
