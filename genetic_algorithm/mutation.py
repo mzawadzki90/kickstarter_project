@@ -92,7 +92,7 @@ class NonuniformMutation(Mutation):
     def mutate_float_gene(self, gene: FloatGene) -> FloatGene:
         mutate_gene = copy.deepcopy(gene)
         max_val, min_val = max_min_delta(mutate_gene)
-        mutate_delta = MathUtil.normal_int_delta(min_val=min_val, max_val=max_val)
+        mutate_delta = MathUtil.normal_float_delta(min_val=min_val, max_val=max_val)
         mutate_value = mutate_gene.value + mutate_delta
         mutate_value = crop_to_boundaries(mutate_gene, mutate_value)
         mutate_gene.value = mutate_value

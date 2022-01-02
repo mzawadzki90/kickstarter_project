@@ -13,6 +13,7 @@ def get_probability_arr(fitness: np.ndarray, worst_from_previous_generations: fl
         return np.array([1])
     if fitness_copy.std() < 0.001:
         return np.ones(fitness_rows) / fitness_rows
+    fitness_copy[fitness_copy == 0.] = 10 ** -8
     fitness_copy = np.power(fitness_copy, -1)
     worst_from_previous_generations = np.power(worst_from_previous_generations, -1)
     fitness_sum = np.sum(np.abs(fitness_copy - worst_from_previous_generations))
