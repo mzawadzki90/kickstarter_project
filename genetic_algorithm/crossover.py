@@ -1,7 +1,7 @@
 import copy
 from typing import Sequence
 
-from genetic_algorithm.genome import Genome, LabeledSequence
+from genetic_algorithm.genome import Genome
 from utils.math import MathUtil
 
 
@@ -22,14 +22,10 @@ class OnePointCrossover(Crossover):
         genes2 = crossover2.genes
         size = len(genes1)
         crossover_point = select_crossover_point(size)
-        crossover1.genes = LabeledSequence()
-        for x in range(0, crossover_point):
-            crossover1.genes.append(genes1[x])
-        for x in range(crossover_point, size):
-            crossover1.genes.append(genes2[x])
-        crossover2.genes = LabeledSequence()
-        for x in range(0, crossover_point):
-            crossover2.genes.append(genes2[x])
-        for x in range(crossover_point, size):
-            crossover2.genes.append(genes1[x])
+        genes1_1 = genes1.select_range(0, crossover_point)
+        genes1_2 = genes1.select_range(crossover_point, size)
+        genes2_1 = genes2.select_range(0, crossover_point)
+        genes2_2 = genes2.select_range(crossover_point, size)
+        crossover1.genes = genes1_1 + genes2_2
+        crossover2.genes = genes2_1 + genes1_2
         return [crossover1, crossover2]

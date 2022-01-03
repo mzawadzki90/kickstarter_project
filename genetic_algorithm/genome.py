@@ -7,8 +7,13 @@ T = TypeVar('T')
 
 class LabeledSequence(MutableSequence[Gene], Generic[T]):
 
-    def __init__(self):
-        self.data = []
+    def __init__(self, data=None):
+        if data is None:
+            data = []
+        self.data = data
+
+    def __add__(self, other):
+        return LabeledSequence(self.data + other.data)
 
     def insert(self, index: int, value: T) -> None:
         self.data.insert(index, value)
@@ -27,6 +32,9 @@ class LabeledSequence(MutableSequence[Gene], Generic[T]):
 
     def __len__(self) -> int:
         return len(self.data)
+
+    def select_range(self, start: int, stop: int):
+        return LabeledSequence(self.data[start:stop])
 
     def get_by_label(self, label):
         return next((x for x in self if x.label == label), None)
