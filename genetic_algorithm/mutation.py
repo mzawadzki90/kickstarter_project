@@ -1,6 +1,8 @@
 import copy
 from typing import Union, Sequence
 
+import numpy as np
+
 from genetic_algorithm.gene import Gene, IntegerGene, FloatGene
 from genetic_algorithm.genome import Genome
 from utils.math import MathUtil
@@ -24,6 +26,12 @@ def max_min_delta(mutate_gene: Gene) -> Sequence[numeric]:
     return max_val, min_val
 
 
+def select_mutation_points(start_point: int, stop_point: int, amount: int) -> [int]:
+    points = np.random.choice(a=range(start_point, stop_point), replace=False, size=amount).tolist()
+    points.sort()
+    return points
+
+
 class Mutation:
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         mutates = []
@@ -33,10 +41,12 @@ class Mutation:
 
     def get_mutate(self, crossover: Genome) -> Genome:
         mutate = copy.deepcopy(crossover)
-        mutation_position_1 = MathUtil.random_int_from_range(min_val=0, max_val=len(crossover.genes) - 1)
-        mutate.genes[mutation_position_1] = self.__get_mutate_gene(crossover.genes[mutation_position_1])
-        mutation_position_2 = MathUtil.random_int_from_range(min_val=0, max_val=len(crossover.genes) - 1)
-        mutate.genes[mutation_position_2] = self.__get_mutate_gene(crossover.genes[mutation_position_2])
+        genome_size = len(crossover.genes)
+        mutation_positions = select_mutation_points(start_point=0,
+                                                    stop_point=genome_size,
+                                                    amount=int(genome_size / 3))
+        for position in mutation_positions:
+            mutate.genes[position] = self.__get_mutate_gene(crossover.genes[position])
         # recalculate fitness for mutate
         mutate.rank()
         return mutate
@@ -59,7 +69,8 @@ class FlipBitMutation(Mutation):
     def mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.integer_to_bitfield(mutate_gene.value)
-        flip_position = MathUtil.random_int_from_range(min_val=int(bitfield.size * (1 / 10)), max_val=bitfield.size - 1)
+        bitfield_size = bitfield.size
+        flip_position = MathUtil.random_int_from_range(min_val=int(bitfield_size * (1 / 10)), max_val=bitfield_size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield=bitfield, pos=flip_position)
         mutate_value = MathUtil.bitfield_to_integer(mutate_bitfield)
         mutate_value = crop_to_boundaries(mutate_gene, mutate_value)
@@ -69,11 +80,10 @@ class FlipBitMutation(Mutation):
     def mutate_float_gene(self, gene: FloatGene) -> FloatGene:
         mutate_gene = copy.deepcopy(gene)
         bitfield = MathUtil.float_to_bitfield(mutate_gene.value)
-        flip_position_1 = MathUtil.random_int_from_range(min_val=int(bitfield.size * (1 / 10)),
-                                                         max_val=bitfield.size - 1)
+        bitfield_size = bitfield.size
+        flip_position_1, flip_position_2 = select_mutation_points(start_point=int(bitfield_size * (1 / 10)),
+                                                                  stop_point=bitfield_size - 1, amount=2)
         mutate_bitfield = MathUtil.flip_bit(bitfield=bitfield, pos=flip_position_1)
-        flip_position_2 = MathUtil.random_int_from_range(min_val=int(bitfield.size * (1 / 10)),
-                                                         max_val=bitfield.size - 1)
         mutate_bitfield = MathUtil.flip_bit(bitfield=mutate_bitfield, pos=flip_position_2)
         mutate_value = MathUtil.bitfield_to_float(mutate_bitfield)
         mutate_value = crop_to_boundaries(mutate_gene, mutate_value)
