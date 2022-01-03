@@ -26,9 +26,10 @@ def max_min_delta(mutate_gene: Gene) -> Sequence[numeric]:
 
 class Mutation:
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
-        mutate1 = self.get_mutate(crossovers[0])
-        mutate2 = self.get_mutate(crossovers[1])
-        return [mutate1, mutate2]
+        mutates = []
+        for crossover in crossovers:
+            mutates.append(self.get_mutate(crossover))
+        return mutates
 
     def get_mutate(self, crossover: Genome) -> Genome:
         mutate = copy.deepcopy(crossover)

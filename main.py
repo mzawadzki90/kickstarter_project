@@ -9,7 +9,7 @@ from genetic_algorithm.genome import Genome, LabeledSequence
 from genetic_algorithm.initialization import RandomInitialization
 from genetic_algorithm.mutation import NonuniformMutation
 from genetic_algorithm.parent_selection import TournamentSelection
-from genetic_algorithm.survivor_selection import NoSelection
+from genetic_algorithm.survivor_selection import SelectBest
 
 
 class GeneticAlgorithmImpl(GeneticAlgorithm):
@@ -27,7 +27,7 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
         return NonuniformMutation().mutate(crossovers)
 
     def select_survivor(self, mutates: Sequence[Genome]) -> Sequence[Genome]:
-        return NoSelection().select_survivor(mutates)
+        return SelectBest().select_survivor(mutates)
 
 
 labeled_sequence = LabeledSequence()
