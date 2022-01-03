@@ -15,15 +15,6 @@ def calculate_population_fitness(population: MutableSequence[Genome]) -> np.ndar
     return np.array([genome.rank() for genome in population])
 
 
-def select_survivor(mutates: Sequence[Genome]) -> Genome:
-    mutate1 = mutates[0]
-    mutate2 = mutates[1]
-    if mutate1.rank() <= mutate2.rank():
-        return mutate1
-    else:
-        return mutate2
-
-
 class GeneticAlgorithm:
     genome: Genome
     population_size: int
@@ -68,8 +59,8 @@ class GeneticAlgorithm:
             parents = self.select_parents(self.population_fitness, self.worst_from_previous_generations)
             crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
-            offspring = select_survivor(mutates)
-            self.__replace_worst_element(offspring, generation_counter)
+            offsprings = self.select_survivor(mutates)
+            self.__replace_worst_elements(offsprings, generation_counter)
             self.__save_best_for_generation()
             self.__save_worst_for_generation()
             generation_counter += 1
@@ -86,6 +77,9 @@ class GeneticAlgorithm:
         pass
 
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
+        pass
+
+    def select_survivor(self, mutates: Sequence[Genome]) -> Sequence[Genome]:
         pass
 
     def __get_reference_or_create_file(self) -> TextIO:
@@ -132,10 +126,12 @@ class GeneticAlgorithm:
     def __post_condition(self, generation_counter: int) -> bool:
         return generation_counter > self.generation_count
 
-    def __replace_worst_element(self, offspring: Genome, counter: int):
-        worst_index = self.population_fitness.argmax()
-        self.population[worst_index] = offspring
-        self.population_fitness[worst_index] = offspring.fitness
+    def __replace_worst_elements(self, offsprings: Sequence[Genome], counter: int):
+        worst_indices_size = len(offsprings)
+        worst_indices = np.argpartition(self.population_fitness, -worst_indices_size)[-worst_indices_size:]
+        for i in range(0, worst_indices_size):
+            self.population[worst_indices[i]] = offsprings[i]
+            self.population_fitness[worst_indices[i]] = offsprings[i].fitness
         print("Generation: ", counter, "; Current population: ")
         for genome in self.population:
             print(genome)

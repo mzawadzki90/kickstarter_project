@@ -9,6 +9,7 @@ from genetic_algorithm.genome import Genome, LabeledSequence
 from genetic_algorithm.initialization import RandomInitialization
 from genetic_algorithm.mutation import NonuniformMutation
 from genetic_algorithm.parent_selection import TournamentSelection
+from genetic_algorithm.survivor_selection import NoSelection
 
 
 class GeneticAlgorithmImpl(GeneticAlgorithm):
@@ -25,6 +26,9 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
         return NonuniformMutation().mutate(crossovers)
 
+    def select_survivor(self, mutates: Sequence[Genome]) -> Sequence[Genome]:
+        return NoSelection().select_survivor(mutates)
+
 
 labeled_sequence = LabeledSequence()
 labeled_sequence.append(FloatGene(label='A', minimum=0.1, maximum=50.0))
@@ -39,6 +43,6 @@ def rank(params: LabeledSequence[Gene]):
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)
-algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=100,
+algorithm_impl = GeneticAlgorithmImpl(genome=genome, population_size=5, generation_count=1000,
                                       best_last_generations_size=5)
 algorithm_impl.calculate()

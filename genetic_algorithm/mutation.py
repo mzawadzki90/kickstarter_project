@@ -36,6 +36,8 @@ class Mutation:
         mutate.genes[mutation_position_1] = self.__get_mutate_gene(crossover.genes[mutation_position_1])
         mutation_position_2 = MathUtil.random_int_from_range(min_val=0, max_val=len(crossover.genes) - 1)
         mutate.genes[mutation_position_2] = self.__get_mutate_gene(crossover.genes[mutation_position_2])
+        # recalculate fitness for mutate
+        mutate.rank()
         return mutate
 
     def __get_mutate_gene(self, gene: Gene) -> Gene:
