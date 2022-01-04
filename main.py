@@ -15,10 +15,11 @@ from genetic_algorithm.survivor_selection import NoSelection
 class GeneticAlgorithmImpl(GeneticAlgorithm):
 
     def init_population(self) -> MutableSequence[Genome]:
-        return RandomInitialization(self.population_size, self.genome).init_population()
+        return RandomInitialization(population_size=self.population_size, initial_genome=self.genome).init_population()
 
     def select_parents(self, fitness: np.ndarray, worst_from_previous_generations: float) -> Sequence[Genome]:
-        return TournamentSelection().select_parents(self.population, fitness, worst_from_previous_generations)
+        return TournamentSelection().select_parents(population=self.population, fitness=fitness,
+                                                    worst_from_previous_generations=worst_from_previous_generations)
 
     def crossover(self, parents: Sequence[Genome]) -> Sequence[Genome]:
         return TwoPointsCrossover().crossover(parents)
@@ -40,8 +41,8 @@ labeled_sequence.append(IntegerGene(label='F', minimum=2, maximum=50))
 
 
 def rank(params: LabeledSequence[Gene]):
-    return abs(params.get_by_label('A').value + params.get_by_label('B').value + params.get_by_label(
-        'C').value + params.get_by_label('D').value + params.get_by_label('E').value + params.get_by_label('F').value)
+    return 1 / (abs(params.get_by_label('A').value + params.get_by_label('B').value + params.get_by_label(
+        'C').value + params.get_by_label('D').value + params.get_by_label('E').value + params.get_by_label('F').value))
 
 
 genome = Genome(genes=labeled_sequence, rank_funk=rank)

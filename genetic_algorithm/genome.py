@@ -33,8 +33,8 @@ class LabeledSequence(MutableSequence[Gene], Generic[T]):
     def __len__(self) -> int:
         return len(self.data)
 
-    def select_range(self, start: int, stop: int):
-        return LabeledSequence(self.data[start:stop])
+    def select_range(self, start_inclusive: int, stop_exclusive: int):
+        return LabeledSequence(self.data[start_inclusive:stop_exclusive])
 
     def get_by_label(self, label):
         return next((x for x in self if x.label == label), None)

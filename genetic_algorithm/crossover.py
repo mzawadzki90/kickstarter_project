@@ -27,10 +27,10 @@ class OnePointCrossover(Crossover):
         genes2 = parents[1].genes
         genome_size = len(genes1)
         crossover_point = select_crossover_point(genome_size)
-        genes1_1 = genes1.select_range(0, crossover_point)
-        genes1_2 = genes1.select_range(crossover_point, genome_size)
-        genes2_1 = genes2.select_range(0, crossover_point)
-        genes2_2 = genes2.select_range(crossover_point, genome_size)
+        genes1_1 = genes1.select_range(start_inclusive=0, stop_exclusive=crossover_point)
+        genes1_2 = genes1.select_range(start_inclusive=crossover_point, stop_exclusive=genome_size)
+        genes2_1 = genes2.select_range(start_inclusive=0, stop_exclusive=crossover_point)
+        genes2_2 = genes2.select_range(start_inclusive=crossover_point, stop_exclusive=genome_size)
         rank_func = parents[0].rank_func
         crossover1 = Genome(genes=genes1_1 + genes2_2, rank_funk=rank_func)
         crossover2 = Genome(genes=genes2_1 + genes1_2, rank_funk=rank_func)
@@ -43,12 +43,12 @@ class TwoPointsCrossover(Crossover):
         genes2 = parents[1].genes
         genome_size = len(genes1)
         crossover_point1, crossover_point2 = select_two_crossover_points(genome_size)
-        genes1_1 = genes1.select_range(0, crossover_point1)
-        genes1_2 = genes1.select_range(crossover_point1, crossover_point2)
-        genes1_3 = genes1.select_range(crossover_point2, genome_size)
-        genes2_1 = genes2.select_range(0, crossover_point1)
-        genes2_2 = genes2.select_range(crossover_point1, crossover_point2)
-        genes2_3 = genes2.select_range(crossover_point2, genome_size)
+        genes1_1 = genes1.select_range(start_inclusive=0, stop_exclusive=crossover_point1)
+        genes1_2 = genes1.select_range(start_inclusive=crossover_point1, stop_exclusive=crossover_point2)
+        genes1_3 = genes1.select_range(start_inclusive=crossover_point2, stop_exclusive=genome_size)
+        genes2_1 = genes2.select_range(start_inclusive=0, stop_exclusive=crossover_point1)
+        genes2_2 = genes2.select_range(start_inclusive=crossover_point1, stop_exclusive=crossover_point2)
+        genes2_3 = genes2.select_range(start_inclusive=crossover_point2, stop_exclusive=genome_size)
         rank_func = parents[0].rank_func
         crossover1 = Genome(genes=genes2_1 + genes1_2 + genes2_3, rank_funk=rank_func)
         crossover2 = Genome(genes=genes1_1 + genes2_2 + genes1_3, rank_funk=rank_func)

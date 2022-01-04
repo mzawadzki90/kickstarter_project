@@ -1,6 +1,8 @@
-from typing import TypeVar, Generic
+from typing import TypeVar, Generic, Union, Sequence
 
 T = TypeVar('T', int, float)
+
+numeric = Union[int, float]
 
 
 class Gene(Generic[T]):
@@ -19,6 +21,19 @@ class Gene(Generic[T]):
         return 'Gene{lab:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
             self.maximum) + ',val:' \
                + str(self.value) + '}'
+
+    def max_min_delta(self) -> Sequence[numeric]:
+        max_val = abs((self.maximum - self.minimum) / 2)
+        min_val = -max_val
+        return max_val, min_val
+
+    def crop_to_boundaries(self) -> None:
+        maximum = self.maximum
+        if self.value > maximum:
+            self.value = maximum
+        minimum = self.minimum
+        if self.value < minimum:
+            self.value = minimum
 
 
 class IntegerGene(Gene[int]):
