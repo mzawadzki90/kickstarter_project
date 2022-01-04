@@ -7,7 +7,7 @@ from genetic_algorithm.gene import Gene, FloatGene, IntegerGene
 from genetic_algorithm.genetic_algorithm import GeneticAlgorithm
 from genetic_algorithm.genome import Genome, LabeledSequence
 from genetic_algorithm.initialization import RandomInitialization
-from genetic_algorithm.mutation import NonuniformMutation
+from genetic_algorithm.mutation import CreepNonuniformMutation
 from genetic_algorithm.parent_selection import TournamentSelection
 from genetic_algorithm.survivor_selection import NoSelection
 
@@ -24,7 +24,7 @@ class GeneticAlgorithmImpl(GeneticAlgorithm):
         return TwoPointsCrossover().crossover(parents)
 
     def mutate(self, crossovers: Sequence[Genome]) -> Sequence[Genome]:
-        return NonuniformMutation().mutate(crossovers)
+        return CreepNonuniformMutation().mutate(crossovers)
 
     def select_survivor(self, mutates: Sequence[Genome]) -> Sequence[Genome]:
         return NoSelection().select_survivor(mutates)

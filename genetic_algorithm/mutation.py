@@ -91,7 +91,7 @@ class FlipBitMutation(Mutation):
         return mutate_gene
 
 
-class NonuniformMutation(Mutation):
+class CreepNonuniformMutation(Mutation):
 
     def mutate_integer_gene(self, gene: IntegerGene) -> IntegerGene:
         mutate_gene = copy.deepcopy(gene)
