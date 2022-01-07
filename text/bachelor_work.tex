@@ -68,9 +68,7 @@
         \item \textit{smak/gust} - Umiejętność dostrzegania i oceny poszczególnych elementów składowych utworu, także znajomość i zrozumienie przesłania utworu.
         \item \textit{preferencje} - Przywiązanie do konkretnych utworów lub twórców muzycznych.
     \end{itemize}
-
     \smallskip
-
     Czynniki te często kształtują się równolegle i przenikają znaczeniowo, dlatego też dla uproszczenia w dalszej części posłużono się szeroko rozumianym pojęciem preferencji muzycznych.
 
     \bigskip
@@ -118,7 +116,7 @@
 
     \bigskip
 
-    Na grafice \ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
+    Na grafice\ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -131,7 +129,7 @@
 
     \bigskip
 
-    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na grafice \ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
+    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na grafice\ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -144,11 +142,11 @@
 
     \bigskip
 
-    Koncepcja sztucznych sieci neuronowych po raz pierwszy została zaprezentowana już w 1943 roku przez neurofizjologa Warren McCulloch i matematyka Walter Pitts\cite{BeginningsOfANN1943}. Był to uproszczony model działania sieci neuronów w mózgach zwierzęcych do przeprowadzania obliczeń przy użyciu rachunku zdań (ang. \textit{propositional logic})\cite{UczenieMaszynowe2018}.
+    Koncepcja sztucznych sieci neuronowych po raz pierwszy została zaprezentowana już w 1943 roku przez neurofizjologa Warrena McCullocha i matematyka Waltera Pittsa\cite{BeginningsOfANN1943}. Był to uproszczony model działania sieci neuronów w mózgach zwierzęcych do przeprowadzania obliczeń przy użyciu rachunku zdań (ang. \textit{propositional logic})\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
-    Model neuronu zaproponowany przez McCulloch i Pitts, znany jako sztuczny neuron (ang. \textit{artificial neuiron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na grafice \ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykoszystaniem sztucznych neuronów.
+    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na grafice\ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
 
     \bigskip
 
@@ -161,6 +159,67 @@
 
     \subsection{Perceptron}
 
+    Perceptron był jedną z pierwszych implementacji sztucznej sieci neuronowej. Został zaprezentowany w 1957 roku przez Franka Rosenblatta. Składa się z warstwy wejściowej i wyjściowej. Warstwa wejściowa zbudowana jest z tzw. neuronów przechodnich - propagujących dalej dostarczone do nich sygnały wejściowe, oraz z neuronu obciążeniowego - emitującego sygnał o wartości 1. Warstwa wyjściowa zbudowania jest z jednostek LTU. Każdy neuron warstwy wejściowej połączony jest ze wszystkimi neuronami wyjściowymi. Percepron jest klasyfikatorem, pozwalającym na przypisywanie próbek do klas binarnych (liczba klas jest równa liczbie jednostek LTU w warstwie wyjściowej)\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:perceptron}
+        \centering
+        \includegraphics[width=\textwidth]{perceptron}
+        \caption{Diagram perceptronu z dwoma wejściami, obciążeniem i trzema wyjściami. Pozwala na klasyfikację danych do trzech klas binarnych. Źródło:\cite{UczenieMaszynowe2018}}
+    \end{figure}
+
+    \bigskip
+
+    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na grafice\ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia($z=w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęśćiej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:ltu}
+        \centering
+        \includegraphics[width=\textwidth]{ltu}
+        \caption{Jednostka liniowa z progiem. Źródło:\cite{UczenieMaszynowe2018}}
+    \end{figure}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Najpopularniejsze funkcje skokowe wykorzystywane w perceptronach: \\
+        \bigskip
+        \setlength\parindent{17pt} Funkcja Heaviside'a: \\
+        \begin{equation}
+            \label{equ:heaviside}
+            heaviside(x) =
+            \begin{cases}
+                0 & \quad \text{jeśli } x < 0 \\
+                1 & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Funkcja signum: \\
+        \begin{equation}
+            \label{equ:signum}
+            sgn(x) =
+            \begin{cases}
+                -1 & \quad \text{jeśli } x < 0 \\
+                0 & \quad \text{jeśli } x = 0 \\
+                1 & \quad \text{jeśli } x > 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    Marvin Minsky i Seymour Papert w pracy ``Perceptrons'' z 1969 roku wskazali wiele poważnych wad perceptronu, takich jak np. brak możliwości rozwiązywania prostych problemów logicznych (alternatywa rozłączna - XOR). Rezultatem było spowolnienie dalszych prac nad sztucznymi sieciami neuronowymi. W przyszłości okaże się, że wspomniane ograniczenia można pokonać stosująć modyfikację - perceptron wielowarstwowy\cite{UczenieMaszynowe2018}.
+
     \subsection{Uczenie wielowarstwowych sieci przy użyciu propagacji wstecznej}
 
 
@@ -168,11 +227,11 @@
 
     \subsection{Algorytm genetyczny a teoria ewolucji}
 
-    Algorytm genetyczny powstał głównie jako odpowiedź na wyzwania obliczeniowe, do których trudno było podejść korzystając z tradycyjych narzędzi matematycznych. Czerpie on garściami inspiracje z teorii ewolucji i ogólnej wiedzy o genetyce. Już w 1948 Alan Turing zaproponował koncepcję `ewolucyjnego poszukiwania' (ang. \textit{evolutionary search}). Od lat 60-tych XX wieku podobne prace prowadzony był już w wielu ośrodkach\cite{IntroductionToEvolutionaryComputing2015}.
+    Algorytm genetyczny powstał głównie jako odpowiedź na wyzwania obliczeniowe, do których trudno było podejść, korzystając z tradycyjnych narzędzi matematycznych. Czerpie on garściami inspiracje z teorii ewolucji i ogólnej wiedzy o genetyce. Już w 1948 Alan Turing zaproponował koncepcję `ewolucyjnego poszukiwania' (ang. \textit{evolutionary search}). Od lat 60-tych XX wieku podobne prace prowadzony był już w wielu ośrodkach\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
 
-    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł że gatunki ewoluują, to jest dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje zmian w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na zmiany w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziaływuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie, albo że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
+    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł, że gatunki ewoluują, to jest, dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje różnic w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na różnice w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziaływuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie, albo że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
 
@@ -208,8 +267,7 @@
 
     \noindent
     \begin{minipage}[H]{\textwidth}
-        \setlength\parindent{17pt}
-        Algorytm genetyczny jest z założenia generyczny - trzeba go traktować jako szablon, w którym w zależności od potrzeb można wymieniać komponenty składowe. Te kompomenty to:
+        \setlength\parindent{17pt} Algorytm genetyczny jest z założenia generyczny - trzeba go traktować jako szablon, w którym w zależności od potrzeb można wymieniać komponenty składowe. Te kompomenty to:
         \begin{itemize}
             \item inicjacja populacji
             \item ewaluacja osobników
@@ -227,26 +285,26 @@
 
     \bigskip
 
-    Poniżej przedstawiono pseudokod dla algorytmu genetycznego oraz diagram ilustrujący cykl życia populacji.
-
-    \smallskip
-
-    \begin{algorithm}[H]
-        \label{alg:genetic_algorithm_template}
-        \caption{Generyczny szablon dla algorytmu genetycznego. Źródło:\cite{IntroductionToEvolutionaryComputing2015}.}
-        \begin{algorithmic}
-            \State INICJACJA POPULACJI LOSOWYMI OSOBNIKAMI
-            \State EWALUACJA OSOBNIKÓW
-            \While{NIE SPEŁNIENIE WARUNKU KOŃCOWEGO}
-                \State WYBÓR RODZICÓW
-                \State KRZYŻOWANIE RODZICÓW
-                \State MUTACJA POTOMKÓW
-                \State EWALUACJA POTOMSTWA
-                \State WYBÓR OSOBNIKÓW DO NASTĘPNEGO POKOLENIA
-            \EndWhile
-            \State \Return NAJLEPSZY OSOBNIK
-        \end{algorithmic}
-    \end{algorithm}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Poniżej przedstawiono pseudokod dla algorytmu genetycznego oraz diagram ilustrujący cykl życia populacji. \\
+        \begin{algorithm}[H]
+            \label{alg:genetic_algorithm_template}
+            \caption{Generyczny szablon dla algorytmu genetycznego. Źródło:\cite{IntroductionToEvolutionaryComputing2015}.}
+            \begin{algorithmic}
+                \State INICJACJA POPULACJI LOSOWYMI OSOBNIKAMI
+                \State EWALUACJA OSOBNIKÓW
+                \While{NIE SPEŁNIENIE WARUNKU KOŃCOWEGO}
+                    \State WYBÓR RODZICÓW
+                    \State KRZYŻOWANIE RODZICÓW
+                    \State MUTACJA POTOMKÓW
+                    \State EWALUACJA POTOMSTWA
+                    \State WYBÓR OSOBNIKÓW DO NASTĘPNEGO POKOLENIA
+                \EndWhile
+                \State \Return NAJLEPSZY OSOBNIK
+            \end{algorithmic}
+        \end{algorithm}
+    \end{minipage}
 
     \bigskip
 
@@ -289,8 +347,7 @@
 
     \noindent
     \begin{minipage}[H]{\textwidth}
-        \setlength\parindent{17pt}
-        Warunek końcowy, kończy cykl życia populacji i tym samym cały algorytm. Wyróżnia się dwa główne przypadki\cite{IntroductionToEvolutionaryComputing2015}:
+        \setlength\parindent{17pt} Warunek końcowy, kończy cykl życia populacji i tym samym cały algorytm. Wyróżnia się dwa główne przypadki\cite{IntroductionToEvolutionaryComputing2015}:
         \begin{itemize}
             \item znany jest optymalny poziom dopasowania
             \item docelowy poziom dopasowania oparty jest na założeniach
@@ -305,8 +362,7 @@
 
     \noindent
     \begin{minipage}[H]{\textwidth}
-        \setlength\parindent{17pt}
-        Niestety algorytm genetyczny jest z natury stochastyczny (ogromną rolę odgrywa czynnik losowy) i nie ma żadnej gwarancji osiągnięcia (czy choćby zbliżenia się na akceptowalną odległość) do optimum globalnego. Z tego też powodu konieczne jest wprowadzenie dodatkowego warunku. Najczęściej stosowane ograniczenia to\cite{IntroductionToEvolutionaryComputing2015}:
+        \setlength\parindent{17pt} Niestety algorytm genetyczny jest z natury stochastyczny (ogromną rolę odgrywa czynnik losowy) i nie ma żadnej gwarancji osiągnięcia (czy choćby zbliżenia się na akceptowalną odległość) do optimum globalnego. Z tego też powodu konieczne jest wprowadzenie dodatkowego warunku. Najczęściej stosowane ograniczenia to\cite{IntroductionToEvolutionaryComputing2015}:
         \begin{itemize}
             \item odgórnie przyjęty limit liczby pokoleń
             \item stagnacja w poprawie wyniku w czasie cyklu życia kilku pokoleń
@@ -351,9 +407,7 @@
         \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy `talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie warstwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieństwo nie występowania mowy w utworze.
         \item \textit{tempo} (pl. tempo) - Ogólne szacowane tempo utworu w taktach na minutę (ang. \textit{BPM}). W terminologi muzycznej, tempo jest szybkością danego fragmentu/kawałka utworu wyliczaną bezpośrednio w oparciu o średnią długość taktu.
     \end{itemize}
-
     \smallskip
-
     Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}. Metoda wyznaczania własności subiektywnych jest własnością intelektualną firmy Spotify i nie jest dostępna publicznie.
 
     \bigskip
@@ -498,31 +552,33 @@
 
     \bigskip
 
-    Wzory dla inicjacji Xaviera (Glorot), dla logistycznej funkcji aktywacji przedstawiają się następująco:
-
-    \bigskip
-
-    Odchylenie standardowe dla rozkładu normalnego o średniej 0: \\
-    \begin{equation}
-        \label{equ:std_dev_xavier}
-        \sigma = \sqrt{\frac{2}{n_{input} + n_{output}}}
-    \end{equation}
-
-    \smallskip
-
-    Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$): \\
-    \begin{equation}
-        \label{equ:radius_xavier}
-        r = \sqrt{\frac{6}{n_{input} + n_{output}}}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzory dla inicjacji Xaviera (Glorot), dla logistycznej funkcji aktywacji przedstawiają się następująco: \\
+        \bigskip
+        \setlength\parindent{17pt} Odchylenie standardowe dla rozkładu normalnego o średniej 0: \\
+        \begin{equation}
+            \label{equ:std_dev_xavier}
+            \sigma = \sqrt{\frac{2}{n_{input} + n_{output}}}
+        \end{equation}
+    \end{minipage}
 
     \smallskip
 
-    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
-        Gdzie: \\
-        $n_{input}$  & liczba połączeń wejściowych w warstwie \\
-        $n_{output}$ & liczba połączeń wyjściowych w warstwie \\
-    \end{tabular}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$): \\
+        \begin{equation}
+            \label{equ:radius_xavier}
+            r = \sqrt{\frac{6}{n_{input} + n_{output}}}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $n_{input}$  & liczba połączeń wejściowych w warstwie \\
+            $n_{output}$ & liczba połączeń wyjściowych w warstwie \\
+        \end{tabular}
+    \end{minipage}
 
     \bigskip
 
@@ -530,18 +586,19 @@
 
     \bigskip
 
-    Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0: \\
-    \begin{equation}
-        \label{equ:std_dev_he}
-        \sigma = \sqrt{\frac{2}{n_{input}}}
-    \end{equation}
-
-    \smallskip
-
-    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
-        Gdzie: \\
-        $n_{input}$ & liczba połączeń wejściowych w warstwie \\
-    \end{tabular}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0: \\
+        \begin{equation}
+            \label{equ:std_dev_he}
+            \sigma = \sqrt{\frac{2}{n_{input}}}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $n_{input}$ & liczba połączeń wejściowych w warstwie \\
+        \end{tabular}
+    \end{minipage}
 
     \subsection{Funkcja aktywacji ELU}
 
@@ -553,15 +610,18 @@
 
     \bigskip
 
-    Wzór dla funkcji aktywacji ReLU: \\
-    \begin{equation}
-        \label{equ:relu}
-        ReLU(x) =
-        \begin{cases}
-            0 & \quad \text{jeśli } x < 0 \\
-            x & \quad \text{jeśli } x \geq 0
-        \end{cases}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór dla funkcji aktywacji ReLU: \\
+        \begin{equation}
+            \label{equ:relu}
+            ReLU(x) =
+            \begin{cases}
+                0 & \quad \text{jeśli } x < 0 \\
+                x & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
 
     \bigskip
 
@@ -597,22 +657,23 @@
 
     \bigskip
 
-    Wzór dla funkcji aktywacji ELU: \\
-    \begin{equation}
-        \label{equ:elu}
-        ELU_{\alpha}(x) =
-        \begin{cases}
-            \alpha(\exp(x)-1) & \quad \text{jeśli } x < 0 \\
-            x & \quad \text{jeśli } x \geq 0
-        \end{cases}
-    \end{equation}
-
-    \smallskip
-
-    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
-        Gdzie: \\
-        $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
-    \end{tabular}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór dla funkcji aktywacji ELU: \\
+        \begin{equation}
+            \label{equ:elu}
+            ELU_{\alpha}(x) =
+            \begin{cases}
+                \alpha(\exp(x)-1) & \quad \text{jeśli } x < 0 \\
+                x & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
+        \end{tabular}
+    \end{minipage}
 
     \bigskip
 
@@ -633,39 +694,49 @@
 
     \bigskip
 
-    Normalizacja wsadowa danych wejściowych dla pojedynczej warstwy:
-
-    \bigskip
-
-    Wyliczenie średniej dla minigrupy: \\
-    \begin{equation}
-        \label{equ:minibatch_mean}
-        \mu_{B} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} x^{(i)}
-    \end{equation}
-
-    \smallskip
-
-    Wyliczenie odchylenia standardowego dla minigrupy: \\
-    \begin{equation}
-        \label{equ:minibatch_std_dev}
-        \sigma_{B}^{2} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} (x^{(i)} - \mu_{B})^{2}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Normalizacja wsadowa danych wejściowych dla pojedynczej warstwy: \\
+        \bigskip
+        \setlength\parindent{17pt} Wyliczenie średniej dla minigrupy: \\
+        \begin{equation}
+            \label{equ:minibatch_mean}
+            \mu_{B} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} x^{(i)}
+        \end{equation}
+    \end{minipage}
 
     \smallskip
 
-    Wyśrodkowanie i znormalizowanie danych wejściowych: \\
-    \begin{equation}
-        \label{equ:centering_and_normalizing_input}
-        \widehat{x}^{(i)} = \frac{x^{(i)} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wyliczenie odchylenia standardowego dla minigrupy: \\
+        \begin{equation}
+            \label{equ:minibatch_std_dev}
+            \sigma_{B}^{2} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} (x^{(i)} - \mu_{B})^{2}
+        \end{equation}
+    \end{minipage}
 
     \smallskip
 
-    Przeskalowanie i przesunięcie wyniku: \\
-    \begin{equation}
-        \label{equ:rescaling_and_translating_result}
-        z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wyśrodkowanie i znormalizowanie danych wejściowych: \\
+        \begin{equation}
+            \label{equ:centering_and_normalizing_input}
+            \widehat{x}^{(i)} = \frac{x^{(i)} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Przeskalowanie i przesunięcie wyniku: \\
+        \begin{equation}
+            \label{equ:rescaling_and_translating_result}
+            z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
+        \end{equation}
+    \end{minipage}
 
     \smallskip
 
@@ -720,9 +791,7 @@
         \item wynikające z powyższego zmniejszenie wrażliwości na drobne zmiany na wejściach
         \item patrząc całościowo uzyskany w wyniku `porzucania' model jest lepszą generalizacją
     \end{itemize}
-
     \smallskip
-
     Główną wadą jest spowolnienie procesu konwergencji modelu\cite{UczenieMaszynowe2018}.
 
     \bigskip
@@ -751,7 +820,7 @@
 
     \bigskip
 
-    Algorytm Adam został opracowany w 2015 roku przez Diederik P. Kingma i Jimmy Lei Ba\cite{AdamOptimization2015}. Jest połączeniem pomysłów wykorzystanych w optymalizacji momentum i optymalizatorze RMSProp. Z optymalizacji momentum zaczerpnięte jest śledzenie rozkładu wykładniczego średniej wcześniejszych gradientów, a z RMSProp - śledzenie rozkładu wykładniczego średniej wcześniejszych kwadratómomentów\cite{UczenieMaszynowe2018}. Poniżej przedstawiono pseudokod z oryginalnej publikacji Kingma i Ba.
+    Algorytm Adam został opracowany w 2015 roku przez Diederik P. Kingma i Jimmy Lei Ba\cite{AdamOptimization2015}. Jest połączeniem pomysłów wykorzystanych w optymalizacji momentum i optymalizatorze RMSProp. Z optymalizacji momentum zaczerpnięte jest śledzenie rozkładu wykładniczego średniej wcześniejszych gradientów, a z RMSProp - śledzenie rozkładu wykładniczego średniej wcześniejszych kwadratów momentów\cite{UczenieMaszynowe2018}. Poniżej przedstawiono pseudokod z oryginalnej publikacji Kingma i Ba.
 
     \bigskip
 
@@ -807,11 +876,14 @@
 
     \bigskip
 
-    Wzór na prawdopodobieństwo wylosowania pojedynczego osobnika prezentuje się następująco: \\
-    \begin{equation}
-        \label{equ:fitness_proportionate_selection}
-        P_{FPS}(i) = \frac{\lvert f_{i} \rvert}{\sum_{j=1}^{\mu} \lvert f_{j} \rvert}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór na prawdopodobieństwo wylosowania pojedynczego osobnika prezentuje się następująco: \\
+        \begin{equation}
+            \label{equ:fitness_proportionate_selection}
+            P_{FPS}(i) = \frac{\lvert f_{i} \rvert}{\sum_{j=1}^{\mu} \lvert f_{j} \rvert}
+        \end{equation}
+    \end{minipage}
 
     \bigskip
 
@@ -832,11 +904,14 @@
 
     \bigskip
 
-    Na szczęście opracowane zostały skuteczne techniki zaradcze. Najpopularniejsze to:
-    \begin{itemize}
-        \item `okienkowanie' (ang. \textit{windowing})
-        \item skalowanie sigma (ang. \textit{sigma scaling})
-    \end{itemize}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Na szczęście opracowane zostały skuteczne techniki zaradcze. Najpopularniejsze to:
+        \begin{itemize}
+            \item `okienkowanie' (ang. \textit{windowing})
+            \item skalowanie sigma (ang. \textit{sigma scaling})
+        \end{itemize}
+    \end{minipage}
 
     \bigskip
 
@@ -868,19 +943,20 @@
 
     \bigskip
 
-    Transformaca wartości parametów osobnika w ramach mutacji: \\
-    \begin{equation}
-        \label{equ:mutation_transformation}
-        \langle x_{1},\dotsc,x_{n}> \rangle \to \langle x_{1}^{'},\dotsc,x_{n}^{'} \rangle \quad \text{gdzie } x_{i}, x_{i}^{'} \in [L_{i}, U_{i}]
-    \end{equation}
-
-    \smallskip
-
-    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
-        Gdzie: \\
-        $L_{i}$ & dolna granica dla transformacji \\
-        $U_{i}$ & górna granica dla transformacji \\
-    \end{tabular}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Transformacja wartości parametów osobnika w ramach mutacji: \\
+        \begin{equation}
+            \label{equ:mutation_transformation}
+            \langle x_{1},\dotsc,x_{n}> \rangle \to \langle x_{1}^{'},\dotsc,x_{n}^{'} \rangle \quad \text{gdzie } x_{i}, x_{i}^{'} \in [L_{i}, U_{i}]
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $L_{i}$ & dolna granica dla transformacji \\
+            $U_{i}$ & górna granica dla transformacji \\
+        \end{tabular}
+    \end{minipage}
 
     \bigskip
 
@@ -888,11 +964,14 @@
 
     \bigskip
 
-    Funkcja gęstości prawdopodobieństwa dla rokładu Gaussa: \\
-    \begin{equation}
-        \label{equ:mutation_probabily distribution}
-        p(\Delta x_{i}) = \frac{1}{\sigma \sqrt {2 \pi}} \cdot e \frac{(\Delta x_{i} - \xi)^{2}}{2 \sigma^{2}}
-    \end{equation}
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Funkcja gęstości prawdopodobieństwa dla rokładu Gaussa: \\
+        \begin{equation}
+            \label{equ:mutation_probabily distribution}
+            p(\Delta x_{i}) = \frac{1}{\sigma \sqrt {2 \pi}} \cdot e \frac{(\Delta x_{i} - \xi)^{2}}{2 \sigma^{2}}
+        \end{equation}
+    \end{minipage}
 
     \bigskip
 
