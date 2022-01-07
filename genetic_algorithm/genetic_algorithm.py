@@ -26,7 +26,8 @@ class GeneticAlgorithm:
     worst_last_generations: deque
     worst_from_previous_generations: float
     population: MutableSequence[Genome]
-    stats_header: list = ['Generation number', 'Best', 'Worst', 'Mean', 'Average', 'Standard deviation']
+    stats_header: list = ['Generation number', 'Best fitness', 'Best genome', 'Worst fitness', 'Worst genome', 'Mean',
+                          'Average', 'Standard deviation']
     stats_file_dir_str: str
     stats_file_dir_full: bool
     stats_file_name: str = 'genetic_algorithm_stats.csv'
@@ -115,13 +116,16 @@ class GeneticAlgorithm:
         self.worst_from_previous_generations = max(self.worst_last_generations, key=lambda g: g.fitness).fitness
 
     def __save_generation_stats(self, generation_counter):
-        best = self.population_fitness[self.population_fitness.argmin()]
-        worst = self.population_fitness[self.population_fitness.argmax()]
+        best_fitness = self.population_fitness[self.population_fitness.argmin()]
+        best_genome = self.population[self.population_fitness.argmin()]
+        worst_fitness = self.population_fitness[self.population_fitness.argmax()]
+        worst_genome = self.population[self.population_fitness.argmax()]
         mean = np.mean(self.population_fitness)
         average = np.mean(self.population_fitness)
         standard_deviation = np.std(self.population_fitness)
         csv.writer(self.stats_file).writerow(
-            [generation_counter, best, worst, mean, average, standard_deviation])
+            [generation_counter, best_fitness, best_genome, worst_fitness, worst_genome, mean, average,
+             standard_deviation])
 
     def __post_condition(self, generation_counter: int) -> bool:
         return generation_counter > self.generation_count
