@@ -2,6 +2,7 @@ import csv
 import os
 import sys
 from collections import deque
+from datetime import datetime
 from pathlib import Path
 from typing import MutableSequence, Sequence
 from typing import TextIO
@@ -30,7 +31,7 @@ class GeneticAlgorithm:
                           'Average', 'Standard deviation']
     stats_file_dir_str: str
     stats_file_dir_full: bool
-    stats_file_name: str = 'genetic_algorithm_stats.csv'
+    stats_file_base_name: str = 'genetic_algorithm_stats'
     stats_file: TextIO
 
     def __init__(self, genome: Genome, population_size: int = 10, generation_count: int = 100,
@@ -84,15 +85,18 @@ class GeneticAlgorithm:
         pass
 
     def __get_reference_or_create_file(self) -> TextIO:
+        now = datetime.utcnow()
+        date_time = now.strftime("%Y-%m-%d_%H-%M-%S")
+        file_name = self.stats_file_base_name + '_' + date_time + '.csv'
         if self.stats_file_dir_full:
             dir_path = Path(self.stats_file_dir_str)
             dir_path.mkdir(parents=True, exist_ok=True)
-            file_path_str = os.path.join(self.stats_file_dir_str, self.stats_file_name)
+            file_path_str = os.path.join(self.stats_file_dir_str, file_name)
         else:
             current_dir = os.getcwd()
             dir_path = Path(os.path.join(current_dir, self.stats_file_dir_str))
             dir_path.mkdir(parents=True, exist_ok=True)
-            file_path_str = os.path.join(current_dir, self.stats_file_dir_str, self.stats_file_name)
+            file_path_str = os.path.join(current_dir, self.stats_file_dir_str, file_name)
         file_path = Path(file_path_str)
         file_path.touch(exist_ok=True)
         return open(file=file_path_str, mode='w')
