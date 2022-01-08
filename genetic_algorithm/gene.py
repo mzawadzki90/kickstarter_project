@@ -53,6 +53,6 @@ class FloatGene(Gene[float]):
         super().__init__(label, minimum, maximum, value)
 
     def __str__(self) -> str:
-        return 'FloatGene{lab:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
+        return 'FloatGene{label:' + self.label + ',min:' + str(self.minimum) + ',max:' + str(
             self.maximum) + ',val:' \
                + str(self.value) + '}'
