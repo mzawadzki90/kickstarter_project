@@ -53,7 +53,7 @@
 
     \subsection{Teza główna}
 
-    Algorytm genetyczny może pomóc w doborze zbliżonych do optymalnych hiperparametrów procesu uczenia sieci neuronowej i tym samym przyczynić się znacząco do poprawy dokładności predykcji (o 5 do 10\%) finalnego modelu -  licząc w oparciu o metrykę RMSE (ang. \textit{root mean squared error} pl. błąd średniokwadratowy) w porównaniu do sieci neuronowych inicjowanych wartościami sugerowanymi jako wyjściowe w literaturze przedmiotu lub dobranych intuicyjnie metodą `prób i błędów'.
+    Algorytm genetyczny może pomóc w doborze zbliżonych do optymalnych hiperparametrów procesu uczenia sieci neuronowej i tym samym przyczynić się znacząco do poprawy dokładności predykcji (o 5 do 10\%) finalnego modelu - licząc w oparciu o metrykę RMSE (ang. \textit{root mean squared error} pl. błąd średniokwadratowy) w porównaniu do sieci neuronowych inicjowanych wartościami sugerowanymi jako wyjściowe w literaturze przedmiotu lub dobranych intuicyjnie metodą `prób i błędów'.
 
     \subsection{Słowa kluczowe} % między 5 a 10
 
@@ -221,6 +221,25 @@
     Marvin Minsky i Seymour Papert w pracy ``Perceptrons'' z 1969 roku wskazali wiele poważnych wad perceptronu, takich jak np. brak możliwości rozwiązywania prostych problemów logicznych (alternatywa rozłączna - XOR). Rezultatem było spowolnienie dalszych prac nad sztucznymi sieciami neuronowymi. W przyszłości okaże się, że wspomniane ograniczenia można pokonać stosując modyfikację - perceptron wielowarstwowy\cite{UczenieMaszynowe2018}.
 
     \subsection{Uczenie wielowarstwowych sieci przy użyciu propagacji wstecznej}
+
+    % do rozszerzenia i uzupełnienia
+    W 1985 roku D.E. Rumelhart i jego zespół opublikowali artykuł\cite{Backpropagation1985}, w którym przedstawili koncepcję algorytmu propagacji wstecznej (ang. \textit{backpropagation}).
+    Łączy on operację odwrotnego różniczkowania i metodę gradientu prostego.
+
+    \bigskip
+
+    W pierwszej fazie algorytm pobiera przykład uczący i przechodzi przez całą sieć od wejścia do wyjścia (przebieg do przodu), obliczając i zapamiętując wyniki dla wszystkich neuronów.
+    \smallskip
+    Faza druga to przebieg odwrotny:
+    \begin{enumerate}
+        \item zostaje zmierzony błąd na wyjściu z sieci
+        \item błąd propagowany jest do kolejnych warstw ukrytych aż do warstwy wejściowej
+        \item wyliczane są pochodne cząstkowe funkcji błędu po wadze połączenia między neuronami
+    \end{enumerate}
+    \smallskip
+    W fazie trzeciej gradienty cząstkowe są łączone, tak by uzyskać całkowity gradient dla danego połączenia.
+    \smallskip
+    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia odwrotnie do kierunku gradientu\cite{BackpropagationBrilliant}.
 
 
     \section{Algorytmy Genetyczne}
@@ -773,7 +792,7 @@
 
     \subsection{Regularyzacja przez Porzucanie (ang. \textit{Dropout})}
 
-    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E.\ Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1--2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
+    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E. Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1--2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
 
     \bigskip
 
