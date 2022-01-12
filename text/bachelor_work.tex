@@ -567,7 +567,7 @@
 
     \subsection{Inicjacja wag funkcją HE}
 
-    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie, gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
 
     \bigskip
 
@@ -601,7 +601,7 @@
 
     \bigskip
 
-    Zaproponowana przez Glorot i Benglo metoda inicjacji wag sprawdzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
+    Zaproponowana przez Glorot i Benglo metoda inicjacji wag sprawdzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaiming He wraz z zespołem współpracowników z Microsoft Research w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -653,7 +653,7 @@
 
     \bigskip
 
-    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy, że zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
+    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
     \begin{itemize}
         \item `przeciekająca' funkcja ReLU
         \item losowa `przeciekająca' funkcja ReLU
@@ -1007,6 +1007,51 @@
     % algorytm genetyczny historia:  poprawy błędu w czasie średnia
     % zrzuty architektury sieci z tensorboard
     % porównianie sieci inicjowanej na sztywno i sieci z hiperparamertami wyuczonymi
+
+    Wykresy ilustrujące przebieg algorytmu genetycznego.
+
+    \begin{figure}[H]
+        \label{fig:g_a_best_fitness}
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_fitness}
+        \caption{Wykres zmiany wartości metryki RMSE dla najlepszego osobnika w trakcie życia populacji.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:g_a_worst_fitness}
+        \centering
+        \includegraphics[width=\textwidth]{g_a_worst_fitness}
+        \caption{Wykres zmiany wartości metryki RMSE dla najgorszego osobnika w trakcie życia populacji.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:g_a_mean_fitness}
+        \centering
+        \includegraphics[width=\textwidth]{g_a_mean_fitness}
+        \caption{Wykres zmiany mediany metryki RMSE w trakcie życia populacji.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:g_a_average_fitness}
+        \centering
+        \includegraphics[width=\textwidth]{g_a_average_fitness}
+        \caption{Wykres zmiany średniej metryki RMSE w trakcie życia populacji.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:g_a_fitness_standard_deviation}
+        \centering
+        \includegraphics[width=\textwidth]{g_a_fitness_standard_deviation}
+        \caption{Wykres zmiany odchylenia standardowego metryki RMSE w trakcie życia populacji.}
+    \end{figure}
 
 
     \section{Wnioski}
