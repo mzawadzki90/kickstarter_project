@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="C:\Users\micha\Downloads\final_model_log_2022-01-12_15-04-21.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="C:\Users\micha\Downloads\genetic_algorithm_stats_2022-01-09_22-17-09.csv">
           <value>
             <Attribute>
