@@ -125,7 +125,7 @@ class GeneticAlgorithm:
         worst_fitness = self.population_fitness[self.population_fitness.argmax()]
         worst_genome = self.population[self.population_fitness.argmax()]
         mean = np.mean(self.population_fitness)
-        average = np.mean(self.population_fitness)
+        average = np.average(self.population_fitness)
         standard_deviation = np.std(self.population_fitness)
         csv.writer(self.stats_file).writerow(
             [generation_counter, best_fitness, best_genome, worst_fitness, worst_genome, mean, average,
