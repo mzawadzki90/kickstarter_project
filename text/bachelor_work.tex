@@ -944,9 +944,26 @@
 
     \bigskip
 
-    Optymalizator Adam, podobnie jak RMSProp, wykorzystuje adaptacyjny współczynnik uczenia. Z tego też powodu nie ma konieczności wyznaczania jego optymalnej wartości, wystarczy jedynie skorzystać z domyślnej wartości $\alpha = 0.001$\cite{UczenieMaszynowe2018}. To z kolei sprawia, że Adam jest w praktyce prostszy w użyciu od metody gradientu prostego.
+    Optymalizator Adam, podobnie jak RMSProp, wykorzystuje adaptacyjny współczynnik uczenia. Z tego też powodu nie ma konieczności wyznaczania jego optymalnej wartości, wystarczy jedynie skorzystać z domyślnej wartości $\eta = 0.001$\cite{UczenieMaszynowe2018}. To z kolei sprawia, że Adam jest w praktyce prostszy w użyciu od metody gradientu prostego.
 
     \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
+
+    Do estymacji za pomocą algorytmu genetycznego wybrano następujący zestaw hiperparametrów:
+    \begin{itemize}
+        \item liczba jednostek (neuronów) w warstwie ukrytej `1' (min.10, max.250)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `1' (min. 0.05, max. 0.5)
+        \item liczba jednostek dla warstwie ukrytej `2' (min.10, max.250)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `2' (min. 0.05, max. 0.5)
+        \item rozmiar minigrupy (ang. \textit{batch size}); (min.100, max.200)
+    \end{itemize}
+
+    \bigskip
+
+    W przypadku pozostały hiperparametrów zdecydowano się na przyjęcie zalecanych wartości domyślnych (optymalizator Adam: $\beta_{1} = 0.9$, $\beta_{2} = 0.999$, $\epsilon = 10^{-7}$; normalizacja wsadowa: $moment = 0.99$).
+
+    \bigskip
+
+    Do uczenia sieci w ramach algorytmu genetycznego zdecydowano się na zastosowanie wyższej wartości startowej współczynnika uczenia: $\eta = 0.01$. Wynikało to z potrzeby zmniejszenia średniej liczby epok potrzebnych do zbliżenia się do optimum globalnego dla danej sieci. Przy późniejszym uczeniu dokładnym dla wybranej sieci wrócono do wartości zalecanej ($\eta = 0.001$).
 
     \subsection{Wybór rodziców z wykorzystaniem selekcji proporcjonalnej (ang. \textit{Fitness Proportionate Selection / FPS})}
 
