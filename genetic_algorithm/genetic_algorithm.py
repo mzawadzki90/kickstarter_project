@@ -53,21 +53,25 @@ class GeneticAlgorithm:
         self.__write_stats_header()
 
     def calculate(self) -> Genome:
+        generation_counter = 0
+        self.__print_current_population(generation_counter)
         self.__save_best_for_generation()
         self.__save_worst_for_generation()
-        generation_counter = 0
         while not self.__post_condition(generation_counter):
             self.__save_generation_stats(generation_counter)
-            parents = self.select_parents(self.population_fitness, self.worst_from_previous_generations)
+            parents = self.select_parents(fitness=self.population_fitness,
+                                          worst_from_previous_generations=self.worst_from_previous_generations)
             crossovers = self.crossover(parents)
             mutates = self.mutate(crossovers)
             offsprings = self.select_survivor(mutates)
-            self.__replace_worst_elements(offsprings, generation_counter)
-            self.__save_best_for_generation()
-            self.__save_worst_for_generation()
+            self.__replace_worst_elements(offsprings)
             generation_counter += 1
+            self.__print_current_population(generation_counter)
+            self.__save_best_for_generation()
+            self.__print_best_from_last_generations()
+            self.__save_worst_for_generation()
         self.stats_file.close()
-        return self.__get_best()
+        return self.__get_and_print_best()
 
     def init_population(self) -> MutableSequence[Genome]:
         pass
@@ -109,6 +113,8 @@ class GeneticAlgorithm:
         if len(self.best_last_generations) == self.best_last_generations_size:
             self.best_last_generations.popleft()
         self.best_last_generations.append(self.population[self.population_fitness.argmin()])
+
+    def __print_best_from_last_generations(self):
         print("The best from the last ", self.best_last_generations_size, " generations:")
         for genome in self.best_last_generations:
             print(genome)
@@ -134,17 +140,19 @@ class GeneticAlgorithm:
     def __post_condition(self, generation_counter: int) -> bool:
         return generation_counter > self.generation_count
 
-    def __replace_worst_elements(self, offsprings: Sequence[Genome], counter: int):
+    def __replace_worst_elements(self, offsprings: Sequence[Genome]):
         worst_indices_size = len(offsprings)
         worst_indices = np.argpartition(self.population_fitness, -worst_indices_size)[-worst_indices_size:]
         for i in range(0, worst_indices_size):
             self.population[worst_indices[i]] = offsprings[i]
             self.population_fitness[worst_indices[i]] = offsprings[i].fitness
+
+    def __print_current_population(self, counter):
         print("Generation: ", counter, "; Current population: ")
         for genome in self.population:
             print(genome)
 
-    def __get_best(self) -> Genome:
+    def __get_and_print_best(self) -> Genome:
         best = min(self.best_last_generations, key=lambda g: g.fitness)
         print("Best: ", best)
         print("Best score: ", best.fitness)
