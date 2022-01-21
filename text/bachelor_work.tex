@@ -118,6 +118,8 @@
 
     \subsection{Abstrakt} % bardzo skondensowane streszczenie pracy z użyciem słów kluczowych
 
+    \newpage
+
 
     \section{Wpływ cech utworów muzycznych na popularność}
 
@@ -165,6 +167,8 @@
     \bigskip
 
     Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromny postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokimi sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnione przez platformy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
+
+    \newpage
 
 
     \section{Wykorzystanie sieci neuronowych do problemu regresji dla tabelarycznego zbioru danych}
@@ -299,6 +303,8 @@
     W fazie trzeciej gradienty cząstkowe są łączone, tak by uzyskać całkowity gradient dla danego połączenia.
     \smallskip
     Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia odwrotnie do kierunku gradientu\cite{BackpropagationBrilliant}.
+
+    \newpage
 
 
     \section{Algorytmy Genetyczne}
@@ -455,6 +461,8 @@
     \bigskip
 
     Poważnym zagrożeniem w przypadku algorytmów genetycznych jest zbieganie i `utknięcie' w optimum lokalnym. Zwłaszcza w sytuacji kiedy optimum globalne nie jest znane, warto rozważyć dodanie do implementacji strategi restartu algorytmu\cite{GeneticAlgorithmEssentials2017}.
+
+    \newpage
 
 
     \section{Opis zbioru danych}
@@ -614,19 +622,36 @@
         \caption{Wykres kołowy pokazujący procentowy rozkład tonacji dla badanych utworów.}
     \end{figure}
 
+    \newpage
+
 
     \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
 
     \subsection{Wstępna obróbka danych}
 
     % do poprawy i rozszerzenia!!!
-    Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo} Trzeba tu nadmienić, że na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
+    Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo}. Na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
 
     \subsection{Ogólny zarys architektury zastosowanej sieci neuronowej}
 
+    Przed ostatecznym wyborem modelu bazowego do późniejszego wyliczenia przez algorytm genetyczny dokonano szeregu prób, eksperymentując z zastosowaniem różnych optymalizatorów, regularyzatorów, inicjatorów wag i funkcji aktywacji, a także z ilością warstw ukrytych i liczbą neuronów w każdej z nich. Ostatecznie zdecydowano się na następującą bazę:
+    \begin{itemize}
+        \item warstwa wejściowa z 25 neuronami i normalizacją wsadową (ang. \textit{Batch Normalization}) ($momentum = 0.99$)
+        \item dwie warstwy ukryte posiadające między 10 a 250 neuronów; wagi i obciążenia inicjowane funkcją He z rozkładem normalnym; normalizacja wsadowa ($momentum = 0.99$); aktywacja funkcją ELU; regularyzacja przez porzucenie (ang. \textit{Dropout}) ze współczynnikiem porzucania wynoszącym między 0.05 a 0.5
+        \item warstwa wyjściowa z 1 neuronem i aktywacją liniową
+        \item optymalizator Adam ($\eta = 0.001$)
+        \item jako funkcję straty (ang. \textit{loss}) do minimalizacji wybrano MSE (ang. \textit{mean square error})
+        \item jako metryki pomocnicze dodano RMSE (ang. \textit{root mean squared error}) i MAE (ang. \textit{mean absolute error})
+        \item liczbę próbek w minigrupie (ang. \textit{batch}) z przedziału 100--400
+    \end{itemize}
+
+    \bigskip
+
+    Decyzja o zastosowaniu tylko dwóch warstw ukrytych podyktowana była specyfiką działania algorytmu genetycznego i wynikającą z niej koniecznością skrócenia średniego czasu uczenia pojedynczego modelu.
+
     \subsection{Inicjacja wag funkcją HE}
 
-    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się być powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej równej 0 oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie, gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych badacze natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu, problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavier Glorot i Yoshua Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej wynoszącej 0, oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie, gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a także gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
 
     \bigskip
 
@@ -959,11 +984,7 @@
 
     \bigskip
 
-    W przypadku pozostały hiperparametrów zdecydowano się na przyjęcie zalecanych wartości domyślnych (optymalizator Adam: $\beta_{1} = 0.9$, $\beta_{2} = 0.999$, $\epsilon = 10^{-7}$; normalizacja wsadowa: $moment = 0.99$).
-
-    \bigskip
-
-    Do uczenia sieci w ramach algorytmu genetycznego zdecydowano się na zastosowanie wyższej wartości startowej współczynnika uczenia: $\eta = 0.01$. Wynikało to z potrzeby zmniejszenia średniej liczby epok potrzebnych do zbliżenia się do optimum globalnego dla danej sieci. Przy późniejszym uczeniu dokładnym dla wybranej sieci wrócono do wartości zalecanej ($\eta = 0.001$).
+    W przypadku pozostały hiperparametrów zdecydowano się na przyjęcie zalecanych wartości domyślnych (optymalizator Adam: $\eta = 0.001$, $\beta_{1} = 0.9$, $\beta_{2} = 0.999$, $\epsilon = 10^{-7}$; normalizacja wsadowa: $moment = 0.99$).
 
     \subsection{Wybór rodziców z wykorzystaniem selekcji proporcjonalnej (ang. \textit{Fitness Proportionate Selection / FPS})}
 
@@ -1076,6 +1097,8 @@
         \includegraphics[width=\textwidth]{standard_deviation_diagram}
         \caption{Wykres dla rozkładu Gaussa. Jednostka dla osi \textit{x} to odchylenie standardowe ($\sigma$). W odległości $1 \cdot \sigma$ od średniej znajduje się 68.27\% elementów; w odległości $2 \cdot \sigma$ - 95.45\% elementów; w odległości $3 \cdot \sigma$ - 99.73\% elementów. Autor: M.W. Toews (Wikipedia Community).}
     \end{figure}
+
+    \newpage
 
 
     \section{Rezultaty eksperymentów}
@@ -1198,10 +1221,14 @@
         \caption{Zestawienie wartości metryk RMSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach), uzyskanych na zbiorze testowym.}
     \end{figure}
 
+    \newpage
+
 
     \section{Wnioski}
     % przanalizować dla jakich utworów szacowało najlepiej, a dla jakich najgorzej
     % napisać wnioski jakich informacji zabrakło i co można by zrobić lepiej
+
+    \newpage
 
 
     \printbibliography
