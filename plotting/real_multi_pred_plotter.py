@@ -24,16 +24,18 @@ class RealMultiPredPlotter(object):
                 Line2D(xdata=range(values.shape[0]), ydata=values, color=self.choose_rand_color(), marker='x',
                        linestyle=''))
 
-        plt.title('real/predictions')
-        plt.ylabel('popularity')
-        plt.xlabel('sample')
+        plt.title('Porównanie wartości rzeczywistych i wybranych predykcji')
+        plt.ylabel('Popularność (0-100)')
+        plt.xlabel('Przykład')
 
-        legend = ['real'] + list(self.pred_dict.keys())
+        legend = ['wartość rzeczywista'] + list(self.pred_dict.keys())
         plt.legend(legend, loc='upper left')
 
         ax.set_xlim(-1, self.real.shape[0])
         ax.set_ylim(-10, 100)
 
+        plt.tight_layout()
+        plt.savefig('plots\\compr_samples_real_predictions.eps')
         plt.show()
 
     def choose_rand_color(self) -> tuple:
