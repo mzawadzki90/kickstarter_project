@@ -3,5 +3,6 @@
 /auxil
 /genetic_algorithm/out
 /plotting/out/
+/notebooks/plots/
 *.pdf
 *.gz

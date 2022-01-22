@@ -17,7 +17,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\results\final_model_log_2022-01-15_11-41-09.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\results\genetic_algorithm_stats_2022-01-09_22-17-09.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\results\genetic_algorithm_stats_2022-01-14_19-31-13.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
