@@ -38,6 +38,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\results\spotify_final_he_elu_adam_201_177_log_2022-01-22_16-27-57.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
