@@ -112,9 +112,22 @@
 
     \subsection{Teza główna}
 
-    Algorytm genetyczny może pomóc w doborze zbliżonych do optymalnych hiperparametrów procesu uczenia sieci neuronowej i tym samym przyczynić się znacząco do poprawy dokładności predykcji (o 5 do 10\%) finalnego modelu - licząc w oparciu o metrykę RMSE (ang. \textit{root mean squared error} pl. błąd średniokwadratowy) w porównaniu do sieci neuronowych inicjowanych wartościami sugerowanymi jako wyjściowe w literaturze przedmiotu lub dobranych intuicyjnie metodą `prób i błędów'.
+    Algorytm genetyczny może pomóc w doborze zbliżonych do optymalnych hiperparametrów procesu uczenia sieci neuronowej i tym samym przyczynić się znacząco do poprawy dokładności predykcji (o 5 do 10\%) finalnego modelu - licząc na podstawie metryki RMSE (ang. \textit{root mean squared error} pl. błąd średniokwadratowy) w porównaniu do sieci neuronowych inicjowanych wartościami sugerowanymi jako wyjściowe w literaturze przedmiotu lub dobranych intuicyjnie metodą `prób i błędów'.
 
-    \subsection{Słowa kluczowe} % między 5 a 10
+    \subsection{Słowa kluczowe}
+
+    \begin{itemize}
+        \item algorytm genetyczny (ang. \textit{genetic algorithm}) - Metaheurystyka czerpiąca inspirację z ewolucji biologicznej, należąca do grupy algorytmów ewolucyjnych; znajduje zastosowanie przy problemach optymalizacji i wyszukiwania, dostarczając wysokiej jakości rozwiązania poprzez bazowanie na operacjach inspirowanych biologią takich jak mutacja, krzyżówka i selekcja\cite{GeneticAlgorithmsMitchell1996}.
+        \item genom (ang. \textit{genome}) - W biologi molekularnej i genetyce określa się tak kompletną informację genetyczną organizmu\cite{WhatIsGenomicMedicine2019}.
+        \item gen (ang. \textit{gene}) - W biologii gen (od greckiego \textit{genos}) jest podstawową jednostką dziedziczenia; reprezentowany jako sekwencja nukleotydów w DNA, która koduje syntezę produktu genu, albo RNA lub białko\cite{GeneWiki}.
+        \item funkcja dopasowania (ang. \textit{fitness function}) - W algorytmie genetycznym reprezentuje wymagania, do których powinna adaptować się populacja; jest podstawą mechanizmu selekcji i tym samym przyczynia się do ogólnej poprawy jakości osobników w kolejnych pokoleniach\cite{IntroductionToEvolutionaryComputing2015}.
+        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charles'a Darvina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
+        \item krzyżówka (ang. \textit{mutation}) - Operacja stochastyczna polegająca na rekombinacji materiału genetycznego rodziców poprzez losowo wybrane punkty przecięcia\cite{IntroductionToEvolutionaryComputing2015}.
+        \item mutacja (ang. \textit{mutation}) - Operacja stochastyczna wprowadzająca losową zmianę do genotypu osobnika, której wynikiem jest mutant\cite{IntroductionToEvolutionaryComputing2015}.
+        \item sztuczna sieć neuronowa (ang. \textit{artificial neural network}, ANN) - System obliczeniowy przeznaczony do przetwarzania informacji, czerpiący inspirację z biologicznego układu nerwowego\cite{LeksykonSieciNeuronowych2015}.
+        \item jednostka liniowa z progiem (ang. \textit{linear threshold unit}, LTU) - Modyfikacja sztucznego neuronu, będąca podstawą prostej sieci neuronowej; wylicza sumę ważoną sygnałów wejściowych, a wobec wyniku stosuje funkcję skokową Heaviside'a\cite{UczenieMaszynowe2018}.
+        \item propagacja wsteczna (ang. \textit{backpropagation}) - Podstawowy algorytm uczenia głębokich sieci neuronowych; modyfikacja metody gradientu prostego, z użyciem odwrotnego różniczkowania automatycznego.
+    \end{itemize}
 
     \subsection{Abstrakt} % bardzo skondensowane streszczenie pracy z użyciem słów kluczowych
 
