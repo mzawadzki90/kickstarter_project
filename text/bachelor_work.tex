@@ -121,7 +121,7 @@
         \item genom (ang. \textit{genome}) - W biologi molekularnej i genetyce określa się tak kompletną informację genetyczną organizmu\cite{WhatIsGenomicMedicine2019}.
         \item gen (ang. \textit{gene}) - W biologii gen (od greckiego \textit{genos}) jest podstawową jednostką dziedziczenia; reprezentowany jako sekwencja nukleotydów w DNA, która koduje syntezę produktu genu, albo RNA lub białko\cite{GeneWiki}.
         \item funkcja dopasowania (ang. \textit{fitness function}) - W algorytmie genetycznym reprezentuje wymagania, do których powinna adaptować się populacja; jest podstawą mechanizmu selekcji i tym samym przyczynia się do ogólnej poprawy jakości osobników w kolejnych pokoleniach\cite{IntroductionToEvolutionaryComputing2015}.
-        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charles'a Darvina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
+        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charlesa Darvina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
         \item krzyżówka (ang. \textit{mutation}) - Operacja stochastyczna polegająca na rekombinacji materiału genetycznego rodziców poprzez losowo wybrane punkty przecięcia\cite{IntroductionToEvolutionaryComputing2015}.
         \item mutacja (ang. \textit{mutation}) - Operacja stochastyczna wprowadzająca losową zmianę do genotypu osobnika, której wynikiem jest mutant\cite{IntroductionToEvolutionaryComputing2015}.
         \item sztuczna sieć neuronowa (ang. \textit{artificial neural network}, ANN) - System obliczeniowy przeznaczony do przetwarzania informacji, czerpiący inspirację z biologicznego układu nerwowego\cite{LeksykonSieciNeuronowych2015}.
@@ -129,7 +129,33 @@
         \item propagacja wsteczna (ang. \textit{backpropagation}) - Podstawowy algorytm uczenia głębokich sieci neuronowych; modyfikacja metody gradientu prostego, z użyciem odwrotnego różniczkowania automatycznego.
     \end{itemize}
 
-    \subsection{Abstrakt} % bardzo skondensowane streszczenie pracy z użyciem słów kluczowych
+    \subsection{Abstrakt}
+
+    W sekcji pierwszej opisano szczegółowo składowe kształtujące preferencje muzyczne. W dalszej części omówiono znaczenie i sposób działania platform muzycznych, ze szczególnym uwzględnieniem szwedzkiego Spotify. Stamtąd też pochodzi zbiór danych będący przedmiotem badań niniejszego opracowania. Następnie wspomniano o najbardziej znanych eksperymentach z szacowaniem popularności utworów na bazie ich cech muzycznych. Na sam koniec oceniono szanse na stworzenie wysokiej klasy modelu, biorąc pod uwagę posiadane dane i narzędzia.
+
+    \bigskip
+
+    W sekcji drugiej skrótowo opisano historię powstania sztucznych sieci neuronowych i biologiczne inspiracje, które za tym stały. Następnie omówiono budowę i sposób działania perceptronu, czyli jednej z pierwszych implementacji sieci neuronowych. Na zakończenie przedstawiono zasadę działania algorytmu propagacji wstecznej - podstawową metodę uczenia głębokich sieci neuronowych.
+
+    \bigskip
+
+    Sekcja trzecia jest wprowadzeniem do tematu algorytmów genetycznych. Opisano w telegraficznym skrócie odkrycia Charlesa Darvina i Gregora Johanna Mendla, które następnie posłużyły Alanowi Turingowi jako baza dla jego `ewolucyjnego poszukiwania' - czyli pierwowzoru wspomnianego algorytmu. W dalszej części omówiono cykl życia populacji w ramach algorytmu. Potem kolejno opisano kluczowe komponenty: inicjację populacji, ewaluację osobników, selekcję rodziców, krzyżowanie, mutację genomu, wybór potomstwa i warunek końcowy.
+
+    \bigskip
+
+    Sekcja czwarta to opis wybranego zbioru danych. Po przedstawieniu najważniejszych informacji opisano szczegółowo wszystkie cechy, wykorzystując dokumentację deweloperską udostępnioną przez Spotify. Dodatkowo dla wszystkich parametrów dyskretnych utworzono czytelne histogramy, a dla flag i kategorii - wykresy kołowe.
+
+    \bigskip
+
+    W sekcji piątej opisano przygotowania do przeprowadzenia eksperymentu w tym wstępną obróbkę danych, bazową architekturę sieci neuronowej wykorzystaną w algorytmie, wybrane elementy SN, selekcję hiperparametrów do wyznaczenia oraz najważniejsze komponenty implementacji algorytmu genetycznego.
+
+    \bigskip
+
+    W sekcji szóstej zaprezentowano przebieg wykonania algorytmu genetycznego: zmiany wartości funkcji dopasowania dla najgorszego i najlepszego osobnika, średnią oraz medianę. Pokazano również, jak zmieniały się wartości poszczególnych hiperparametrów dla najlepszego osobnika. Następnie przedstawiono wyniki dokładnego uczenia finalnego modelu. Na końcu, wyniki te zestawiono z rezultatami uzyskanymi po wytrenowaniu innych modeli o podobnej architekturze.
+
+    \bigskip
+
+    W ostatniej sekcji podsumowano prace. Pokazano przykłady najlepszych i najgorszych predykcji finalnego modelu, uzupełniając je krótkim komentarzem. Zaproponowano też modyfikacje, które mogłyby przyczynić się do poprawy wyników.
 
     \newpage
 
@@ -151,7 +177,7 @@
 
     \bigskip
 
-    Wejście na rynek platform streaming-owych, których sztandarowym przykładem jest szwedzki gigant Spotify, dokonało małej rewolucji na rynku muzycznym. Platforma działa w dwóch modelach płatności: bezpłatnym (z reklamami) i subskrypcyjnym. Można korzystać z niej za pośrednictwem przeglądarki, ale dostępne są także dedykowane aplikacje ma praktycznie każdy system, zaczynając od smart car-u na smartfonie kończąc, między którymi można się swobodnie przełączać. Muzyki można słuchać zarówno w trybie online, jak i w trybie offline (oczywiście po wcześniejszym pobraniu na urządzenie). Co ważne zmianie uległ sposób konsumpcji samych treści. Autor niniejszej pracy, jako szczególnie aktywny użytkownik platformy uznał za stosowne wymienienie następujących alternatywnych kanałów:
+    Wejście na rynek platform streaming-owych, których sztandarowym przykładem jest szwedzki gigant Spotify, dokonało małej rewolucji na rynku muzycznym. Platforma działa w dwóch modelach płatności: bezpłatnym (z reklamami) i subskrypcyjnym. Można korzystać z niej za pośrednictwem przeglądarki, ale dostępne są także dedykowane aplikacje na praktycznie każdy system, zaczynając od smart car-u na smartfonie kończąc, między którymi można się swobodnie przełączać. Muzyki można słuchać zarówno w trybie online, jak i w offline (oczywiście po wcześniejszym pobraniu na urządzenie). Co ważne zmianie uległ sposób konsumpcji samych treści. Autor niniejszej pracy, jako szczególnie aktywny użytkownik platformy uznał za stosowne wymienienie następujących alternatywnych kanałów:
     \begin{itemize}
         \item \textit{strona główna (ang. home)} - Najmocniej promowane przez platformę treści, również spersonalizowane sekcje z dedykowanymi playlistami, a także szybki dostęp do treści ostatnio odtwarzanych.
         \item \textit{radio wykonawcy, radio utworu} - Pseudo-radio, a właściwie strumień muzyczny generowany przez algorytm Spotify dla danego wykonawcy lub konkretnego utworu muzycznego
@@ -328,7 +354,7 @@
 
     \bigskip
 
-    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł, że gatunki ewoluują, to jest, dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje różnic w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na różnice w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziałuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie, albo że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
+    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł, że gatunki ewoluują, to jest, dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje różnic w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na różnice w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziałuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie albo, że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
 
@@ -354,7 +380,7 @@
 
     \bigskip
 
-    Niezmiernie ważne jest, by uświadomić sobie, że wszystkie zmiany (to jest mutacje i rekombinacje) zachodzą na poziomie genetycznym, natomiast selekcja naturalna odbywa się w oparciu o fenotyp\cite{IntroductionToEvolutionaryComputing2015}.
+    Niezmiernie ważne jest, by uświadomić sobie, że wszystkie zmiany (to jest mutacje i rekombinacje) zachodzą na poziomie genetycznym, natomiast selekcja naturalna odbywa się na podstawie fenotypu\cite{IntroductionToEvolutionaryComputing2015}.
 
     \bigskip
 
