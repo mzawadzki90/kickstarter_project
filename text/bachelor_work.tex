@@ -676,7 +676,7 @@
     Przed ostatecznym wyborem modelu bazowego do późniejszego wyliczenia przez algorytm genetyczny dokonano szeregu prób, eksperymentując z zastosowaniem różnych optymalizatorów, regularyzatorów, inicjatorów wag i funkcji aktywacji, a także z ilością warstw ukrytych i liczbą neuronów w każdej z nich. Ostatecznie zdecydowano się na następującą bazę:
     \begin{itemize}
         \item warstwa wejściowa z 25 neuronami i normalizacją wsadową (ang. \textit{Batch Normalization}) ($momentum = 0.99$)
-        \item dwie warstwy ukryte posiadające między 10 a 250 neuronów; wagi i obciążenia inicjowane funkcją He z rozkładem normalnym; normalizacja wsadowa ($momentum = 0.99$); aktywacja funkcją ELU; regularyzacja przez porzucenie (ang. \textit{Dropout}) ze współczynnikiem porzucania wynoszącym między 0.05 a 0.5
+        \item trzy warstwy ukryte posiadające między 10 a 200 neuronów; wagi i obciążenia inicjowane funkcją He z rozkładem normalnym; normalizacja wsadowa ($momentum = 0.99$); aktywacja funkcją ELU; regularyzacja przez porzucenie (ang. \textit{Dropout}) ze współczynnikiem porzucania wynoszącym między 0.01 a 0.5
         \item warstwa wyjściowa z 1 neuronem i aktywacją liniową
         \item optymalizator Adam ($\eta = 0.001$)
         \item jako funkcję straty (ang. \textit{loss}) do minimalizacji wybrano MSE (ang. \textit{mean square error})
@@ -686,7 +686,7 @@
 
     \bigskip
 
-    Decyzja o zastosowaniu tylko dwóch warstw ukrytych podyktowana była specyfiką działania algorytmu genetycznego i wynikającą z niej koniecznością skrócenia średniego czasu uczenia pojedynczego modelu.
+    Decyzja o zastosowaniu tylko trzech warstw ukrytych podyktowana była specyfiką działania algorytmu genetycznego oraz ograniczeniami środowiska wykonawczego (maksymalny czas trwania sesji w Google Colab Pro Plus to 24 godziny) i wynikającą z powyższych koniecznością skrócenia średniego czasu uczenia pojedynczego modelu.
 
     \subsection{Inicjacja wag funkcją HE}
 
@@ -1014,11 +1014,13 @@
 
     Do estymacji za pomocą algorytmu genetycznego wybrano następujący zestaw hiperparametrów:
     \begin{itemize}
-        \item liczba jednostek (neuronów) w warstwie ukrytej `1' (min.10, max.250)
-        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `1' (min. 0.05, max. 0.5)
-        \item liczba jednostek dla warstwie ukrytej `2' (min.10, max.250)
-        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `2' (min. 0.05, max. 0.5)
-        \item rozmiar minigrupy (ang. \textit{batch size}); (min.100, max.200)
+        \item liczba jednostek (neuronów) w warstwie ukrytej `1' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `1' (min. 0.01, max. 0.5)
+        \item liczba jednostek dla warstwie ukrytej `2' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `2' (min. 0.01, max. 0.5)
+        \item liczba jednostek dla warstwie ukrytej `3' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `3' (min. 0.01, max. 0.5)
+        \item rozmiar minigrupy (ang. \textit{batch size}); (min.100, max.400)
     \end{itemize}
 
     \bigskip
