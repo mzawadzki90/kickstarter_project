@@ -121,7 +121,7 @@
         \item genom (ang. \textit{genome}) - W biologi molekularnej i genetyce określa się tak kompletną informację genetyczną organizmu\cite{WhatIsGenomicMedicine2019}.
         \item gen (ang. \textit{gene}) - W biologii gen (od greckiego \textit{genos}) jest podstawową jednostką dziedziczenia; reprezentowany jako sekwencja nukleotydów w DNA, która koduje syntezę produktu genu, albo RNA lub białko\cite{GeneWiki}.
         \item funkcja dopasowania (ang. \textit{fitness function}) - W algorytmie genetycznym reprezentuje wymagania, do których powinna adaptować się populacja; jest podstawą mechanizmu selekcji i tym samym przyczynia się do ogólnej poprawy jakości osobników w kolejnych pokoleniach\cite{IntroductionToEvolutionaryComputing2015}.
-        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charlesa Darvina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
+        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charlesa Darwina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
         \item krzyżówka (ang. \textit{mutation}) - Operacja stochastyczna polegająca na rekombinacji materiału genetycznego rodziców poprzez losowo wybrane punkty przecięcia\cite{IntroductionToEvolutionaryComputing2015}.
         \item mutacja (ang. \textit{mutation}) - Operacja stochastyczna wprowadzająca losową zmianę do genotypu osobnika, której wynikiem jest mutant\cite{IntroductionToEvolutionaryComputing2015}.
         \item sztuczna sieć neuronowa (ang. \textit{artificial neural network}, ANN) - System obliczeniowy przeznaczony do przetwarzania informacji, czerpiący inspirację z biologicznego układu nerwowego\cite{LeksykonSieciNeuronowych2015}.
@@ -139,7 +139,7 @@
 
     \bigskip
 
-    Sekcja trzecia jest wprowadzeniem do tematu algorytmów genetycznych. Opisano w telegraficznym skrócie odkrycia Charlesa Darvina i Gregora Johanna Mendla, które następnie posłużyły Alanowi Turingowi jako baza dla jego `ewolucyjnego poszukiwania' - czyli pierwowzoru wspomnianego algorytmu. W dalszej części omówiono cykl życia populacji w ramach algorytmu. Potem kolejno opisano kluczowe komponenty: inicjację populacji, ewaluację osobników, selekcję rodziców, krzyżowanie, mutację genomu, wybór potomstwa i warunek końcowy.
+    Sekcja trzecia jest wprowadzeniem do tematu algorytmów genetycznych. Opisano w telegraficznym skrócie odkrycia Charlesa Darwina i Gregora Johanna Mendla, które następnie posłużyły Alanowi Turingowi jako baza dla jego `ewolucyjnego poszukiwania' - czyli pierwowzoru wspomnianego algorytmu. W dalszej części omówiono cykl życia populacji w ramach algorytmu. Potem kolejno opisano kluczowe komponenty: inicjację populacji, ewaluację osobników, selekcję rodziców, krzyżowanie, mutację genomu, wybór potomstwa i warunek końcowy.
 
     \bigskip
 
@@ -361,7 +361,7 @@
     \begin{figure}[H]
         \label{fig:darwin_birds}
         \centering
-        \includegraphics[width=10cm]{darwin_birds}
+        \includegraphics[width=7cm]{darwin_birds}
         \caption{Darwin pracując na Galapagos prowadził między innymi badania nad różnicami w fenotypie zięb. Autor ilustracji: John Gould (`Voyage of the Beagle').}
     \end{figure}
 
@@ -1233,7 +1233,7 @@
     Szczegółowe wartości wyliczonych parametrów dla najlepszego osobnika prezentują się następująco:
     \begin{itemize}
         \item $hidden\_1\_units = 181$
-        \item $hidde\n_1\_dropout\_rate = 0.10379824743424901$
+        \item $hidde\_1\_dropout\_rate = 0.10379824743424901$
         \item $hidden\_2\_units = 112$
         \item $hidden\_2\_dropout\_rate = 0.09567409338419407$
         \item $hidden\_3\_units = 55$
@@ -1357,6 +1357,20 @@
     \section{Wnioski}
     % przanalizować dla jakich utworów szacowało najlepiej, a dla jakich najgorzej
     % napisać wnioski jakich informacji zabrakło i co można by zrobić lepiej
+
+    Dzięki zastosowaniu algorytmu genetycznego udało się poprawić wynik dla modelu 3-wartwowego o 1,69\% licząc w oparciu o metrykę MSE. Wiązało się to ze skonstruowaniem dużo większej sieci od tej stworzonej pierwotnie na etapie \textit{Proof of concept} (pl. sprawdzenie pomysłu).
+
+    \bigskip
+
+    Przy tworzeniu modelu wzięto pod uwagę wyłącznie cechy muzyczne. Na etapie \textit{Proof of concept} podjęto próby włączenia do modelu tytułów utworów poprzez ich transformację z wykorzystaniem techniki \textit{word embedding} (przeliczenie na wartości numeryczne odległości semantycznych między frazami). Dało to poprawę wyniku o około 0.5\%, ale z pomysłu wycofano się ze względu na konieczność uproszczenia modelu, a także fakt że użycie wspomnianej techniki wymagałoby znacznego rozbudowania niniejszego opracowania.
+
+    \bigskip
+
+    Kolejnym pomysłem, który rozważano było wprowadzenie do modelu 4tej i 5tej warstwy ukrytej. Pomysł zarzucono ze względu na brak dostępu do odpowiedniego środowiska wykonawczego. Szacunkowe próby na etapie \textit{Proof of concept} wskazywały jednak, że dodawanie kolejnych warstw ukrytych po 3ciej nie przynosi już znaczącej poprawy wyniku, a przy niekorzystnym układzie liczby jednostek w poszczególnych warstwach może wręcz spowodować jego pogorszenie.
+
+    \bigskip
+
+    Podsumowując, algorytm genetyczny okazał się być dobrym narzędziem do optymalizacji architektury i procesu uczenia sieci neuronowych. Trzeba jednak wyraźnie stwierdzić, że ze względu na fakt iż jest to szablon, a nie gotowe narzędzie jego implementacja i dostrojenie wymaga ogromnych nakładów pracy.
 
     \newpage
 
