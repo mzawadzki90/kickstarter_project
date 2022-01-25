@@ -14,14 +14,16 @@ class RealMultiPredPlotter(object):
         self.real_dim = real.shape[0]
 
     def plot(self):
-        fig = plt.figure(figsize=(self.real.shape[0], 10), dpi=80)
+        fig = plt.figure(figsize=(self.real.shape[0], 10), dpi=400)
         ax = fig.add_subplot(111)
 
         ax.add_line(Line2D(xdata=range(self.real.shape[0]), ydata=self.real, color='r', marker='x', linestyle=''))
 
+        x_colors = ['blue', 'lime', 'magenta', 'orangered']
+        x_colors_iter = iter(x_colors)
         for label, values in self.pred_dict.items():
             ax.add_line(
-                Line2D(xdata=range(values.shape[0]), ydata=values, color=self.choose_rand_color(), marker='x',
+                Line2D(xdata=range(values.shape[0]), ydata=values, color=next(x_colors_iter), marker='x',
                        linestyle=''))
 
         plt.title('Porównanie wartości rzeczywistych i wybranych predykcji')

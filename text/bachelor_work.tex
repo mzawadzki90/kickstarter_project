@@ -1141,10 +1141,6 @@
 
 
     \section{Rezultaty eksperymentów}
-    % algorytm genetyczny historia:  poprawy błędu w czasie dla najlepszego
-    % algorytm genetyczny historia:  poprawy błędu w czasie średnia
-    % zrzuty architektury sieci z tensorboard
-    % porównianie sieci inicjowanej na sztywno i sieci z hiperparamertami wyuczonymi
 
     Wykresy ilustrujące przebieg algorytmu genetycznego.
 
@@ -1233,13 +1229,20 @@
 
     Porównanie przykładowych architektur sieci neuronowych z wybranym modelem.
 
+    \begin{figure}[H]
+        \label{fig:table_metrics_values_comparison}
+        \centering
+        \includegraphics[width=\textwidth]{table_metrics_values_comparison}
+        \caption{Tabelaryczne zestawienie wartości metryk otrzymanych dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanych na zbiorze testowym.}
+    \end{figure}
+
     \bigskip
 
     \begin{figure}[H]
         \label{fig:compr_mse}
         \centering
         \includegraphics[width=\textwidth]{compr_mse}
-        \caption{Zestawienie wartości metryk MSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach), uzyskanych na zbiorze testowym.}
+        \caption{Zestawienie wartości metryk MSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
     \end{figure}
 
     \bigskip
@@ -1248,7 +1251,7 @@
         \label{fig:compr_mae}
         \centering
         \includegraphics[width=\textwidth]{compr_mae}
-        \caption{Zestawienie wartości metryk MAE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach), uzyskanych na zbiorze testowym.}
+        \caption{Zestawienie wartości metryk MAE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
     \end{figure}
 
     \bigskip
@@ -1257,7 +1260,25 @@
         \label{fig:compr_rmse}
         \centering
         \includegraphics[width=\textwidth]{compr_rmse}
-        \caption{Zestawienie wartości metryk RMSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach), uzyskanych na zbiorze testowym.}
+        \caption{Zestawienie wartości metryk RMSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:table_real_predictions}
+        \centering
+        \includegraphics[width=\textwidth]{table_real_predictions}
+        \caption{Tabelaryczne zestawienie wartości rzeczywistych dla wybranych przykładów z predykcjami otrzymanymi dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanymi na zbiorze testowym.}
+    \end{figure}
+
+    \bigskip
+
+    \begin{figure}[H]
+        \label{fig:compr_samples_real_predictions}
+        \centering
+        \includegraphics[width=\textwidth]{compr_samples_real_predictions}
+        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli\ref{fig:table_real_predictions}.}
     \end{figure}
 
     \newpage

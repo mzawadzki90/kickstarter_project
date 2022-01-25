@@ -3,6 +3,27 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="C:\Users\micha\Downloads\genetic_algorithm_stats_2022-01-23_23-54-37.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\micha\Downloads\spotify_final_he_elu_adam_181_112_55_2022-01-24_21-45-22.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\results\genetic_algorithm_stats_2022-01-21_13-39-34.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\results\spotify_final_he_elu_adam_201_177_log_2022-01-22_16-27-57.csv">
           <value>
             <Attribute>
