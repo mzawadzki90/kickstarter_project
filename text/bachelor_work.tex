@@ -1159,7 +1159,7 @@
     Maksymalna liczba epok (pełnych przebiegów po zbiorze treningowym) została wyznaczona na 20. Dla skrócenia czasu nauki pojedynczego modelu skorzystano z mechanizmu Keras Early Stopping (tzw. `wcześniejsze zatrzymanie'). Ustawiono następujące wartości parametrów:
     \begin{itemize}
         \item $monitor = val_{loss}$ - monitorowana metryka to strata na zbiorze walidacyjnym (MSE walidacyjne)
-        \item $min_delta = 0.1$ - minimalna wartość poprawy metryki
+        \item $min\_delta = 0.1$ - minimalna wartość poprawy metryki
         \item $patienced = 3$ - cierpliwość w oczekiwaniu na poprawę wyniku (w epokach)
         \item $mode = min$ - tryb minimalizacji monitorowanej metryki
     \end{itemize}
@@ -1226,28 +1226,28 @@
 
     \bigskip
 
-    Wartość FF dla najlepszego osobnika w ostatnim pokoleniu wyniosła: $MSE_{valid} = 97.01777648925781$. Oznaczało to poprawę o 1.7\% w stosunku do najlepszego osobnika z pokolenia `zero' i aż 10,11\% (!) licząc w odniesieniu do najgorszego osobnika z pierwotnej populacji.
+    Wartość FF dla najlepszego osobnika w ostatnim pokoleniu wyniosła: $MSE_{valid} = 97.01777648925781$. Oznaczało to poprawę o 1.7\% w stosunku do najlepszego osobnika z pokolenia `zero' i aż 10.11\% (!) licząc w odniesieniu do najgorszego osobnika z pierwotnej populacji.
 
     \bigskip
 
     Szczegółowe wartości wyliczonych parametrów dla najlepszego osobnika prezentują się następująco:
     \begin{itemize}
-        \item $hidden_1_units = 181$
-        \item $hidden_1_dropout_rate = 0.10379824743424901$
-        \item $hidden_2_units = 112$
-        \item $hidden_2_dropout_rate = 0.09567409338419407$
-        \item $hidden_3_units = 55$
-        \item $hidden_3_dropout_rate = 0.01$
-        \item $batch_size = 100$
+        \item $hidden\_1\_units = 181$
+        \item $hidde\n_1\_dropout\_rate = 0.10379824743424901$
+        \item $hidden\_2\_units = 112$
+        \item $hidden\_2\_dropout\_rate = 0.09567409338419407$
+        \item $hidden\_3\_units = 55$
+        \item $hidden\_3\_dropout\_rate = 0.01$
+        \item $batch\_size = 100$
     \end{itemize}
 
     \bigskip
 
     Podczas uczenia dokładnego wyliczonego modelu zwiększono maksymalną liczbę epok do 100. Zmieniono też parametry mechanizmu Keras EarlyStopping:
     \begin{itemize}
-        \item $min_delta=0.01$
+        \item $min\_delta=0.01$
         \item $patience=10$
-        \item $restore_best_weights=True$ - przywrócenie wartości wag dla połączeń z najlepszego przebiegu
+        \item $restore\_best\_weights=True$ - przywrócenie wartości wag dla połączeń z najlepszego przebiegu
     \end{itemize}
 
     \bigskip
