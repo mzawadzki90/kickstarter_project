@@ -20,6 +20,7 @@
 \usepackage{indentfirst}
 \usepackage{latexsym}
 \usepackage{mathtools}
+\usepackage{multirow}
 \usepackage{placeins}
 \usepackage{polski}
 \usepackage{tabularx}
@@ -319,7 +320,7 @@
 
     \bigskip
 
-    Na rysunku\ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
+    Na rysunku \ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -332,7 +333,7 @@
 
     \bigskip
 
-    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na rysunku\ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
+    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na rysunku \ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -349,7 +350,7 @@
 
     \bigskip
 
-    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na rysunku\ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
+    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na rysunku \ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
 
     \bigskip
 
@@ -375,7 +376,7 @@
 
     \bigskip
 
-    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na rysunku\ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia($z=w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęściej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
+    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na rysunku \ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia($z=w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęściej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -1461,7 +1462,7 @@
     Porównanie przykładowych architektur sieci neuronowych z wybranym modelem.
 
     \begin{figure}[H]
-        \label{fig:table_metrics_values_comparison}
+        \label{tab:table_metrics_values_comparison}
         \centering
         \includegraphics[width=\textwidth]{table_metrics_values_comparison}
         \caption{Tabelaryczne zestawienie wartości metryk otrzymanych dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanych na zbiorze testowym.}
@@ -1501,7 +1502,7 @@
     \bigskip
 
     \begin{figure}[H]
-        \label{fig:table_real_predictions}
+        \label{tab:table_real_predictions}
         \centering
         \includegraphics[width=\textwidth]{table_real_predictions}
         \caption{Tabelaryczne zestawienie wartości rzeczywistych dla wybranych przykładów z predykcjami otrzymanymi dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanymi na zbiorze testowym.}
@@ -1513,8 +1514,48 @@
         \label{fig:compr_samples_real_predictions}
         \centering
         \includegraphics[width=\textwidth]{compr_samples_real_predictions}
-        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli\ref{fig:table_real_predictions}.}
+        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli \ref{tab:table_real_predictions}.}
     \end{figure}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Najlepsza i najgorsza predykcja: \\
+        \bigskip
+        \begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+            \hline
+            \multicolumn{2}{|c|}{Najlepsza predykcja} \\
+            \hline
+            Nazwa utworu:                & Basie English - Take 2 \\
+            Artysta:                     & Lester Young           \\
+            Gatunek:                     & Jazz                   \\
+            Rok publikacji:              & 1944                   \\
+            Wartość rzecz. popularności: & 4                      \\
+            Wartość predykcji:           & 4.0000167              \\
+            Błąd absolutny:              & 1.66893005e-05         \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+            \hline
+            \multicolumn{2}{|c|}{Najgorsza predykcja} \\
+            \hline
+            Nazwa utworu:                & Chika Dance \\
+            Artysta:                     & AnimeHub    \\
+            Gatunek:                     & Anime       \\
+            Rok publikacji:              & 2019        \\
+            Wartość rzecz. popularności: & 69          \\
+            Wartość predykcji:           & -7.619051   \\
+            Błąd absolutny:              & 76.61905098 \\
+            \hline
+        \end{tabular}
+    \end{minipage}
 
     \newpage
 
@@ -1527,7 +1568,7 @@
 
     \bigskip
 
-    Przy tworzeniu modelu wzięto pod uwagę wyłącznie cechy muzyczne. Na etapie \textit{Proof of concept} podjęto próby włączenia do modelu tytułów utworów poprzez ich transformację z wykorzystaniem techniki \textit{word embedding} (przeliczenie na wartości numeryczne odległości semantycznych między frazami). Dało to poprawę wyniku o około 0.5\%, ale z pomysłu wycofano się ze względu na konieczność uproszczenia modelu, a także fakt że użycie wspomnianej techniki wymagałoby znacznego rozbudowania niniejszego opracowania.
+    Przy tworzeniu modelu wzięto pod uwagę wyłącznie cechy muzyczne. Na etapie \textit{Proof of concept} podjęto próby włączenia do modelu tytułów utworów poprzez ich transformację z wykorzystaniem techniki \textit{word embedding} (przeliczenie na wartości numeryczne odległości semantycznych między frazami). Dało to poprawę wyniku o około 0.5\% dla metryki MSE, ale z pomysłu wycofano się ze względu na konieczność uproszczenia modelu, a także fakt że użycie wspomnianej techniki wymagałoby znacznego rozbudowania niniejszego opracowania.
 
     \bigskip
 
