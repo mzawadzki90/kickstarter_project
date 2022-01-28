@@ -38,6 +38,7 @@
 \addbibresource{references.bib}
 \restylefloat{table}
 \numberwithin{figure}{section}
+\pdfminorversion=5
 
 % Document
 \begin{document}
@@ -427,24 +428,84 @@
 
     \subsection{Uczenie wielowarstwowych sieci przy użyciu propagacji wstecznej}
 
-    % do rozszerzenia i uzupełnienia
-    W 1985 roku D.E. Rumelhart i jego zespół opublikowali artykuł\cite{Backpropagation1985}, w którym przedstawili koncepcję algorytmu propagacji wstecznej (ang. \textit{backpropagation}).
+    W 1985 roku D.E.\ Rumelhart i jego zespół opublikowali artykuł\cite{Backpropagation1985}, w którym przedstawili koncepcję algorytmu propagacji wstecznej (ang. \textit{backpropagation}).
     Łączy on operację odwrotnego różniczkowania i metodę gradientu prostego.
 
     \bigskip
 
-    W pierwszej fazie algorytm pobiera przykład uczący i przechodzi przez całą sieć od wejścia do wyjścia (przebieg do przodu), obliczając i zapamiętując wyniki dla wszystkich neuronów.
-    \smallskip
-    Faza druga to przebieg odwrotny:
+    W pierwszej fazie algorytm pobiera przykład uczący i przechodzi przez całą sieć od wejścia do wyjścia (przebieg do przodu), dla każdej pary wejścia-wyjścia $(\vec{x_d}, y_d)$ oblicza i zapamiętuje wyniki $\widehat{y_d}$, $a_j^k$ i $o_j^k$ dla każdego węzła $j$ w warstwie $k$.
+
+    \bigskip
+
+    Faza druga to przebieg odwrotny. Dla każdej pary wejścia-wyjścia $(\vec{x_d}, y_d)$ obliczane są i zapamiętywane wyniki $\frac{\partial E_d}{\partial w_{ij}^k}$ dla każdej wagi $w_{ij}^k$ połączenia węzła $i$ w warstwie $k-1$ z z węzłem $j$ w warstwie $k$:
     \begin{enumerate}
-        \item zostaje zmierzony błąd na wyjściu z sieci
-        \item błąd propagowany jest do kolejnych warstw ukrytych aż do warstwy wejściowej
-        \item wyliczane są pochodne cząstkowe funkcji błędu po wadze połączenia między neuronami
+        \item zostaje zmierzony błąd $\delta_1^m$ na wyjściu z sieci z wykorzystaniem wzoru \ref{eq:final_layer_error_term}
+        \item błąd propagowany jest wstecznie do kolejnych warstw ukrytych $\delta_j^k$ z wykorzystaniem wzoru \ref{eq:hidden_layer_error_term}
+        \item wyliczane są pochodne cząstkowe funkcji błędu $E_d$ po wadze połączenia między neuronami $w_{ij}^k$ z wykorzystaniem wzoru \ref{eq:partial_derivatives_combination_for_input_output_pairs}
     \end{enumerate}
-    \smallskip
-    W fazie trzeciej gradienty cząstkowe są łączone, tak by uzyskać całkowity gradient dla danego połączenia.
-    \smallskip
-    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia odwrotnie do kierunku gradientu\cite{BackpropagationBrilliant}.
+
+    \bigskip
+
+    W fazie trzeciej gradienty cząstkowe $\frac{\partial E_d}{\partial w_{ij}^k}$ są sumowane dla każdej pary wejścia-wyjścia, tak by uzyskać gradient całkowity $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ dla całego zbioru par wejścia-wyjścia $X = \{(\vec{x_1}, y_1),\dotsc,(\vec{x_N}, y_N)\}$ z wykorzystaniem równania \ref{eq:partial_derivatives_combination_for_input_output_pairs} (jest to po prostu średnia gradientów cząstkowych).
+
+    \bigskip
+
+    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia $\alpha$, odwrotnie do kierunku gradientu całkowitego $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ z wykorzystaniem równania \ref{eq:updating_weights} \cite{BackpropagationBrilliant}.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Pochodna częściowa: \\
+        \begin{equation}
+            \label{eq:error_func_partial_derivatives}
+            \frac{\partial E_d}{\partial w_{ij}^k} = \delta_j^k o_i^{k-1}
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wartości błędu dla warstwy wyjściowej: \\
+        \begin{equation}
+            \label{eq:final_layer_error_term}
+            \delta_1^m = g_0^{\prime} (a_1^m) (\widehat{y_d} - y_d)
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wartości błędu dla warstw ukrytych: \\
+        \begin{equation}
+            \label{eq:hidden_layer_error_term}
+            \delta_j^k = g^{\prime} (a_j^k) \displaystyle\sum_{l=1}^{r^{k+1}} w_{jl}^{k+1} \delta_l^{k+1}
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Suma pochodnych częściowych dla każdej pary wejście-wyjście: \\
+        \begin{equation}
+            \label{eq:partial_derivatives_combination_for_input_output_pairs}
+            \frac{\partial E(X,\theta)}{\partial w_{ij}^k} = \frac{1}{N} \displaystyle\sum_{d=1}^N \frac{\partial}{\partial w_{ij}^k} (\frac{1}{2}(\widehat{y_d} - y_d)^2) = \frac{1}{N} \displaystyle\sum_{d=1}^N \frac{\partial E_d}{\partial w_{ij}^k}
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Aktualizacja wag dla połączeń: \\
+        \begin{equation}
+            \label{eq:updating_weights}
+            \Delta w_{ij}^k = -\alpha \frac{\partial E(X,\theta)}{\partial w_{ij}^k}
+        \end{equation}
+    \end{minipage}
 
     \newpage
 
