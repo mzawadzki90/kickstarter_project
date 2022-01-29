@@ -1403,7 +1403,7 @@
 
     \bigskip
 
-    Wartość FF dla najlepszego osobnika w ostatnim pokoleniu wyniosła: $MSE_{valid} = 97.01777648925781$. Oznaczało to poprawę o 1.7\% w stosunku do najlepszego osobnika z pokolenia `zero' i aż 10.11\% (!) licząc w odniesieniu do najgorszego osobnika z pierwotnej populacji.
+    Wartość FF dla najlepszego osobnika w ostatnim pokoleniu wyniosła: \textbf{$MSE_{valid} = 97.01777648925781$}. Oznaczało to poprawę o 1.7\% w stosunku do najlepszego osobnika z pokolenia `zero' i aż 10.11\% (!) licząc w odniesieniu do najgorszego osobnika z pierwotnej populacji.
 
     \bigskip
 
@@ -1500,7 +1500,7 @@
 
     \bigskip
 
-    Uzyskano wynik $MSE_{valid} = 96,329475402832$ - poprawa o kolejne 0.71\% (poprawa względem najlepszego z pokolenia `zero' o 2,4\%, a względem najgorszego o 10,75\%).
+    Uzyskano wynik: \textbf{$MSE_{valid} = 96,329475402832$} - poprawa o kolejne 0.71\% (poprawa względem najlepszego z pokolenia `zero' o 2,4\%, a względem najgorszego o 10,75\%).
 
     \bigskip
 
@@ -1555,26 +1555,20 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{compr_mse}
-        \caption{Zestawienie wartości metryk MSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
+        \caption{Zestawienie wartości metryk MSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym. \textbf{    Widać poprawę wyniku o 1.69\% w porównaniu do mniejszego modelu o podobnej architekturze.}}
         \label{fig:compr_mse}
     \end{figure}
 
-    Widać poprawę wyniku o 1.69\% w porównaniu do mniejszego modelu o podobnej architekturze.
-
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{compr_mae}
-        \caption{Zestawienie wartości metryk MAE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
+        \caption{Zestawienie wartości metryk MAE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym. \textbf{Widać poprawę wyniku o 0.85\% w porównaniu do mniejszego modelu o podobnej architekturze.}}
         \label{fig:compr_mae}
     \end{figure}
 
-    \bigskip
-
-    Widać poprawę wyniku o 0.85\% w porównaniu do mniejszego modelu o podobnej architekturze.
-
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1647,8 +1641,6 @@
 
 
     \section{Wnioski}
-    % przanalizować dla jakich utworów szacowało najlepiej, a dla jakich najgorzej
-    % napisać wnioski jakich informacji zabrakło i co można by zrobić lepiej
 
     Dzięki zastosowaniu algorytmu genetycznego udało się poprawić wynik dla modelu 3-warstwowego o 1,69\% licząc w oparciu o metrykę MSE. Wiązało się to ze skonstruowaniem dużo większej sieci od tej stworzonej pierwotnie na etapie \textit{Proof of concept} (pl. sprawdzenie pomysłu).
 
@@ -1659,6 +1651,10 @@
     \bigskip
 
     Kolejnym pomysłem, który rozważano było wprowadzenie do modelu 4tej i 5tej warstwy ukrytej. Pomysł zarzucono ze względu na brak dostępu do odpowiedniego środowiska wykonawczego. Szacunkowe próby na etapie \textit{Proof of concept} wskazywały jednak, że dodawanie kolejnych warstw ukrytych po 3ciej nie przynosi już znaczącej poprawy wyniku, a przy niekorzystnym układzie liczby jednostek w poszczególnych warstwach może wręcz spowodować jego pogorszenie.
+
+    \bigskip
+
+    Autor niniejszego opracowania uznaje finalny wynik: \textbf{$MSE = 93.144$, $MAE = 6.737$, $RMSE = 9.651$} za satysfakcjonujący (biorąc uwagę, że cecha szacowana \textit{popularity} była w skali 0--100, to błąd wyniósł dla $RMSE$ 9.651\%, a dla MAE jedynie 6.737\%). Na skalę błędu miały niewątpliwie wpływ następujące czynniki: kampanie promocyjne i sposoby ekspozycji treści przez Spotify, szeroko rozumiane mody, ogólna renoma artysty, jakość warstwy tekstowej utworu. Widać natomiast, że same dane odnośnie warstwy muzycznej są niezwykle cennym nośnikiem informacji, pozwalającym na tworzenie wysokiej jakości predykcji.
 
     \bigskip
 
