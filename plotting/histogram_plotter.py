@@ -31,5 +31,6 @@ class HistogramPlotter:
             plt.hist(x=self.x, color=color, bins=bins, alpha=alpha)
 
         cwd = os.getcwd()
+        plt.tight_layout()
         plt.savefig(os.path.join(cwd, self.output_path))
         plt.show()

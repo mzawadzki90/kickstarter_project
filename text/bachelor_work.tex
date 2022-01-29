@@ -2,7 +2,7 @@
 %! Date = 14.10.2021
 
 % Preamble
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,12pt]{article}
 
 % Packages
 \usepackage[T1]{fontenc}
@@ -54,15 +54,15 @@
 
     \begin{center}
 
-        \vspace{1.3cm}
+        \vspace{0.5cm}
         \large
         Wydział Informatyki \\
 
-        \vspace{0.4cm}
+        \vspace{0.2cm}
         \large
         Katedra Metod Programowania \\
 
-        \vspace{0.4cm}
+        \vspace{0.2cm}
         \large
         Programowanie aplikacji biznesowych \\
 
@@ -70,7 +70,7 @@
         \LARGE
         Praca Inżynierska \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Autor: \\
         \vspace{.3cm}
@@ -78,21 +78,21 @@
         \textbf{Michał Marek Zawadzki} \\
         Nr albumu: 14304 \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Tytuł: \\
         \vspace{.3cm}
         \LARGE
         \textbf{Optymalizacja hiperparametrów procesu uczenia sieci neuronowych z wykorzystaniem algorytmu genetycznego} \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Promotor: \\
         \vspace{.3cm}
         \large
         \textbf{mgr inż. Piotr Gnyś} \\
 
-        \vspace{2.3cm}
+        \vspace{1.6cm}
         \normalsize
         Warszawa, Luty, 2022 \\
 
@@ -100,7 +100,7 @@
 
     \newpage
 
-    % Title page [EN]
+% Title page [EN]
     \thispagestyle{empty}
 
     \begin{figure}[H]
@@ -111,15 +111,15 @@
 
     \begin{center}
 
-        \vspace{1.3cm}
+        \vspace{0.5cm}
         \large
         Faculty of Computer Science \\
 
-        \vspace{0.4cm}
+        \vspace{0.2cm}
         \large
         Department of Programming Methods \\
 
-        \vspace{0.4cm}
+        \vspace{0.2cm}
         \large
         Business Application Programming  \\
 
@@ -127,7 +127,7 @@
         \LARGE
         Sc Thesis \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Author: \\
         \vspace{.3cm}
@@ -135,21 +135,21 @@
         \textbf{Michał Marek Zawadzki} \\
         Student identification number: 14304 \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Title of the Thesis: \\
         \vspace{.3cm}
         \LARGE
         \textbf{Optimization of Artificial Neuronal Network Learning Process Hiperparameters by Genetic Algorithm} \\
 
-        \vspace{1.3cm}
+        \vspace{1.2cm}
         \normalsize
         Thesis supervisor: \\
         \vspace{.3cm}
         \large
         \textbf{Master of Engineering Piotr Gnyś} \\
 
-        \vspace{2.3cm}
+        \vspace{1.6cm}
         \normalsize
         Warsaw, February, 2022 \\
 
@@ -454,6 +454,10 @@
 
     \bigskip
 
+    Wzory:
+
+    \bigskip
+
     \noindent
     \begin{minipage}[H]{\textwidth}
         \setlength\parindent{17pt} Pochodna częściowa: \\
@@ -463,7 +467,7 @@
         \end{equation}
     \end{minipage}
 
-    \bigskip
+    \smallskip
 
     \noindent
     \begin{minipage}[H]{\textwidth}
@@ -474,7 +478,7 @@
         \end{equation}
     \end{minipage}
 
-    \bigskip
+    \smallskip
 
     \noindent
     \begin{minipage}[H]{\textwidth}
@@ -485,7 +489,7 @@
         \end{equation}
     \end{minipage}
 
-    \bigskip
+    \smallskip
 
     \noindent
     \begin{minipage}[H]{\textwidth}
@@ -496,7 +500,7 @@
         \end{equation}
     \end{minipage}
 
-    \bigskip
+    \smallskip
 
     \noindent
     \begin{minipage}[H]{\textwidth}
@@ -802,6 +806,15 @@
 
     \begin{figure}[H]
         \centering
+        \includegraphics[width=\textwidth]{popularity}
+        \caption{Histogram dla cechy \textit{popularity} (pl. popularność).}
+        \label{fig:popularity}
+    \end{figure}
+
+    \smallskip
+
+    \begin{figure}[H]
+        \centering
         \includegraphics[width=7cm,keepaspectratio]{mode}
         \caption{Wykres kołowy pokazujący procentowy rozkład dominant dla badanych utworów.}
         \label{fig:mode}
@@ -956,9 +969,7 @@
         \item rozwiązanie problemu `umierających neuronów' dzięki niezerowemu gradientowi dla x < 0
         \item przyspieszenie procesu uczenia metodą gradientu prostego dzięki gładkości funkcji na cały przebiegu
     \end{itemize}
-
     \smallskip
-
     Wadą jest natomiast niewątpliwie większy koszt obliczeniowy w porównaniu z ReLU spowodowany obecnością składowej wykładniczej.
 
     \bigskip
@@ -1044,7 +1055,7 @@
         \end{equation}
     \end{minipage}
 
-    \smallskip
+    \bigskip
 
     \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
         Gdzie: \\
@@ -1336,6 +1347,8 @@
 
     Wykresy ilustrujące przebieg algorytmu genetycznego.
 
+    \bigskip
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{g_a_best_fitness}
@@ -1343,7 +1356,7 @@
         \label{fig:g_a_best_fitness}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1352,7 +1365,7 @@
         \label{fig:g_a_worst_fitness}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1361,7 +1374,7 @@
         \label{fig:g_a_mean_fitness}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1370,7 +1383,7 @@
         \label{fig:g_a_average_fitness}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1379,11 +1392,11 @@
         \label{fig:g_a_fitness_standard_deviation}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
-        \frame{\includegraphics[keepaspectratio, width=1.70\textwidth, angle=90]{tensorboard_graph}}
+        \frame{\includegraphics[keepaspectratio, width=1.6\textwidth, angle=90]{tensorboard_graph}}
         \caption{Graf z TensorBoard przedstawiający architekturę wybranej sieci neuronowej.}
         \label{fig:tensorboard_graph}
     \end{figure}
@@ -1408,6 +1421,9 @@
     \bigskip
 
     Wykresy zmiany wartości parametrów dla najlepszego osobnika:
+
+    \bigskip
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{g_a_best_hidden_1_units}
@@ -1415,7 +1431,7 @@
         \label{fig:g_a_best_hidden_1_units}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1424,7 +1440,7 @@
         \label{fig:g_a_best_hidden_1_dropout_rate}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1433,7 +1449,7 @@
         \label{fig:g_a_best_hidden_2_units}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1442,7 +1458,7 @@
         \label{fig:g_a_best_hidden_2_dropout_rate}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1451,7 +1467,7 @@
         \label{fig:g_a_best_hidden_3_units}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1460,7 +1476,7 @@
         \label{fig:g_a_best_hidden_3_dropout_rate}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1490,6 +1506,8 @@
 
     Wykresy obrazujące przebieg procesu uczenia modelu stworzonego w oparciu o hiperparametry wyznaczone przez algorytm genetyczny.
 
+    \bigskip
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{f_m_mse_train_valid}
@@ -1497,7 +1515,7 @@
         \label{fig:f_m_mse_train_valid}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1506,7 +1524,7 @@
         \label{fig:f_m_mae_train_valid}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1523,6 +1541,8 @@
 
     Porównanie przykładowych architektur sieci neuronowych z wybranym modelem.
 
+    \bigskip
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{table_metrics_values_comparison}
@@ -1530,7 +1550,7 @@
         \label{fig:table_metrics_values_comparison}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1550,6 +1570,8 @@
         \label{fig:compr_mae}
     \end{figure}
 
+    \bigskip
+
     Widać poprawę wyniku o 0.85\% w porównaniu do mniejszego modelu o podobnej architekturze.
 
     \bigskip
@@ -1561,7 +1583,7 @@
         \label{fig:compr_rmse}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1570,7 +1592,7 @@
         \label{fig:table_real_predictions}
     \end{figure}
 
-    \bigskip
+    \smallskip
 
     \begin{figure}[H]
         \centering
@@ -1602,7 +1624,7 @@
         \end{tabular}
     \end{minipage}
 
-    \bigskip
+    \smallskip
 
     \noindent
     \begin{minipage}[H]{\textwidth}
