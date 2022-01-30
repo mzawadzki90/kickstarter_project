@@ -332,7 +332,7 @@
 
     \bigskip
 
-    Na rysunku \ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
+    Na rysunku~\ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendrony, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -345,7 +345,7 @@
 
     \bigskip
 
-    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na rysunku \ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
+    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na rysunku~\ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -362,7 +362,7 @@
 
     \bigskip
 
-    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na rysunku \ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
+    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}) ma co najmniej jedno wejście binarne (stan 0 lub 1) i jedno wyjście binarne. Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na rysunku~\ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
 
     \bigskip
 
@@ -388,7 +388,7 @@
 
     \bigskip
 
-    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na rysunku \ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia($z=w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęściej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
+    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na rysunku~\ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia($z=w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęściej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
 
     \bigskip
 
@@ -449,18 +449,18 @@
 
     Faza druga to przebieg odwrotny. Dla każdej pary wejścia-wyjścia $(\vec{x_d}, y_d)$ obliczane są i zapamiętywane wyniki $\frac{\partial E_d}{\partial w_{ij}^k}$ dla każdej wagi $w_{ij}^k$ połączenia węzła $i$ w warstwie $k-1$ z z węzłem $j$ w warstwie $k$:
     \begin{enumerate}
-        \item zostaje zmierzony błąd $\delta_1^m$ na wyjściu z sieci z wykorzystaniem wzoru \ref{eq:final_layer_error_term}
-        \item błąd propagowany jest wstecznie do kolejnych warstw ukrytych $\delta_j^k$ z wykorzystaniem wzoru \ref{eq:hidden_layer_error_term}
-        \item wyliczane są pochodne cząstkowe funkcji błędu $E_d$ po wadze połączenia między neuronami $w_{ij}^k$ z wykorzystaniem wzoru \ref{eq:partial_derivatives_combination_for_input_output_pairs}
+        \item zostaje zmierzony błąd $\delta_1^m$ na wyjściu z sieci z wykorzystaniem wzoru~\ref{eq:final_layer_error_term}
+        \item błąd propagowany jest wstecznie do kolejnych warstw ukrytych $\delta_j^k$ z wykorzystaniem wzoru~\ref{eq:hidden_layer_error_term}
+        \item wyliczane są pochodne cząstkowe funkcji błędu $E_d$ po wadze połączenia między neuronami $w_{ij}^k$ z wykorzystaniem wzoru~\ref{eq:partial_derivatives_combination_for_input_output_pairs}
     \end{enumerate}
 
     \bigskip
 
-    W fazie trzeciej gradienty cząstkowe $\frac{\partial E_d}{\partial w_{ij}^k}$ są sumowane dla każdej pary wejścia-wyjścia, tak by uzyskać gradient całkowity $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ dla całego zbioru par wejścia-wyjścia $X = \{(\vec{x_1}, y_1),\dotsc,(\vec{x_N}, y_N)\}$ z wykorzystaniem równania \ref{eq:partial_derivatives_combination_for_input_output_pairs} (jest to po prostu średnia gradientów cząstkowych).
+    W fazie trzeciej gradienty cząstkowe $\frac{\partial E_d}{\partial w_{ij}^k}$ są sumowane dla każdej pary wejścia-wyjścia, tak by uzyskać gradient całkowity $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ dla całego zbioru par wejścia-wyjścia $X = \{(\vec{x_1}, y_1),\dotsc,(\vec{x_N}, y_N)\}$ z wykorzystaniem równania~\ref{eq:partial_derivatives_combination_for_input_output_pairs} (jest to po prostu średnia gradientów cząstkowych).
 
     \bigskip
 
-    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia $\alpha$, odwrotnie do kierunku gradientu całkowitego $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ z wykorzystaniem równania \ref{eq:updating_weights} \cite{BackpropagationBrilliant}.
+    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia $\alpha$, odwrotnie do kierunku gradientu całkowitego $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ z wykorzystaniem równania~\ref{eq:updating_weights}~\cite{BackpropagationBrilliant}.
 
     \bigskip
 
@@ -1100,7 +1100,7 @@
 
     \subsection{Regularyzacja przez Porzucanie (ang. \textit{Dropout})}
 
-    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E. Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1--2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
+    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E.\ Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1--2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
 
     \bigskip
 
@@ -1352,14 +1352,14 @@
     Maksymalna liczba epok (pełnych przebiegów po zbiorze treningowym) została wyznaczona na 20. Dla skrócenia czasu nauki pojedynczego modelu skorzystano z mechanizmu Keras Early Stopping (tzw. `wcześniejsze zatrzymanie'). Ustawiono następujące wartości parametrów:
     \begin{itemize}
         \item $monitor = val_{loss}$ - monitorowana metryka to strata na zbiorze walidacyjnym (MSE walidacyjne)
-        \item $min\_delta = 0.1$ - minimalna wartość poprawy metryki
+        \item $\min\_delta = 0.1$ - minimalna wartość poprawy metryki
         \item $patience = 3$ - cierpliwość w oczekiwaniu na poprawę wyniku (w epokach)
-        \item $mode = min$ - tryb minimalizacji monitorowanej metryki
+        \item $mode = \min$ - tryb minimalizacji monitorowanej metryki
     \end{itemize}
 
     \bigskip
 
-    Dodatkowo do mechanizmu uczącego podpięto Keras CSVLogger - logger zbierający wartości metryk ze wszystkich epok i zapisujący je do pliku CSV i customowy logger stworzony przez autora i podpięty bezpośrednio pod kod dla algorytmu genetycznego, które zapisywał do pliku CSV następujące dane: numer pokolenia, wartość funkcji dopasowania (FF) dla najlepszego osobnika w populacji, wartości poszczególnych parametrów dla najlepszego osobnika, FF dla najgorszego osobnika, wartości poszczególnych parametrów dla najgorszego osobnika, średnia FF, mediana FF, odchylenie standardowe FF.
+    Dodatkowo do mechanizmu uczącego podpięto Keras CSVLogger - logger zbierający wartości metryk ze wszystkich epok i zapisujący je do pliku CSV i customowy logger stworzony przez autora i podpięty bezpośrednio pod kod dla algorytmu genetycznego, które zapisywał do pliku CSV następujące dane: numer pokolenia, wartość funkcji dopasowania (FF) dla najlepszego osobnika w populacji, wartości poszczególnych parametrów dla najlepszego osobnika, FF dla najgorszego osobnika, wartości poszczególnych parametrów dla najgorszego osobnika, średnia FF, mediana FF, odchylenie standardowe FF\@.
 
     \bigskip
 
@@ -1507,7 +1507,7 @@
 
     Podczas uczenia dokładnego wyliczonego modelu zwiększono maksymalną liczbę epok do 100. Zmieniono też parametry mechanizmu Keras EarlyStopping:
     \begin{itemize}
-        \item $min\_delta=0.01$
+        \item $\min\_delta=0.01$
         \item $patience=10$
         \item $restore\_best\_weights=True$ - przywrócenie wartości wag dla połączeń z najlepszego przebiegu
     \end{itemize}
@@ -1609,7 +1609,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{compr_samples_real_predictions}
-        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli \ref{fig:table_real_predictions}.}
+        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli~\ref{fig:table_real_predictions}.}
         \label{fig:compr_samples_real_predictions}
     \end{figure}
 
