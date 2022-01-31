@@ -1,0 +1,1540 @@
+%! Author = Michał_Komputer
+%! Date = 31.01.2022
+
+% Preamble
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+\usepackage[none]{hyphenat}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{latexsym}
+\usepackage{lmodern,cmap}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{placeins}
+\usepackage{polski}
+\usepackage{tabularx}
+
+
+% Title
+\title{Optymalizacja hiperparametrów procesu uczenia sieci neuronowych z wykorzystaniem algorytmu genetycznego}
+\author{Michał Marek Zawadzki}
+\date{Luty 2022}
+
+
+% Additial settings
+\DeclareUnicodeCharacter{266D}{\includegraphics[height=1ex]{music_flat_sign}}
+\DeclareUnicodeCharacter{266F}{\includegraphics[height=1ex]{music_sharp_sign}}
+\addbibresource{references.bib}
+\restylefloat{table}
+\numberwithin{figure}{section}
+\pdfminorversion=5
+
+% Document
+\begin{document}
+
+    \pagenumbering{gobble}
+
+    % Title page [PL]
+    \thispagestyle{empty}
+
+    \begin{figure}[H]
+        \label{fig:pjatk_logo}
+        \centering
+        \includegraphics[width=\textwidth]{pjatk_logo}
+    \end{figure}
+
+    \begin{center}
+
+        \vspace{0.5cm}
+        \large
+        Wydział Informatyki \\
+
+        \vspace{0.2cm}
+        \large
+        Katedra Metod Programowania \\
+
+        \vspace{0.2cm}
+        \large
+        Programowanie aplikacji biznesowych \\
+
+        \vspace{1cm}
+        \LARGE
+        Praca Inżynierska \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Autor: \\
+        \vspace{.3cm}
+        \large
+        \textbf{Michał Marek Zawadzki} \\
+        Nr albumu: 14304 \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Tytuł: \\
+        \vspace{.3cm}
+        \LARGE
+        \textbf{Optymalizacja hiperparametrów procesu uczenia sieci neuronowych z wykorzystaniem algorytmu genetycznego} \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Promotor: \\
+        \vspace{.3cm}
+        \large
+        \textbf{mgr inż. Piotr Gnyś} \\
+
+        \vspace{1.6cm}
+        \normalsize
+        Warszawa, Luty, 2022 \\
+
+    \end{center}
+
+    \newpage
+
+% Title page [EN]
+    \thispagestyle{empty}
+
+    \begin{figure}[H]
+        \label{fig:pjatk_logo_en}
+        \centering
+        \includegraphics[width=\textwidth]{pjatk_logo_en}
+    \end{figure}
+
+    \begin{center}
+
+        \vspace{0.5cm}
+        \large
+        Faculty of Computer Science \\
+
+        \vspace{0.2cm}
+        \large
+        Department of Programming Methods \\
+
+        \vspace{0.2cm}
+        \large
+        Business Application Programming  \\
+
+        \vspace{1cm}
+        \LARGE
+        Sc Thesis \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Author: \\
+        \vspace{.3cm}
+        \large
+        \textbf{Michał Marek Zawadzki} \\
+        Student identification number: 14304 \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Title of the Thesis: \\
+        \vspace{.3cm}
+        \LARGE
+        \textbf{Optimization of Artificial Neuronal Network Learning Process Hiperparameters by Genetic Algorithm} \\
+
+        \vspace{1.2cm}
+        \normalsize
+        Thesis supervisor: \\
+        \vspace{.3cm}
+        \large
+        \textbf{Master of Engineering Piotr Gnyś} \\
+
+        \vspace{1.6cm}
+        \normalsize
+        Warsaw, February, 2022 \\
+
+    \end{center}
+
+    \newpage
+
+    \maketitle
+
+    \tableofcontents
+
+    \newpage
+
+
+    \section{Wstęp}
+
+    \subsection{Cel pracy}
+
+    Celem pracy jest stworzenie modelu (sieci neuronowej) do predykcji popularności, jaką może uzyskać utwór muzyczny na platformie Spotify, na podstawie jego cech muzycznych. Wykorzystany zostanie zbiór danych stworzony z wykorzystaniem publicznego API Spotify i opublikowany na platformie Kaggle. Do dobrania optymalnych hiperparametrów procesu uczenia modelu zostanie zastosowany algorytm genetyczny.
+
+    \subsection{Teza główna}
+
+    Algorytm genetyczny może pomóc w doborze zbliżonych do optymalnych hiperparametrów procesu uczenia sieci neuronowej i tym samym przyczynić się znacząco do poprawy dokładności predykcji finalnego modelu - o 1--2\% licząc na podstawie metryki MSE (ang. \textit{root mean squared error} pl. błąd średniokwadratowy) w porównaniu do sieci neuronowych inicjowanych wartościami sugerowanymi jako wyjściowe w literaturze przedmiotu lub dobranych intuicyjnie metodą `prób i błędów'.
+
+    \subsection{Słowa kluczowe}
+
+    \begin{itemize}
+        \item algorytm genetyczny (ang. \textit{genetic algorithm}) - Metaheurystyka czerpiąca inspirację z ewolucji biologicznej, należąca do grupy algorytmów ewolucyjnych; znajduje zastosowanie przy problemach optymalizacji i wyszukiwania, dostarczając wysokiej jakości rozwiązania poprzez bazowanie na operacjach inspirowanych biologią takich jak mutacja, krzyżówka i selekcja\cite{GeneticAlgorithmsMitchell1996}.
+        \item genom (ang. \textit{genome}) - W biologi molekularnej i genetyce określa się tak kompletną informację genetyczną organizmu\cite{WhatIsGenomicMedicine2019}.
+        \item gen (ang. \textit{gene}) - W biologii gen (od greckiego \textit{genos}) jest podstawową jednostką dziedziczenia; reprezentowany jako sekwencja nukleotydów w DNA, która koduje syntezę produktu genu, albo RNA lub białko\cite{GeneWiki}.
+        \item funkcja dopasowania (ang. \textit{fitness function}) - W algorytmie genetycznym reprezentuje wymagania, do których powinna adaptować się populacja; jest podstawą mechanizmu selekcji i tym samym pośrednio przyczynia się do ogólnej poprawy jakości osobników w kolejnych pokoleniach\cite{IntroductionToEvolutionaryComputing2015}.
+        \item selekcja naturalna (ang. \textit{natural selection}) - Pojęcie wywodzące się z teorii ewolucji Charlesa Darwina i odgrywające w niej kluczową rolę; determinuje, które osobniki w populacji będą mieć większe szanse na reprodukcję; faworyzuje osobniki, które rywalizują o dostępne zasoby w sposób najbardziej efektywny\cite{IntroductionToEvolutionaryComputing2015}.
+        \item krzyżówka (ang. \textit{crossover}) - Operacja stochastyczna polegająca na rekombinacji materiału genetycznego rodziców poprzez losowo wybrane punkty przecięcia\cite{IntroductionToEvolutionaryComputing2015}.
+        \item mutacja (ang. \textit{mutation}) - Operacja stochastyczna wprowadzająca losową zmianę do genotypu osobnika, której wynikiem jest mutant\cite{IntroductionToEvolutionaryComputing2015}.
+        \item sztuczna sieć neuronowa (ang. \textit{artificial neural network}, ANN) - System obliczeniowy przeznaczony do przetwarzania informacji, czerpiący inspirację z biologicznego układu nerwowego\cite{LeksykonSieciNeuronowych2015}.
+        \item jednostka liniowa z progiem (ang. \textit{linear threshold unit}, LTU) - Modyfikacja sztucznego neuronu, będąca podstawą prostej sieci neuronowej; wylicza sumę ważoną sygnałów wejściowych, a wobec wyniku stosuje funkcję skokową Heaviside'a\cite{UczenieMaszynowe2018}.
+        \item propagacja wsteczna (ang. \textit{backpropagation}) - Podstawowy algorytm uczenia głębokich sieci neuronowych; modyfikacja metody gradientu prostego, z użyciem odwrotnego różniczkowania automatycznego\cite{UczenieMaszynowe2018}.
+    \end{itemize}
+
+    \subsection{Keywords}
+
+    \begin{itemize}
+        \item \textit{genetic algorithm} - Metaheuristics inspired by biological evolution, belonging to the group of evolutionary algorithms; used in optimization and search problems, providing high-quality solutions by relying on biology-inspired operations such as mutation, crossover and selection\cite{GeneticAlgorithmsMitchell1996}.
+        \item \textit{genome} - In molecular biology and genetics this term indicates a complete genetic information of an organism\cite{WhatIsGenomicMedicine2019}.
+        \item \textit{gene} - In biology, a gene (from the Greek \textit{genos}) is the basic unit of inheritance; represented as a sequence of nucleotides in DNA that codes for the synthesis of a gene product, either RNA or protein\cite{GeneWiki}.
+        \item \textit{fitness function} - In the genetic algorithm, it represents the requirements to which the population should adapt; it is the basis of the selection mechanism and thus contributes to the overall improvement of the quality of individuals in subsequent generations\cite{IntroductionToEvolutionaryComputing2015}.
+        \item \textit{natural selection} - Concept derived from Charles Darwin's theory of evolution, playing a key role in it; determines which individuals in the population will have a better chance to reproduce; it favors individuals that compete for available resources most efficiently\cite{IntroductionToEvolutionaryComputing2015}.
+        \item \textit{crossover} - A stochastic operation that recombines the parents' genetic material through randomly selected intersection points\cite{IntroductionToEvolutionaryComputing2015}.
+        \item \textit{mutation} - A stochastic operation that introduces a random change to an individual's genotype, which results in creation of a mutant\cite{IntroductionToEvolutionaryComputing2015}.
+        \item \textit{artificial neural network}, ANN - A computing system designed to process information, inspired by the biological nervous system\cite{LeksykonSieciNeuronowych2015}.
+        \item \textit{linear threshold unit}, LTU - Modification of an artificial neuron, which is the base unit of a simple neural network; computes a weighted sum of the inputs and applies a Heaviside step function to the result\cite{UczenieMaszynowe2018}.
+        \item \textit{backpropagation} - Basic algorithm for learning deep neural networks; modification of the gradient descent method, with the use of inverse automatic differentiation\cite{UczenieMaszynowe2018}.
+    \end{itemize}
+
+    \subsection{Abstrakt}
+
+    W sekcji pierwszej opisano szczegółowo składowe kształtujące preferencje muzyczne. W dalszej części omówiono znaczenie i sposób działania platform muzycznych, ze szczególnym uwzględnieniem szwedzkiego Spotify. Stamtąd też pochodzi zbiór danych będący przedmiotem badań niniejszego opracowania. Następnie wspomniano o najbardziej znanych eksperymentach z szacowaniem popularności utworów na bazie ich cech muzycznych. Na sam koniec oceniono szanse na stworzenie wysokiej klasy modelu, biorąc pod uwagę posiadane dane i narzędzia.
+
+    \bigskip
+
+    W sekcji drugiej skrótowo opisano historię powstania sztucznych sieci neuronowych i biologiczne inspiracje, które za tym stały. Następnie omówiono budowę i sposób działania perceptronu, czyli jednej z pierwszych implementacji sieci neuronowych. Na zakończenie przedstawiono zasadę działania algorytmu propagacji wstecznej - podstawową metodę uczenia głębokich sieci neuronowych.
+
+    \bigskip
+
+    Sekcja trzecia jest wprowadzeniem do tematu algorytmów genetycznych. Opisano w niej, w telegraficznym skrócie odkrycia Charlesa Darwina i Gregora Johanna Mendla, które następnie posłużyły Alanowi Turingowi jako baza dla jego `ewolucyjnego poszukiwania' - czyli pierwowzoru wspomnianego algorytmu. W dalszej części omówiono cykl życia populacji w ramach algorytmu. Potem kolejno opisano jego kluczowe komponenty: inicjację populacji, ewaluację osobników, selekcję rodziców, krzyżowanie, mutację genomu, wybór potomstwa i warunek końcowy.
+
+    \bigskip
+
+    Sekcja czwarta to opis wybranego zbioru danych. Po przedstawieniu najważniejszych informacji opisano szczegółowo wszystkie cechy, wykorzystując do tego celu dokumentację deweloperską udostępnioną przez Spotify. Dodatkowo dla wszystkich parametrów dyskretnych utworzono czytelne histogramy, a dla flag i kategorii - wykresy kołowe.
+
+    \bigskip
+
+    W sekcji piątej opisano przygotowania do przeprowadzenia eksperymentu w tym wstępną obróbkę danych, bazową architekturę sieci neuronowej (SN) wykorzystaną w algorytmie, wybrane elementy SN, selekcję hiperparametrów do wyznaczenia oraz najważniejsze komponenty implementacji algorytmu genetycznego.
+
+    \bigskip
+
+    W sekcji szóstej zaprezentowano przebieg wykonania algorytmu genetycznego: zmiany wartości funkcji dopasowania dla najgorszego i najlepszego osobnika, średnią oraz medianę. Pokazano również, jak zmieniały się wartości poszczególnych hiperparametrów dla najlepszego osobnika. Następnie przedstawiono wyniki dokładnego uczenia finalnego modelu. Wyniki te zestawiono z rezultatami uzyskanymi po wytrenowaniu innych modeli o podobnej architekturze. Na koniec pokazano przykłady najlepszych i najgorszych predykcji finalnego modelu.
+
+    \bigskip
+
+    W ostatniej sekcji podsumowano prace. Zaproponowano modyfikacje, które mogłyby przyczynić się do poprawy wyników. Oceniono wyniki. Wypunktowano również czynniki, które przypuszczalnie miały największy wpływ na wielkość błędów.
+
+    \subsection{Abstract}
+
+    The first section describes in details the components shaping musical preferences. The following section covers the meaning and operating principle of music platforms, with an emphasis on Spotify from Sweden. This is also where the dataset, that is the subject of this study's research, comes from. Next, the most famous experiments with estimating the popularity of songs based on their musical characteristics are mentioned. In the end, the chances of creating a high-class model are assessed, taking into account the available data and tools.
+
+    \bigskip
+
+    The second section briefly describes the history of the creation of artificial neural networks and the biological inspirations behind it. Then, the structure and operating principle of the perceptron, one of the first implementations of neural networks, is discussed. Finally, the principle of the backpropagation algorithm is presented - the basic method of teaching deep neural networks.
+
+    \bigskip
+
+    The third section introduces genetic algorithms. It briefly describes the discoveries of Charles Darwin and Gregor Johann Mendel, which then served Alan Turing as the basis for his `evolutionary search' - that is the prototype of the above-mentioned algorithm. The following section discusses the life cycle of the population as part of the algorithm. The key components are then described: population initiation, individual evaluation, parent selection, crossover, genome mutation, offspring selection and the end condition.
+
+    \bigskip
+
+    The fourth section is a description of the selected dataset. After presenting the highlights, all features are detailed using information from the development documentation provided by Spotify. Additionally, clear histograms are created for all discrete parameters, and pie charts for flags and categories.
+
+    \bigskip
+
+    The fifth section describes the preparations for the experiment, including the initial data processing, the basic artificial neural network (ANN) architecture used in the algorithm, specific ANN elements, the selection of hyperparameters to be determined, and the most important components of the implementation of the genetic algorithm.
+
+    \bigskip
+
+    The sixth section presents the execution phase of the genetic algorithm: changes in the value of the fitness function for the worst and best individual, the mean, and the average. It also shows how the values of individual hyperparameters changed for the best individual. Then the results of the comprehensive training of the final model are presented. These results are compared with those obtained after training other models with similar architecture. Finally, examples of the best and worst predictions of the final model are shown.
+
+    \bigskip
+
+    The work is summarized in the last section. Modifications are proposed that could improve the results. The results are assessed. Factors that probably had the greatest impact on the size of errors are also listed.
+
+    \newpage
+
+
+    \section{Wpływ cech utworów muzycznych na popularność}
+
+    Zaczynając rozważania nad przyczynami, które sprawiają, że niektóre utwory muzyczne osiągają ogromną popularność, podczas gdy inne nie zdobywają szerokiego uznania, trzeba najpierw zdefiniować podstawowe czynniki, jakimi kieruje się odbiorca przy dokonywaniu wyborów muzycznych. Magdalena Parus-Jankowska i Szymon Nożyński w swojej pracy\cite{PreferencjeMuzyczneWCzasachSteamingu2020} wymieniają 3 takie czynniki:
+    \begin{itemize}
+        \item \textit{upodobania} - Przywiązanie do konkretnych gatunków muzycznych, wraz z otaczającym je kontekstem kulturowym.
+        \item \textit{smak/gust} - Umiejętność dostrzegania i oceny poszczególnych elementów składowych utworu, także znajomość i zrozumienie przesłania utworu.
+        \item \textit{preferencje} - Przywiązanie do konkretnych utworów lub twórców muzycznych.
+    \end{itemize}
+    \smallskip
+    Czynniki te często kształtują się równolegle i przenikają znaczeniowo, dlatego też dla uproszczenia w dalszej części posłużono się szeroko rozumianym pojęciem preferencji muzycznych.
+
+    \bigskip
+
+    Preferencje muzyczne człowieka nie są czymś stałym. Zmieniają się one przez całe życie, szczególnie intensywnie w wieku dziecięcym i w okresie dojrzewania\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Wielki wpływ na sposób konsumpcji treści muzycznych ma środowisko, z którego człowiek się wywodzi, jego wykształcenie, zamożność, światopogląd i osobowość\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Muzyki słuchają najczęściej ludzie młodzi (w grupie wiekowej 18--24 lata 77\% deklarowało słuchanie muzyki codziennie\cite{cbos2018}) i to oni pośrednio, a bezpośrednio wywodzący się z tej grupy twórcy, kształtują nowe trendy i czynią rynek muzyczny bardzo dynamicznym.
+
+    \bigskip
+
+    Wejście na rynek platform streaming-owych, których sztandarowym przykładem jest szwedzki gigant Spotify, dokonało małej rewolucji na rynku muzycznym. Platforma działa w dwóch modelach płatności: bezpłatnym (z reklamami) i subskrypcyjnym. Można korzystać z niej za pośrednictwem przeglądarki, ale dostępne są także dedykowane aplikacje na praktycznie każdy system, zaczynając od smartcaru na smartfonie kończąc, między którymi można się swobodnie przełączać. Muzyki można słuchać zarówno w trybie online, jak i w offline (oczywiście po wcześniejszym pobraniu na urządzenie). Co ważne zmianie uległ sposób konsumpcji samych treści. Autor niniejszej pracy, jako szczególnie aktywny użytkownik platformy, uznał za stosowne wymienienie następujących alternatywnych kanałów:
+    \begin{itemize}
+        \item \textit{strona główna (ang. home)} - Najmocniej promowane przez platformę treści, również spersonalizowane sekcje z dedykowanymi playlistami, a także szybki dostęp do treści ostatnio odtwarzanych.
+        \item \textit{radio wykonawcy, radio utworu} - Pseudo-radio, a właściwie strumień muzyczny generowany przez algorytm Spotify dla danego wykonawcy lub konkretnego utworu muzycznego.
+        \item \textit{aktywność znajomych} - Trzeba nadmienić, że Spotify jest też platformą społecznościową. Istnieje możliwość wglądu w bieżącą aktywność znajomych (o ile słuchają muzyki w trybie sesji publicznej).
+        \item \textit{playlisty publiczne} - Playlisty stworzone przez pracowników platformy, algorytmy oraz członków społeczności. Równolegle do klasycznego podziału na gatunki muzyczne, platforma proponuje także bardziej utylitarne kategorie, jak na przykład muzykę dobrą do ćwiczeń, czytania czy wyciszenia się przed snem.
+        \item \textit{playlisty prywatne} - Playlisty stworzone przez użytkownika, nieupublicznione.
+        \item \textit{biblioteka} - Treści pobrane przez użytkownika.
+    \end{itemize}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{spotify_desktop_app_interface}
+        \caption{Interfejs aplikacji desktopowej Spotify na system Windows.}
+        \label{fig:spotify_desktop_app_interface}
+    \end{figure}
+
+    Wewnętrzna polityka platform muzycznych w zakresie promowania i pozycjonowania treści (w którą niestety nie ma wglądu, a która z ogromną dozą prawdopodobieństwa dyktowana jest przede wszystkim chęcią powiększania zasięgów i poprawy wyników finansowych) ma niebagatelny wpływ na wybory dokonywane przez użytkowników\cite{PreferencjeMuzyczneWCzasachSteamingu2020}. Zdaniem autora niniejszej pracy szczególnie duże znaczenie w tym aspekcie mają kryteria, na których oparty jest mechanizm wyszukiwania, a także (a może przede wszystkim) aspekt losowania kolejnych utworów w usłudze \textit{radio}. Z drugiej strony prawdziwe zdaje się być twierdzenie, że dobra muzyka obroni się sama. Bez względu na to jak bardzo konsument będzie zasypywany promowanymi treściami i tak regularnie będzie wracać tylko do tego co najbardziej trafiło w jego gusta.
+
+    \bigskip
+
+    Christoph Dr{ö}sser, popularny w Niemczech dziennikarz popularnonaukowy, napisał ``Muzyka jest [\ldots] doświadczeniem całościowym, w znacznym stopniu nierozsądnym, którego nie da się ogarnąć za pomocą zimnego, racjonalnego instrumentarium nauki''\cite{MuzykaDajSieUwiesc2021}. Ale czy to aby na pewno prawda? Na początku 20. wieku w mainstreamie zaczęło funkcjonować pojęcie \textit{Hit Song Science} (pl. nauka o przebojach muzycznych), za którego twórcę i głównego promotora uważa się Mike'a McCready\cite{HitSongScienceWiki}. McCready wraz ze współpracownikami, działając w ramach firmy Polyphonic HMI, starał się rozwijać i sprzedawać wytwórniom muzycznym narzędzia, oparte o techniki \textit{MIR} (ang. \textit{music information retrieval}, pl. pozyskiwanie informacji muzycznych z utworu) i \textit{data science}, ułatwiające przewidywanie czy dany utwór ma szanse stać się 'hitem'\cite{PolyphonicHMIWiki}. Odnośnie podstaw naukowych \textit{Hit Song Science} od lat, w szczególności w społeczności \textit{MIR}, toczy się burzliwa, nierozstrzygnięta do końca debata\cite{HitSongScienceWiki}.
+
+    \bigskip
+
+    François Pachet i Pierre Roy z firmy Sony Computer Science Laboratories, Inc. w artykule ``Hit Song Science Is Not Yet a Science'' z 2009-go roku\cite{HitSongScienceNotYet2009} opisują swoją nieudaną próbę stworzenia klasyfikatora szacującego popularność utworów na podstawie ich cech muzycznych oraz subiektywnych `ludzkich' etykiet przypisanych przez profesjonalnych ankieterów. Danymi, na których pracowali była baza 32978 utworów dostarczona przez firmę HiFind. W swoim eksperymencie, oprócz zaawansowanych technik \textit{MIR}, wykorzystali oni \textit{Support Vector Machine} (pl. maszyna wektorów nośnych). Wyniki uzyskane dla poszczególnych prób tylko nieznacznie różniły się od losowych. Za przyczynę niepowodzenia uznano niewłaściwy dobór zestawu parametrów użytych do stworzenia modelu.
+
+    \bigskip
+
+    O wiele bardziej obiecujące wyniki uzyskali Yizhao Ni, Raúl Santos-Rodríguez, Matt Mcvicar i Tijl De Bie z kooperacji uniwersytetów University of Bristol i Universidad Carlos III de Madrid. W swoim artykule ``Hit Song Science Once Again a Science?'' z 2011-go roku\cite{HitSongScienceOnceAgain2011} (już poprzez sam tytuł ustawiając się w kontrapunkcie do poprzedników) przedstawiają wyniki swojego eksperymentu przeprowadzonego na zbiorze 5947 utworów z brytyjskiej listy przebojów z lat 1960--2010. Do ekstrakcji wartości parametrów muzycznych wykorzystali oni narzędzie EchoNest. Jako model wykorzystali oni prosty ruchomy perceptron (ang. \textit{Shifting perceptron}) będący funkcją czasu. Wyniki eksperymentów tym razem różniły się znacząco na korzyść w porównaniu do odczytów losowych. Badaczom udało się też sformułować na ich podstawie szereg cennych wniosków.
+
+    \bigskip
+
+    Wychodząc z założenia, że na przestrzeni ostatniej dekady nastąpił ogromny postęp w dziedzinie data science, w szczególności w obszarze badań nad głębokimi sieciami neuronowymi, a także (co nie mniej istotne) dostępne są ogromne bazy zawierające wysokiej jakości, świetnie ustandaryzowane i udokumentowane dane udostępnione przez platformy muzyczne takie jak Spotify, autor niniejszej pracy z dużym entuzjazmem postanowił podjąć się samodzielnej próby stworzenia wysokiej klasy modelu do predykcji popularności utworów muzycznych.
+
+    \newpage
+
+
+    \section{Wykorzystanie sieci neuronowych do problemu regresji dla tabelarycznego zbioru danych}
+
+    \subsection{Sztuczne sieci neuronowe a biologia}
+
+    Inspiracją do stworzenia sztucznych sieci neuronowych była budowa mózgu. Wraz z postępem badań w obszarze AI, sztuczne sieci neuronowe znacznie oddaliły się od swoich biologicznych odpowiedników\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Na rysunku~\ref{fig:biological_neuron} przedstawiono budowę komórki nerwowej. Komórki te mieszczą się w zwierzęcej korze mózgowej. Ich główne elementy to: ciałko komórki, liczne rozgałęzione wypustki - dendryty, jedna bardzo długa wypustka - akson. Rozgałęzienia na końcu aksonu to telodendryty, zakończone synapsami. Służą one do łączenia się z kolejną komórką. Komunikacja odbywa się za pośrednictwem krótkich impulsów elektrycznych. Po otrzymaniu dostatecznej liczby sygnałów, w przeciągu ułamku sekundy komórka zaczyna sama emitować i propagować dalej sygnały\cite{UczenieMaszynowe2018}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{biological_neuron}
+        \caption{Neuron biologiczny\cite{UczenieMaszynowe2018}.}
+        \label{fig:biological_neuron}
+    \end{figure}
+
+    Działanie pojedynczej komórki jest bardzo proste, natomiast zbudowana z miliardów takich komórek sieć jest zdolna do wykonywania bardzo skomplikowanych operacji. Sieć (mózg) ma strukturę warstwową, co przedstawiono na rysunku~\ref{fig:human_cerebral_cortex}\cite{UczenieMaszynowe2018}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{human_cerebral_cortex}
+        \caption{Wielowarstwowość kory mózgowej człowieka\cite{UczenieMaszynowe2018}.}
+        \label{fig:human_cerebral_cortex}
+    \end{figure}
+
+    Koncepcja sztucznych sieci neuronowych po raz pierwszy została zaprezentowana już w 1943 roku przez neurofizjologa Warrena McCullocha i matematyka Waltera Pittsa\cite{BeginningsOfANN1943}. Był to uproszczony model działania sieci neuronów w mózgach zwierzęcych, do przeprowadzania obliczeń przy użyciu rachunku zdań (ang. \textit{propositional logic})\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Model neuronu zaproponowany przez McCullocha i Pittsa, znany jako `sztuczny neuron' (ang. \textit{artificial neuron}), ma conajmniej jedno wejście i jedno wyjście binarne (stan 0 lub 1). Wyjście aktywuje się wyłącznie przy określonej kombinacji sygnałów na wejściu. Udowodniono, że jest to wystarczające do stworzenia sieci rozwiązującej dowolne zadanie logiczne\cite{UczenieMaszynowe2018}. Na rysunku~\ref{fig:simple_logic_operations_on_artificial_neurons} przedstawiono realizację prostych operacji logicznych z wykorzystaniem sztucznych neuronów.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{simple_logic_operations_on_artificial_neurons}
+        \caption{Realizacja prostych operacji logicznych za pomocą sztucznych neuronów\cite{UczenieMaszynowe2018}.}
+        \label{fig:simple_logic_operations_on_artificial_neurons}
+    \end{figure}
+
+    \subsection{Perceptron}
+
+    Perceptron był jedną z pierwszych implementacji sztucznej sieci neuronowej. Został zaprezentowany w 1957 roku przez Franka Rosenblatta. Składa się z warstwy wejściowej i wyjściowej. Warstwa wejściowa zbudowana jest z tzw. neuronów przechodnich - propagujących dalej dostarczone do nich sygnały wejściowe, oraz z neuronu obciążeniowego - emitującego sygnał o wartości 1. Warstwa wyjściowa zbudowania jest z jednostek LTU. Każdy neuron warstwy wejściowej połączony jest ze wszystkimi neuronami wyjściowymi. Perceptron jest klasyfikatorem, pozwalającym na przypisywanie próbek do klas binarnych (liczba klas jest równa liczbie jednostek LTU w warstwie wyjściowej)\cite{UczenieMaszynowe2018}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{perceptron}
+        \caption{Diagram perceptronu z dwoma wejściami, obciążeniem i trzema wyjściami. Pozwala na klasyfikację danych do trzech klas binarnych\cite{UczenieMaszynowe2018}.}
+        \label{fig:perceptron}
+    \end{figure}
+
+    LTU - jednostka liniowa z progiem (ang. \textit{linear threshold unit}), zaprezentowana na rysunku~\ref{fig:ltu}, jest modyfikacją sztucznego neuronu zaproponowanego przez McCullocha i Pittsa. Sygnałami wejściowymi są liczby (a nie stany binarne), a każde połączenie ma przypisaną wagę. Jednostka wylicza sumę ważoną dla sygnałów wejścia ($ z= w_{1}x{1} + w_{2}x{2} + \cdots + w_{n}x{n} = w^{T} \cdot x$), a wynik przekazuje do funkcji skokowej ($h_{w}(x) = skok(z) = skok(w^{T} \cdot x)$). Najczęściej stosuje się funkcje Heaviside'a, rzadziej funkcję sigma. Przekroczenie progu (1) oznacza klasyfikację pozytywną, wartość poniżej (0 lub -1) - negatywną\cite{UczenieMaszynowe2018}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{ltu}
+        \caption{Jednostka liniowa z progiem\cite{UczenieMaszynowe2018}.}
+        \label{fig:ltu}
+    \end{figure}
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Najpopularniejsze funkcje skokowe wykorzystywane w perceptronach: \\
+        \bigskip
+        \setlength\parindent{17pt} Funkcja Heaviside'a: \\
+        \begin{equation}
+            \label{eq:heaviside}
+            heaviside(x) =
+            \begin{cases}
+                0 & \quad \text{jeśli } x < 0 \\
+                1 & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Funkcja signum: \\
+        \begin{equation}
+            \label{eq:signum}
+            sgn(x) =
+            \begin{cases}
+                -1 & \quad \text{jeśli } x < 0 \\
+                0 & \quad \text{jeśli } x = 0 \\
+                1 & \quad \text{jeśli } x > 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
+
+    Marvin Minsky i Seymour Papert w pracy ``Perceptrons'' z 1969 roku wskazali wiele poważnych wad perceptronu, takich jak np. brak możliwości rozwiązywania prostych problemów logicznych (alternatywa rozłączna - XOR). Rezultatem było spowolnienie dalszych prac nad sztucznymi sieciami neuronowymi. W przyszłości okaże się, że wspomniane ograniczenia można pokonać stosując modyfikację - perceptron wielowarstwowy\cite{UczenieMaszynowe2018}.
+
+    \subsection{Uczenie wielowarstwowych sieci przy użyciu propagacji wstecznej}
+
+    W 1985 roku D.E.\ Rumelhart i jego zespół opublikowali artykuł\cite{Backpropagation1985}, w którym przedstawili koncepcję algorytmu propagacji wstecznej (ang. \textit{backpropagation}).
+    Łączy ona operację odwrotnego różniczkowania i metodę gradientu prostego.
+
+    \bigskip
+
+    W pierwszej fazie algorytm pobiera przykład uczący i przechodzi przez całą sieć od wejścia do wyjścia (przebieg do przodu), dla każdej pary wejścia-wyjścia $(\vec{x_d}, y_d)$ oblicza i zapamiętuje wyniki $\widehat{y_d}$, $a_j^k$ i $o_j^k$ dla każdego węzła $j$ w warstwie $k$.
+
+    \bigskip
+
+    Faza druga to przebieg odwrotny. Dla każdej pary wejścia-wyjścia $(\vec{x_d}, y_d)$ obliczane są i zapamiętywane wyniki $\frac{\partial E_d}{\partial w_{ij}^k}$ dla każdej wagi $w_{ij}^k$ połączenia węzła $i$ w warstwie $k-1$ z z węzłem $j$ w warstwie $k$:
+    \begin{enumerate}
+        \item zostaje zmierzony błąd $\delta_1^m$ na wyjściu z sieci z wykorzystaniem wzoru~\ref{eq:final_layer_error_term}
+        \item błąd propagowany jest wstecznie do kolejnych warstw ukrytych $\delta_j^k$ z wykorzystaniem wzoru~\ref{eq:hidden_layer_error_term}
+        \item wyliczane są pochodne cząstkowe funkcji błędu $E_d$ po wadze połączenia między neuronami $w_{ij}^k$ z wykorzystaniem wzoru~\ref{eq:partial_derivatives_combination_for_input_output_pairs}
+    \end{enumerate}
+
+    \bigskip
+
+    W fazie trzeciej gradienty cząstkowe $\frac{\partial E_d}{\partial w_{ij}^k}$ są sumowane dla każdej pary wejścia-wyjścia, tak by uzyskać gradient całkowity $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ dla całego zbioru par wejścia-wyjścia $X = \{(\vec{x_1}, y_1),\dotsc,(\vec{x_N}, y_N)\}$ z wykorzystaniem równania~\ref{eq:partial_derivatives_combination_for_input_output_pairs} (jest to po prostu średnia gradientów cząstkowych).
+
+    \bigskip
+
+    Ostatni krok to aktualizacja wag połączeń proporcjonalnie do przyjętego współczynnika uczenia $\alpha$, odwrotnie do kierunku gradientu całkowitego $\frac{\partial E(X,\theta)}{\partial w_{ij}^k}$ z wykorzystaniem równania~\ref{eq:updating_weights}~\cite{BackpropagationBrilliant}.
+
+    \bigskip
+
+    Wzory:
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Pochodna częściowa: \\
+        \begin{equation}
+            \label{eq:error_func_partial_derivatives}
+            \frac{\partial E_d}{\partial w_{ij}^k} = \delta_j^k o_i^{k-1}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wartości błędu dla warstwy wyjściowej: \\
+        \begin{equation}
+            \label{eq:final_layer_error_term}
+            \delta_1^m = g_0^{\prime} (a_1^m) (\widehat{y_d} - y_d)
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wartości błędu dla warstw ukrytych: \\
+        \begin{equation}
+            \label{eq:hidden_layer_error_term}
+            \delta_j^k = g^{\prime} (a_j^k) \displaystyle\sum_{l=1}^{r^{k+1}} w_{jl}^{k+1} \delta_l^{k+1}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Suma pochodnych częściowych dla każdej pary wejście-wyjście: \\
+        \begin{equation}
+            \label{eq:partial_derivatives_combination_for_input_output_pairs}
+            \frac{\partial E(X,\theta)}{\partial w_{ij}^k} = \frac{1}{N} \displaystyle\sum_{d=1}^N \frac{\partial}{\partial w_{ij}^k} (\frac{1}{2}(\widehat{y_d} - y_d)^2) = \frac{1}{N} \displaystyle\sum_{d=1}^N \frac{\partial E_d}{\partial w_{ij}^k}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Aktualizacja wag dla połączeń: \\
+        \begin{equation}
+            \label{eq:updating_weights}
+            \Delta w_{ij}^k = -\alpha \frac{\partial E(X,\theta)}{\partial w_{ij}^k}
+        \end{equation}
+    \end{minipage}
+
+    \newpage
+
+
+    \section{Algorytmy Genetyczne}
+
+    \subsection{Algorytm genetyczny a teoria ewolucji}
+
+    Algorytm genetyczny powstał głównie jako odpowiedź na wyzwania obliczeniowe, do których trudno było podejść, korzystając z tradycyjnych narzędzi matematycznych. Czerpie on garściami inspiracje z teorii ewolucji i ogólnej wiedzy o genetyce. Już w 1948 Alan Turing zaproponował koncepcję `ewolucyjnego poszukiwania' (ang. \textit{evolutionary search}). Od lat 60-tych XX wieku podobne prace prowadzone były już w wielu ośrodkach\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Teoria ewolucji Darwina wyjaśnia mechanizmy leżące u podstaw biologicznej różnorodności. To właśnie Darwin, badając fenotypy (cechy zewnętrzne) fauny i flory na wyspie Galapagos, dostrzegł, że gatunki ewoluują, to jest, dostosowują się do otoczenia, a głównej mierze opiera się to na selekcji naturalnej, czyli zdolności przetrwania w danym środowisku i znalezieniu partnera do prokreacji. Selekcja naturalna jest brutalna - wygrywa przeważnie najlepiej dopasowany. Innym ważnym czynnikiem odkrytym przez Darwina (oczywiście jedynie pośrednio, poprzez obserwacje różnic w fenotypie) są mutacje, czyli zmiany genetyczne przekładające się na różnice w fenotypie, wprowadzające element losowości. Ewolucja nie jest równocześnie jednokierunkowym procesem optymalizacyjnym prowadzącym do `globalnego optimum'. W środowisku naturalnym oddziałuje na siebie ogromna liczba czynników i może się zdarzyć, że najlepiej dopasowany osobnik zginie albo, że globalny, wysoki wskaźnik dopasowania dla całej populacji stanie się powodem jej upadku (na przykład poprzez wyparcie z ekosystemu gatunku zależnego, położonego niżej w łańcuchu pokarmowym)\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=7cm]{darwin_birds}
+        \caption{Darwin pracując na Galapagos prowadził między innymi badania nad różnicami w fenotypie zięb. Autor ilustracji: John Gould (`Voyage of the Beagle').}
+        \label{fig:darwin_birds}
+    \end{figure}
+
+    Za ojca genetyki uważany jest Gregor Johann Mendel - czeski zakonnik niemieckiego pochodzenia, działający w drugiej połowie XIX wieku. To on, prowadząc eksperymenty z krzyżowaniem roślin, odkrył zjawisko cech dominujących i recesywnych (w dzisiejszym spojrzeniu alleli dominujących i regresywnych). Podstawową jednostką przechowującą informację genetyczną jest gen. Konkretna wartość genu to allel. Jeden gen może mieć wpływ na wiele cech fenotypowych, jak i jedna cecha fenotypowa może być zdefiniowana przez wiele genów. Zmiany w fenotypie są zawsze uzależnione od zmian genetycznych, które z kolei są wynikiem mutacji i rekombinacji (krzyżówki materiału genetycznego rodziców). Genom jest kompletną informacją genetyczną osobnika. Genom jest przechowywany w zestawie chromosomów (materiał genetyczny człowieka jest zapisany w 46 chromosomach). Istoty żywe, takie jak zwierzęta i bakterie, przechowują podwójną kopię informacji genetycznej w większości komórek - nazywanych diploidami. Gamety, czyli komórki rozrodcze, zawierają jedynie pojedynczy zestaw chromosomów. Połączenie gamety męskiej z żeńską prowadzi do powstania zygoty. Proces ten określa się terminem ontogenezy. Podczas ontogenezy materiał genetyczny nie jest zmieniany, dlatego nie można przyrównywać tego procesu do krzyżówki znanej z algorytmu genetycznego. Podobny do krzyżówki, jest z kolei proces formowania się gamet - mejoza - szczególny rodzaj podziału komórkowego, który gwarantuje, że w wynikowym produkcie - gamecie - znajdzie się tylko jedna kopia każdego z chromosomów. Na jednym z etapów mejozy ma również miejsce rekombinacja, a mówiąc precyzyjniej - krzyżówka w losowym punkcie przecięcia. Każda z czterech gamet powstałych w wyniku mejozy ma inną informacje genetyczną od oryginalnego genomu męskiego i żeńskiego, co potem przekłada się na różnice genetyczne u potomków\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=7cm]{punnett_squre_mendel}
+        \caption{Szachownica Punnetta ilustruje dziedziczenie w przypadku dominacji zupełnej cechy jednogenowej. Autor: Madprime (Wikipedia Community).}
+        \label{fig:punnett_squre_mendel}
+    \end{figure}
+
+    Niezmiernie ważne jest, by uświadomić sobie, że wszystkie zmiany (to jest mutacje i rekombinacje) zachodzą na poziomie genetycznym, natomiast selekcja naturalna odbywa się na podstawie fenotypu\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Komputerowe algorytmy genetyczne nie są odwzorowaniem `jeden do jednego' procesów biologicznych, a jedynie się nimi inspirują. Terminologia używana w obu tych domenach jest często podobna, ale znaczenia poszczególnych terminów mogą być całkowicie odmienne. Zasadniczo, najważniejszym wspólnym mianownikiem jest koncepcja selekcji naturalnej, warunkująca dobieranie osobników do rekombinacji i wyznaczanie ocalałych (ang. \textit{survivors}).
+
+    \subsection{Cykl życia populacji}
+
+    Algorytm genetyczny jest z założenia generyczny - trzeba go traktować jako szablon, w którym, w zależności od potrzeb można wymieniać komponenty składowe. Te komponenty to:
+    \begin{itemize}
+        \item inicjacja populacji
+        \item ewaluacja osobników
+        \item selekcja rodziców
+        \item rekombinacja/krzyżowanie
+        \item mutacja
+        \item wybór ocalałych
+        \item warunek końcowy
+    \end{itemize}
+
+    \bigskip
+
+    Wspólnym mianownikiem wszystkich algorytmów genetycznych jest populacja osobników (potencjalnych rozwiązań) funkcjonująca w środowisku o ograniczonych zasobach (ograniczenia dla poszczególnych parametrów), gdzie rządzi prawo selekcji naturalnej - przeżywają osobniki najlepiej dopasowane (z najlepszą wartością metryki dopasowania)\cite{IntroductionToEvolutionaryComputing2015}. W przypadku prawidłowo działającego algorytmu zaobserwować można ciągłą poprawę średniej wartości metryki dopasowania w ujęciu pokoleniowym. W głównej mierze do polepszania wyników przyczynia się mechanizm selekcji. Mutacja i rekombinacja (krzyżówka) wprowadzają z kolei element losowości, zapewniając lepsze pokrycie przestrzeni potencjalnych rozwiązań.
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Poniżej przedstawiono pseudokod dla algorytmu genetycznego oraz diagram ilustrujący cykl życia populacji. \\
+        \begin{algorithm}[H]
+            \caption{Generyczny szablon dla algorytmu genetycznego\cite{IntroductionToEvolutionaryComputing2015}.}
+            \label{alg:genetic_algorithm_template}
+            \begin{algorithmic}
+                \State INICJACJA POPULACJI LOSOWYMI OSOBNIKAMI
+                \State EWALUACJA OSOBNIKÓW
+                \While{NIE SPEŁNIENIE WARUNKU KOŃCOWEGO}
+                    \State WYBÓR RODZICÓW
+                    \State KRZYŻOWANIE RODZICÓW
+                    \State MUTACJA POTOMKÓW
+                    \State EWALUACJA POTOMSTWA
+                    \State WYBÓR OSOBNIKÓW DO NASTĘPNEGO POKOLENIA
+                \EndWhile
+                \State \Return NAJLEPSZY OSOBNIK
+            \end{algorithmic}
+        \end{algorithm}
+    \end{minipage}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{genetic_algoritm_diagram}
+        \caption{Cykl życia populacji w algorytmie genetycznym\cite{IntroductionToEvolutionaryComputing2015}.}
+        \label{fig:genetic_algoritm_diagram}
+    \end{figure}
+
+    \subsection{Inicjacja populacji}
+
+    W większości implementacji inicjacja populacji odbywa się w możliwie prosty sposób: tworzy się osobniki o w pełni losowych wartościach parametrów, gdzie jedynym ograniczeniem są wyznaczone arbitralnie (w oparciu o doświadczenie i literaturę przedmiotu) minimalne i maksymalne wartość dla każdego z parametrów. W specyficznych przypadkach stosuje się heurystyki w celu umieszczenia w zerowym pokoleniu rozwiązań lepszych od losowych. Trzeba mieć jednak w pamięci, że wiąże się to z dodatkowym kosztem obliczeniowym i nie zawsze przyczynia się do poprawy finalnych wyników\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Ewaluacja osobników}
+
+    Funkcja ewaluacyjna (funkcja dopasowania) reprezentuje wymagania, do których powinna się adaptować populacja. Jest bazą dla mechanizmu selekcji i tym samym przyczynia się do ogólnej poprawy wyników osobników. Mówiąc precyzyjniej - definiuje ona co oznacza poprawa w kontekście poszukiwanego rozwiązania dla zadanego problemu. Jej wartość jest metryką dopasowania osobnika\cite{IntroductionToEvolutionaryComputing2015}. Dobrymi funkcjami ewaluacyjnymi w przypadku sieci neuronowych są: RMSE (ang. \textit{root mean square error}), MSE (ang. \textit{mean square error}) lub MAE (ang. \textit{mean absolute error}) wyliczane dla zbioru walidacyjnego. Ze względu na to, że w ortodoksyjnym podejściu dąży się do maksymalizacji funkcji dopasowania, często tam gdzie jest to konieczne stosuje się odwrotność oryginalnej wartości funkcji\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Wybór rodziców}
+
+    Selekcja rodziców (ang. \textit{parents}) ma na celu dobór najodpowiedniejszych osobników do rekombinacji (krzyżówki). Tak samo jak wybór ocalałych (ang. \textit{survivors}) wymusza ogólną poprawę jakości populacji. W algorytmach genetycznych selekcja rodziców oparta jest najczęściej na prawdopodobieństwie, gdzie osobniki z wysoką wartością metryki dopasowania mają największe szanse na wybór. Niemniej, osobniki gorsze również mają niewielkie szanse na bycie wyznaczonym. Powodem jest chęć zmniejszenia `zachłanności' algorytmu (ang. \textit{greedy algorithm}) i tym samym minimalizacja ryzyka wpadnięcia w optimum lokalne\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Krzyżówki}
+
+    Krzyżówka jest operacją pozwalającą na rekombinacje materiału genetycznego dwóch lub więcej osobników (rodziców, ang. \textit{parents}) w celu powołania do życia potomstwa (ang. \textit{offsprings}), które odziedziczy unikalną kombinację ich cech. Główną motywacją operacji krzyżowania jest chęć uzyskania przynajmniej jednego potomka, który osiągnie lepszą wartość metryki dopasowania od swoich rodziców\cite{GeneticAlgorithmEssentials2017}.
+
+    \bigskip
+
+    W praktyce stosowane są różne rodzaje rekombinacji: warianty z dwoma (najczęściej) lub z większą liczbą rodziców, krzyżówki jedno i wielopunktowe, dolosowywanie kolejnych cech od poszczególnych rodziców z określonym współczynnikiem prawdopodobieństwa. Trzeba pamiętać, że zastosowanie każdego z wymienionych wariantów niesie za sobą określone konsekwencje. Gdy pewne cechy są ze sobą powiązane warto rozważyć wariant z punktem przecięcia. W przypadku gdy konieczne jest zagwarantowanie określonych proporcji udziału rodziców w wynikowym materiale genetycznym potomka, zasadne jest rozważanie wariantu opartego na dolosowywaniu kolejnych genów (parametrów) z pewnym współczynnikiem prawdopodobieństwa\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Mutacje}
+
+    Mutacja ma na celu dostarczenie do populacji mutantów - osobników, których materiał genetyczny nie jest wyłącznie kombinacją genów rodziców. Jest to swoisty dopływ `świeżej krwi', gwarantujący pełniejsze przeszukanie przestrzeni rozwiązań. Operator mutacji jest z założenia stochastyczny (losowy). Należy wystrzegać się przy jego implementacji jakichkolwiek elementów systemowych czy obciążeń (ang. \textit{bias}). Czysto teoretycznie prawidłowo zaimplementowana operacja mutacji gwarantuje osiągnięcie optimum globalnego w skończonym czasie\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Wybór potomstwa}
+
+    Wybór potomstwa lub wyrażając się bardziej precyzyjnie wybór osobników do następnego pokolenia, w przeciwieństwie do wyboru rodziców jest operacją w pełni deterministyczną. Najczęściej przy wyborze brane pod uwagę są dwa kryteria: wartość metryki dopasowania lub wiek osobnika. W pierwszym przypadku z populacji usuwa się najgorsze osobniki, w drugim te, które są w populacji najdłużej, a w przypadkach spornych można odwołać się do wartości metryki dopasowania. W zależności od `dynamiki' algorytmu, rozumianej jako stosunku generowanych potomków do wielkości populacji, operacja może mieć bardziej charakter wymiany - stabilna populacja, mała ilość potomstwa w pokoleniu, lub mocnej selekcji - bardzo duża liczba potomstwa i konieczność ograniczenia się do wyboru jedynie najlepszych nowych osobników\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \subsection{Warunek końcowy}
+
+    Warunek końcowy, kończy cykl życia populacji i tym samym cały algorytm. Wyróżnia się dwa główne przypadki\cite{IntroductionToEvolutionaryComputing2015}:
+    \begin{itemize}
+        \item znany jest optymalny poziom dopasowania
+        \item docelowy poziom dopasowania oparty jest na założeniach
+    \end{itemize}
+
+    \bigskip
+
+    W pierwszym przypadku, dla warunków idealnych, zakończenie działania algorytmu następuje w chwili osiągnięcia optimum globalnego. W praktyce, trzeba wziąć pod uwagę uproszczenia wprowadzone do modelu, `szumy' w danych i inne czynniki wpływające na ostateczny wynik. Z tego też powodu, wyznacza się arbitralnie niewielką wartość $\epsilon > 0$, która określa precyzję algorytmu\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Niestety algorytm genetyczny jest z natury stochastyczny (ogromną rolę odgrywa czynnik losowy) i nie ma żadnej gwarancji osiągnięcia (czy choćby zbliżenia się na akceptowalną odległość) do optimum globalnego. Z tego też powodu konieczne jest wprowadzenie dodatkowego warunku. Najczęściej stosowane ograniczenia to\cite{IntroductionToEvolutionaryComputing2015}:
+    \begin{itemize}
+        \item odgórnie przyjęty limit liczby pokoleń
+        \item stagnacja w poprawie wyniku w czasie cyklu życia kilku pokoleń
+        \item różnice w wynikach poszczególnych osobników w populacji (mierzone na przykład odchyleniem standardowym) spadną poniżej określonego progu
+    \end{itemize}
+
+    \bigskip
+
+    W przypadku, kiedy optimum globalne nie jest znane, do zakończenia wystarczający jest jeden z warunków z powyższej listy\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    Poważnym zagrożeniem w przypadku algorytmów genetycznych jest zbieganie i `utknięcie' w optimum lokalnym. Zwłaszcza w sytuacji kiedy optimum globalne nie jest znane, warto rozważyć dodanie do implementacji strategi restartu algorytmu\cite{GeneticAlgorithmEssentials2017}.
+
+    \newpage
+
+
+    \section{Opis zbioru danych}
+
+    Zbiór danych zawiera informacje o ponad 170 tysiącach utworów muzycznych, opublikowanych w latach 1921--2020 i dostępnych na szwedzkiej platformie streamingowej Spotify. Dataset został stworzony przy wykorzystaniu oficjalnego, publicznego API deweloperskiego Spotify i udostępniony na platformie Kaggle w formacie CSV przez użytkownika Yamaç Eren Ay\cite{SpotifyKaggleDataset2020}.
+
+    \bigskip
+
+    Oryginalny dataset to zbiór tabelaryczny zawierający 170653 rekordów podzielonych na 19 kolumn. Kolumny te to kolejno:
+    \begin{itemize}
+        \item \textit{valence} (pl.ozdobnik) - Miara w skali od 0.0 do 1.0 określająca stopień `pozytywności' przekazywany przez utwór. Utwory z wysoką wartością współczynnika \textit{valence} brzmią bardziej pozytywnie (szczęśliwie, radośnie lub euforycznie), podczas gdy niska wartość tego współczynnika objawia się brzmieniem negatywnym (smutnym, depresyjnym, zdenerwowanym lub wściekłym).
+        \item \textit{year} (pl. rok) - Rok publikacji utwory. Wartości między 1921 a 2020 włącznie.
+        \item \textit{acousticness} (pl. akustyczność) - Miara w skali od 0.0 do 1.0 określająca pewność, z jaką dany utwór można zakwalifikować jako akustyczny. 1.0 - wskazuje na wysoką pewność, 0.0 na bardzo niską.
+        \item \textit{artists} (pl. artyści) - Lista imion i nazwisk lub pseudonimów artystycznych artystów wykonujących dany utwór.
+        \item \textit{danceability} (pl. taneczność) - Miara w skali od 0.0 do 1.0 określająca, w jakim stopniu dany utwór jest odpowiedni do tańca, wyliczana jako kombinacja takich parametrów muzycznych ja tempo, stabilność rytmu, moc taktu i ogólna regularność. 1.0 oznacza wysoką taneczność, a 0.0 - bardzo niską.
+        \item \textit{duration\_ms} (pl. czas trwania) - Czas trwania utworu w milisekundach.
+        \item \textit{energy} (pl. energia) - Miara w skali od 0.0 do 1.0 reprezentująca odczuwalny stopień intensywności i aktywności utworu. Typowe utwory `energetyczne' są odbierane jako szybkie, głośne czy wręcz hałaśliwe. Przykładem wysokiej energetyczności mogą byś utwory death-metalowe, podczas gdy preludia Bacha będą cechowały się niską energetycznością. Postrzegalne czynniki wpływające na tę cechę to: dynamiczny zakres, odbierana głośność, tembr, \textit{onset rate} (pl. współczynnik rozpoczęć ??) i ogólna entropia.
+        \item \textit{explicit} (pl. odważny/śmiały) - Wartość \textit{true} (pl. prawda)/\textit{false} (pl. fałsz). Flaga określająca czy dany utwór zawiera wulgaryzmy, treści erotyczne, treści nacechowane przemocą, wzmianki o nielegalny używkach i tym podobne; w ogólności treści skierowane do odbiorców pełnoletnich.
+        \item \textit{id} (pl. identyfikator) - Unikalne, alfanumeryczne Spotify ID dla utworu.
+        \item \textit{instrumentalness} (pl. instrumentalność) - Miara prawdopodobieństwa określająca, czy dany utwór nie zawiera wstawek wokalnych (fragmentów śpiewanych). Wyrazy dźwiękonaśladowcze takie jak `ooh' czy `aah' przez algorytm/klasyfikator są traktowane jako instrumentalne. Rap czy zwykła mowa traktowana jako `czysty wokal'. Im bliżej wartości 1.0, tym wyższe prawdopodobieństwo braku wokali. Wartości powyżej 0.5 w założeniu mają reprezentować utwory instrumentalne, natomiast prawdopodobieństwo prawidłowej klasyfikacji rośnie wraz ze zbliżaniem się wskaźnika do wartości 1.0.
+        \item \textit{key} (pl. tonacja). Tonacja utworu przedstawiona jako liczba całkowita nieujemna: 0,1,2\ldots . Liczby zmapowane są na standardową notację muzyczną: 0 = C, 1 = G, 2 = D i tak dalej.
+        \item \textit{liveness} - (pl. żywość/żywiołowość) - Miara żywiołowości określa prawdopodobieństwo obecność publiczności podczas nagrania. Wartości \textit{liveness} powyżej 0.8 wskazują na wysokie prawdopodobieństwo, że utwór wykonywany był `na żywo'.
+        \item \textit{loudness} (pl. głośność) - Ogólna głośność utworu mierzona w decybelach. Wartości głośności są wyliczane poprzez uśrednienie głośności całego utworu, co sprawia, że metryka staje się użyteczna do porównywania utworów. Głośność jest cechą dźwięku ściśle skorelowaną z amplitudą fali dźwiękowej. Wartości w większości przypadków wahają się między -60 a 0 db.
+        \item \textit{mode} (pl. tryb/dominanta) - Parametr 'mode' oznacza modalność utworu: \textit{major} (pl. główna, pierwszorzędna) lub \textit{minor} (pl. pomniejsza, drugorzędna), w znaczeniu typu skali, w której znajduje się warstwa melodyczna. 1 oznacza \textit{major}, 0 to \textit{minor}.
+        \item \textit{name} (pl. nazwa) - Tytuł piosenki, utworu lub nagrania.
+        \item \textit{popularity} (pl. popularność) - Popularność utworu w skali od 0 do 100, gdzie 100 oznacza najwyższą popularność. Popularność wyliczana jest przez algorytm, bazujący przede wszystkim na liczbie odtworzeń utworu, ale także na tym jak świeże (odległe od chwili obecnej) są te odtworzenia.
+        \item \textit{release\_date} (pl. data publikacji) - Data publikacji utworu lub albumu, na którym znalazł się utwór.
+        \item \textit{speechiness} (pl. wypełnienie mową) - Parametr \textit{speechiness} określa stopień obecności mowy w utworze. Nagrania wypełnione mową takie jak programy `talk show', audiobooki czy poematy będą uzyskiwały wartości tego parametru zbliżone do 1.0. Wartości powyżej 0.66 wskazują na wysokie prawdopodobieństwo wypełnienia nagrania w całości mową. Wartości od 0.33 do 0.66 wskazują na występowanie zarówno mowy jak i muzyki, zarówno w następujących po sobie sekwencjach, jak i w nakładających się na siebie warstwach dźwiękowych. Wartości poniżej 0.33 oznaczają duże prawdopodobieństwo nie występowania mowy w utworze.
+        \item \textit{tempo} (pl. tempo) - Ogólne, szacowane tempo utworu w taktach na minutę (ang. \textit{BPM}). W terminologi muzycznej, tempo jest szybkością danego fragmentu/kawałka utworu wyliczaną bezpośrednio w oparciu o średnią długość taktu.
+    \end{itemize}
+    \smallskip
+    Opisy parametrów są luźnym tłumaczeniem oficjalnej dokumentacji API deweloperskiego Spotify\cite{SpotifyWebAPIReference}. \textbf{Metody wyznaczania wartości metryk subiektywnych są własnością intelektualną firmy Spotify i nie są dostępne publicznie.}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{valence}
+        \caption{Histogram dla cechy \textit{valence} (pl. ozdobnik).}
+        \label{fig:valence}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{acousticness}
+        \caption{Histogram dla cechy \textit{acousticness} (pl. akustyczność).}
+        \label{fig:acousticness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{danceability}
+        \caption{Histogram dla cechy \textit{danceability} (pl. taneczność).}
+        \label{fig:danceability}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{duration_ms}
+        \caption{Histogram dla cechy \textit{duration\_ms} (pl. czas trwania w milisekundach).}
+        \label{fig:duration_ms}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{energy}
+        \caption{Histogram dla cechy \textit{energy} (pl. energia/energetyczność).}
+        \label{fig:energy}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{instrumentalness}
+        \caption{Histogram dla cechy \textit{instrumentalness} (pl. instrumentalność).}
+        \label{fig:instrumentalness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{liveness}
+        \caption{Histogram dla cechy \textit{liveness} (pl. żywość/żywiołowość).}
+        \label{fig:liveness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{loudness}
+        \caption{Histogram dla cechy \textit{loudness} (pl. głośność).}
+        \label{fig:loudness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{year}
+        \caption{Histogram dla cechy \textit{year} (pl. rok publikacji).}
+        \label{fig:year}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{speechiness}
+        \caption{Histogram dla cechy \textit{speechiness} (pl. wypełnienie mową).}
+        \label{fig:speechiness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{tempo}
+        \caption{Histogram dla cechy \textit{tempo} (pl. tempo).}
+        \label{fig:tempo}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{popularity}
+        \caption{Histogram dla cechy \textit{popularity} (pl. popularność).}
+        \label{fig:popularity}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=7cm,keepaspectratio]{mode}
+        \caption{Wykres kołowy pokazujący procentowy rozkład dominant dla badanych utworów.}
+        \label{fig:mode}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=7cm,keepaspectratio]{explicit}
+        \caption{Wykres kołowy pokazujący procentowy udział utworów zawierających treści przeznaczone dla odbiorców pełnoletnich.}
+        \label{fig:explicit}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=10cm,keepaspectratio]{key}
+        \caption{Wykres kołowy pokazujący procentowy rozkład tonacji dla badanych utworów.}
+        \label{fig:key}
+    \end{figure}
+
+    \newpage
+
+
+    \section{Zastosowanie dwustopniowego algorytmu uczenia maszynowego do predykcji popularności utworu}
+
+    \subsection{Selekcja i wstępna obróbka danych}
+
+    Do stworzenia modeli wykorzystano następujące parametry: \textit{valence}, \textit{acousticness}, \textit{danceability}, \textit{duration\_ms}, \textit{energy}, \textit{explicit}, \textit{instrumentalness}, \textit{key}, \textit{liveness}, \textit{loudness}, \textit{mode}, \textit{release\_date}, \textit{speechiness} i \textit{tempo}. Na potrzeby dalszych działań wartości parametru \textit{key} zostały zamienione na binarną postać wektorową (ang. \textit{one-hot encoding}), a wartości \textit{release\_date} na milisekundy w standardzie UNIX. Na podstawie wartości wcześniej wymienionych parametrów modele szacowały wartość popularności (ang. \textit{popularity}) utworu.
+
+    \subsection{Ogólny zarys architektury zastosowanej sieci neuronowej}
+
+    Przed ostatecznym wyborem modelu bazowego, do późniejszego wyliczenia przez algorytm genetyczny, dokonano szeregu prób, eksperymentując z zastosowaniem różnych optymalizatorów, regularyzatorów, inicjatorów wag i funkcji aktywacji, a także z ilością warstw ukrytych i liczbą neuronów w każdej z nich. Ostatecznie zdecydowano się na następującą bazę:
+    \begin{itemize}
+        \item warstwa wejściowa z 25 neuronami i normalizacją wsadową (ang. \textit{Batch Normalization}) ($momentum = 0.99$)
+        \item trzy warstwy ukryte posiadające między 10 a 200 neuronów; wagi i obciążenia inicjowane funkcją He z rozkładem normalnym; normalizacja wsadowa ($momentum = 0.99$); aktywacja funkcją ELU; regularyzacja przez porzucenie (ang. \textit{Dropout}), ze współczynnikiem porzucania wynoszącym między 0.01 a 0.5
+        \item warstwa wyjściowa z 1 neuronem i aktywacją liniową
+        \item optymalizator Adam ($\eta = 0.001$)
+        \item jako funkcję straty (ang. \textit{loss}) do minimalizacji wybrano MSE (ang. \textit{mean square error})
+        \item jako metryki pomocnicze dodano RMSE (ang. \textit{root mean squared error}) i MAE (ang. \textit{mean absolute error})
+        \item liczbę próbek w minigrupie (ang. \textit{batch}) z przedziału 100--400
+    \end{itemize}
+
+    \bigskip
+
+    Decyzja o zastosowaniu tylko trzech warstw ukrytych podyktowana była specyfiką działania algorytmu genetycznego oraz ograniczeniami środowiska wykonawczego (maksymalny czas trwania sesji w Google Colab Pro Plus to 24 godziny), i wynikającą z powyższych koniecznością skrócenia średniego czasu uczenia pojedynczego modelu.
+
+    \subsection{Inicjacja wag funkcją HE}
+
+    Podczas badań nad procesem uczenia głębokich sieci neuronowych naukowcy natrafili na tak zwany `problem zanikających gradientów' (malenie wartości gradientów funkcji kosztu wraz z propagacją wsteczną na coraz niższe warstwy sieci) oraz będący jego przeciwieństwem `problem wybuchających gradientów' (stały wzrost gradientów powodujący rozbieżność algorytmu (problem dotyczący głównie rekurencyjnych sieci neuronowych)\cite{UczenieMaszynowe2018}. Była to przeszkoda na tyle poważna, że na długie lata wstrzymała rozwój prac nad głębokimi sieciami neuronowymi. Dopiero w 2010 roku Xavierowi Glorot i Yoshue Benglo udało się zdiagnozować przyczynę problemu i zaproponować skuteczne rozwiązanie. Przyczyną okazało się powszechne wykorzystywanie kombinacji logistycznej i sigmoidalnej funkcji aktywacji, oraz inicjacji wag losowymi wartościami o rozkładzie normalnym i średniej wynoszącej 0, oraz odchyleniu standardowym równym 1. Badacze doszli do wniosku, że prawidłowy przepływ informacji między warstwami sieci jest możliwy jedynie, gdy wariancja dla wyjść warstwy jest równa wariancji wejść tejże, a dodatkowo gradienty funkcji kosztu muszą mieć taką samą wariancję przed i po przejściu przez daną warstwę w procesie propagacji wstecznej\cite{UnderstandingTheDifficultyOfTrainingDeepFeedforwardNeuralNetworks2010}.
+
+    \bigskip
+
+    Wzory dla inicjacji Xaviera (Glorot), dla logistycznej funkcji aktywacji przedstawiają się następująco:
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Odchylenie standardowe dla rozkładu normalnego o średniej 0: \\
+        \begin{equation}
+            \label{eq:std_dev_xavier}
+            \sigma = \sqrt{\frac{2}{n_{input} + n_{output}}}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Promień dla rozkładu jednorodnego (gdzie wartości mieszczą się w przedziale $\langle$-r,r$\rangle$): \\
+        \begin{equation}
+            \label{eq:radius_xavier}
+            r = \sqrt{\frac{6}{n_{input} + n_{output}}}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $n_{input}$  & liczba połączeń wejściowych w warstwie \\
+            $n_{output}$ & liczba połączeń wyjściowych w warstwie \\
+        \end{tabular}
+    \end{minipage}
+
+    \bigskip
+
+    Zaproponowana przez Glorot i Benglo metoda inicjacji wag sprawdzała się świetnie w połączeniu z logistyczną funkcją aktywacji. W przypadku zastosowania jej w połączeniu z funkcją aktywacji ReLU (a także jej odmianami takimi jak ELU) wyniki były niezadowalające. Kolejnego przełomu udało się dokonać w 2015 roku Kaimingowi He wraz z zespołem współpracowników z Microsoft Research, w wyniku prac nad klasyfikatorem dla zbioru ImageNet\cite{DelvingDeepIntoRectifiers2015}. Inicjacja He w odróżnieniu od inicjacji Xaviera (Glorot) uwzględnia jedynie obciążalność wejściową warstwy (a nie jak u poprzednika średnią obciążalności wejściowej i wyjściowej)\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór na odchylenie standardowe w inicjacji He dla rozkładu normalnego o średniej 0: \\
+        \begin{equation}
+            \label{eq:std_dev_he}
+            \sigma = \sqrt{\frac{2}{n_{input}}}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $n_{input}$ & liczba połączeń wejściowych w warstwie \\
+        \end{tabular}
+    \end{minipage}
+
+    \subsection{Funkcja aktywacji ELU}
+
+    Początkowo uważano, że najlepsze jako funkcje aktywacji będą funkcje sigmoidalne. Przekonanie to brało się stąd, że podobnymi funkcjami można opisać przetwarzanie sygnału przez neurony biologiczne. To intuicyjne skojarzenie okazało się jednak mylne. Po pewnym czasie odkryto, że o wiele lepiej do tego celu nadaje się funkcja ReLU (ang. \textit{Rectified Linear Unit} pl. prosta liniowa funkcja aktywacji)\cite{UczenieMaszynowe2018}. Głównymi zaletami funkcji ReLU są:
+    \begin{itemize}
+        \item nie uleganie nasyceniu dla wartości dodatnich
+        \item ma bardzo niski koszt obliczeniowy
+    \end{itemize}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór dla funkcji aktywacji ReLU: \\
+        \begin{equation}
+            \label{eq:relu}
+            ReLU(x) =
+            \begin{cases}
+                0 & \quad \text{jeśli } x < 0 \\
+                x & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+    \end{minipage}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{relu}
+        \caption{Wykres funkcji ReLU.}
+        \label{fig:relu}
+    \end{figure}
+
+    Funkcja ReLU ma jednak ogromną wadę, potocznie nazywaną `śmiercią ReLU' - polega to na tym, że w procesie uczenia niektóre neurony trwale `giną', to znaczy zaczynają przesyłać wyłącznie sygnał 0 i nie ma możliwości, żeby `zmartwychwstały'\cite{UczenieMaszynowe2018}. Z tego też powodu w praktyce stosowane są obecnie modyfikacje funkcji ReLU, z pośród który najpopularniejsze to:
+    \begin{itemize}
+        \item `przeciekająca' funkcja ReLU
+        \item losowa `przeciekająca' funkcja ReLU
+        \item parametryczna `przeciekająca' funkcja ReLU
+        \item ELU (ang. \textit{exponential linear unit} pl. jednostka wykładniczo liniowa)
+    \end{itemize}
+
+    \bigskip
+
+    W 2015 roku Djork-Arné Clevert wraz z zespołem odkrył nową funkcję aktywacji - ELU\cite{FastAndAccurateDeepNetworkLearningByELU2016}. Po przeprowadzonych eksperymentach okazało się, że góruje ona zarówno nad tradycyjną funkcją ReLU, jak i jej modyfikacjami. Umożliwiała skrócenie procesu uczenia, a także przyczyniła się wydatnie do poprawy wyników dla zbioru testowego\cite{UczenieMaszynowe2018}. Główne zalety ELU w zestawieniu z ReLU to:
+    \begin{itemize}
+        \item rozwiązanie `problemu zanikających gradientów' dzięki przyjmowaniu ujemnych wartości dla x < 0
+        \item rozwiązanie problemu `umierających neuronów' dzięki niezerowemu gradientowi dla x < 0
+        \item przyspieszenie procesu uczenia metodą gradientu prostego dzięki gładkości funkcji na cały przebiegu
+    \end{itemize}
+    \smallskip
+    Wadą jest natomiast niewątpliwie większy koszt obliczeniowy w porównaniu z ReLU spowodowany obecnością składowej wykładniczej.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór dla funkcji aktywacji ELU: \\
+        \begin{equation}
+            \label{eq:elu}
+            ELU_{\alpha}(x) =
+            \begin{cases}
+                \alpha(\exp(x)-1) & \quad \text{jeśli } x < 0 \\
+                x & \quad \text{jeśli } x \geq 0
+            \end{cases}
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $\alpha$ & hiperparametr definiujący wartość do jakiej ma się zbliżać funkcja dla ujemnych wartości x \\
+        \end{tabular}
+    \end{minipage}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{elu}
+        \caption{Wykres funkcji ELU dla $\alpha$=1.}
+        \label{fig:elu}
+    \end{figure}
+
+    \subsection{Normalizacja wsadowa (ang. \textit{Batch Normalization})}
+
+    Zastosowanie kombinacji inicjacji He w połączeniu z funkcją aktywacji ELU nie rozwiązało całkowicie problemu zanikających i eksplodujących gradientów. Problem nadal występował na dalszych etapach procesu uczenia. Dopiero zaproponowane w 2015 roku przez Sergeya Ioffe i Christiana Szegedy rozwiązanie - normalizacja wsadowa (ang. \textit{Batch Normalization}), w połączeniu z wcześniej wymienionymi pozwoliło ostatecznie pokonać trudność\cite{BatchNormalization2015}.
+
+    \bigskip
+
+    Operację normalizacji wsadowej wykonuje się na każdej warstwie bezpośrednio przed funkcją aktywacji. Najpierw wyśrodkowuje się i normalizuje się dane wyjściowe. Następnie przeskalowuje się i przesuwa się wyniki za pomocą dwóch parametrów wyliczanych dla każdej warstwy ($\gamma$ - parametr skalowania, $\beta$ - parametr przesunięcia)\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Normalizacja wsadowa danych wejściowych dla pojedynczej warstwy: \\
+        \bigskip
+        \setlength\parindent{17pt} Wyliczenie średniej dla minigrupy: \\
+        \begin{equation}
+            \label{eq:minibatch_mean}
+            \mu_{B} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} x^{(i)}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wyliczenie odchylenia standardowego dla minigrupy: \\
+        \begin{equation}
+            \label{eq:minibatch_std_dev}
+            \sigma_{B}^{2} = \frac{1}{m_{B}} \displaystyle\sum_{i=1}^{m_{B}} (x^{(i)} - \mu_{B})^{2}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wyśrodkowanie i znormalizowanie danych wejściowych: \\
+        \begin{equation}
+            \label{eq:centering_and_normalizing_input}
+            \widehat{x}^{(i)} = \frac{x^{(i)} - \mu_{B}}{\sqrt{\sigma_{B}^{2} + \epsilon}}
+        \end{equation}
+    \end{minipage}
+
+    \smallskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Przeskalowanie i przesunięcie wyniku: \\
+        \begin{equation}
+            \label{eq:rescaling_and_translating_result}
+            z^{(i)} = \gamma\widehat{x}^{(i)} + \beta
+        \end{equation}
+    \end{minipage}
+
+    \bigskip
+
+    \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+        Gdzie: \\
+        $\mu_{B}$           & średnia empiryczna wyliczona dla całej minigrupy B                                                                                                                \\
+        $\sigma_{B}$        & empiryczne odchylenie standardowe wyliczone dla całej minigrupy B                                                                                                 \\
+        $m_{B}$             & liczba przykładów w minigrupie                                                                                                                                    \\
+        $\widehat{x}^{(i)}$ & wyśrodkowane i znormalizowane dane wejściowe                                                                                                                      \\
+        $\gamma$            & parametr skalowania w danej warstwie                                                                                                                              \\
+        $\beta$             & parametr przesunięcia w danej warstwie                                                                                                                            \\
+        $\epsilon$          & niewielka liczba służąca do uniknięcia operacji dzielenia przez 0 (zazwyczaj ma wartość $10^{-5}$; jest to tzw, człon wygładzający (ang. \textit{smoothing term}) \\
+        $z^{(i)}$           & wynik operacji normalizacji wsadowej: przeskalowana i przesunięta wersja danych wejściowych                                                                       \\
+    \end{tabular}
+
+    \bigskip
+
+    Główne zalety normalizacji wsadowej to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item ograniczenie `problemu zanikających gradientów' w stopniu pozwalającym na używanie nasycających funkcji aktywacji takich jak tangens hiperboliczny
+        \item zmniejszenie wrażliwości sieci na inicjację wag
+        \item umożliwienie wykorzystywania większej wartości współczynnika uczenia, a co za tym idzie znaczne przyspieszenie całego procesu uczenia
+        \item poprawa wyników dla zagadnień klasyfikacji i regresji
+        \item częściowe spełnianie roli regularyzatora
+    \end{itemize}
+
+    \bigskip
+
+    Największe wady to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item zwiększenie skomplikowania modelu
+        \item spowolnienie działania modelu, ze względu na konieczność przeprowadzenia dodatkowych obliczeń dla każdej warstwy (spowalnia to w szczególności początek procesu uczenia, gdyż algorytm gradientu prostego wyszukuje optymalne skale i przesunięcia dla każdej warstwy; następnie proces przyspiesza)
+    \end{itemize}
+
+    \subsection{Regularyzacja przez Porzucanie (ang. \textit{Dropout})}
+
+    Pierwotny pomysł zastosowania techniki `porzucania' jako sposobu na regularyzację głębokiej sieci neuronowej powstał w 2012 roku. Jego autorem był pracujący na Uniwersytecie Toronto G.E.\ Hinton (wraz ze współpracownikami). Wyniki swoich badań zaprezentował w artykule ``Improving neural networks by preventing co-adaptation of feature detectors''\cite{ImprovingNeuralNetworks2012}. Jego dzieło rozwinął działający na tej samej uczelni Nitish Srivastava (ze swoim zespołem), a rezultaty opublikował w 2014 roku w artykule ``Dropout: A Simple Way to Prevent Neural Networks from Overfitting''\cite{Dropout2014}. Osiągane rezultaty były imponujące - zwiększenie dokładności klasyfikatorów o 1--2\% co przekładało się na nawet kilkudziesięciu procentowe zmniejszenie współczynnika błędu.
+
+    \bigskip
+
+    Algorytm jest bardzo prosty. Podczas każdego przebiegu procesu uczenia dowolny neuron, za wyjątkiem neuronów warstwy wyjściowej, może zostać `porzucony', to znaczy całkowicie pominięty w procesie uczenia, z ustalonym z góry prawdopodobieństwem \textit{p}. Następnie, już po zakończeniu treningu, konieczne jest przemnożenie każdej wagi połączenia wejściowego przez tak zwane `prawdopodobieństwo utrzymania' (ang. \textit{keep probability}) równe 1 - \textit{p}. Alternatywą jest podzielenie wartości wejścia każdego neuronu przez `prawdopodobieństwo utrzymania' w trakcie nauki\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    W praktyce dla każdej `epoki' mamy do czynienia z unikalną siecią. Istnieje $2^{N}$ możliwych kombinacji gdzie N oznacza całkowitą liczbę neuronów, które mogą zostać porzucone. Te sztucznie pomniejszone sieci są wobec siebie całkowicie niezależne. Finalna sieć jest pewnym rodzajem uśrednienia\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Podsumowując, główne korzyści płynące z zastosowania techniki `porzucania' to\cite{UczenieMaszynowe2018}:
+    \begin{itemize}
+        \item uczone neurony nie mogą uzależniać się od swoich sąsiadów; same muszą wnosić jak najwięcej `wartości dodanej' przy przetwarzaniu sygnału; muszą skupiać się na poszczególnych wejściach, a nie traktować ich kombinacji całościowo
+        \item wynikające z powyższego zmniejszenie wrażliwości na drobne zmiany na wejściach
+        \item patrząc całościowo uzyskany w wyniku `porzucania' model jest lepszą generalizacją
+    \end{itemize}
+    \smallskip
+    Główną wadą jest spowolnienie procesu konwergencji modelu\cite{UczenieMaszynowe2018}.
+
+    \bigskip
+
+    Bardzo ważny jest prawidłowy dobór `współczynnika porzucania' tak, żeby uniknąć zarówno niedotrenowania (zbyt duża wartość) jak i przetrenowania (zbyt mała wartość). Cenną wskazówką jest zastosowanie większej wartości współczynnika dla rozbudowanych warstw, a mniejszej dla niewielkich.
+
+    \bigskip
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{dropout}
+        \caption{Regularyzacja przez `porzucanie'\cite{UczenieMaszynowe2018}.}
+        \label{fig:dropout}
+    \end{figure}
+
+    \subsection{Optymalizator Adam (ang. \textit{Adaptive Moment Estimation})}
+
+    Optymalizatory są kolejnym elementem wprowadzonym w celu przyspieszenia procesu uczenia głębokich sieci neuronowych. Są one bardziej efektywne od standardowego algorytmu gradientu prostego. W praktyce, ze względu na koszty pamięciowe, wykorzystuje się jedynie optymalizatory bazujące na pochodnych cząstkowych pierwszego rzędu (jakobinach)\cite{UczenieMaszynowe2018}. Najpopularniejsze z nich to:
+    \begin{itemize}
+        \item optymalizacja momentum (ang. \textit{Momentum Optimization})
+        \item przyspieszony spadek wzdłuż gradientu (algorytm Nesterova)
+        \item AdaGrad (ang. \textit{Adaptive Subgradient Method})
+        \item RMSProp
+        \item Adam (ang. \textit{Adaptive Moment Estimation})
+    \end{itemize}
+
+    \bigskip
+
+    Algorytm Adam został opracowany w 2015 roku przez Diederika P. Kingma i Jimma Lei Ba\cite{AdamOptimization2015}. Jest połączeniem pomysłów wykorzystanych w optymalizacji momentum i optymalizatorze RMSProp. Z optymalizacji momentum zaczerpnięte jest śledzenie rozkładu wykładniczego średniej wcześniejszych gradientów, a z RMSProp - śledzenie rozkładu wykładniczego średniej wcześniejszych kwadratów momentów\cite{UczenieMaszynowe2018}. Poniżej przedstawiono pseudokod z oryginalnej publikacji Kingma i Ba.
+
+    \bigskip
+
+    \begin{algorithm}[H]
+        \caption{Algorytm Adam\cite{AdamOptimization2015}.}
+        \label{alg:adam_optimizer}
+        \begin{algorithmic}
+            \Require $\alpha$
+            \Comment{współczynnik uczenia, który zazwyczaj inicjowany jest wartością $\alpha = 0.001$}
+            \Require $\beta_{1},\beta_{2} \in (0,1]$
+            \Comment{$\beta_{1}$ to hiperparametr rozkładu momentu, który zazwyczaj inicjowany wartością $\beta_{1} = 0.9$; $\beta_{2}$ to hiperparametr rozkładu skalowania, który zazwyczaj inicjowany wartością $\beta_{2} = 0.999$}
+            \Require $\epsilon$
+            \Comment{człon wygładzający, który zazwyczaj przyjmuje wartość $\epsilon = 10^{-8}$}
+            \Require $f(\theta)$
+            \Comment{funkcja stochastyczna $f$ z wektorem parametrów $\theta$}
+            \Require $\theta_{0}$
+            \Comment{postać początkowa wektora parametrów $\theta$}
+            \State $m_{0} \gets 0$
+            \Comment{inicjacja pierwszego wektora momentu}
+            \State $v_{0} \gets 0$
+            \Comment{inicjacja drugiego wektora momentu}
+            \State $t \gets 0$
+            \Comment{inicjacja licznika przebiegów}
+            \While{$\theta_{t}$ nie zbiegnie}
+                \State $t \gets t + 1$
+                \State $g_{t} \gets \nabla_{\theta}f_{t}(\theta_{t-1})$
+                \Comment{uzyskanie gradientów dla stochastycznej funkcji kosztu w przebiegu $t$}
+                \State $m_{t} \gets \beta_{1} \cdot m_{t-1} + (1 - \beta_{1}) \cdot g_{t}$
+                \Comment{aktualizacja szacunkowej wartości pierwszego wektora momentu}
+                \State $v_{t} \gets \beta_{2} \cdot v_{t-1} + (1 - \beta_{2}) \cdot g_{t}^{2}$
+                \Comment{aktualizacja szacunkowej wartości drugiego wektora momentu}
+                \State $\widehat{m_{t}} \gets \frac{m_{t}}{1 - \beta_{1}^{t}}$
+                \Comment{obliczenie szacunkowej wartości pierwszego wektora momentu}
+                \State $\widehat{v_{t}} \gets \frac{v_{t}}{1 - \beta_{2}^{t}}$
+                \Comment{obliczenie szacunkowej wartości drugiego wektora momentu}
+                \State $\theta_{t} \gets \theta_{t-1} - \frac{\alpha \cdot \widehat{m_{t}}}{\sqrt{\widehat{v_{t}}} + \epsilon}$
+                \Comment{aktualizacja wektora parametrów}
+            \EndWhile
+            \State \Return $\theta_{t}$
+            \Comment{wynikowy wektor parametrów}
+        \end{algorithmic}
+    \end{algorithm}
+
+    \bigskip
+
+    Optymalizator Adam, podobnie jak RMSProp, wykorzystuje adaptacyjny współczynnik uczenia. Z tego też powodu nie ma konieczności wyznaczania jego optymalnej wartości, wystarczy jedynie skorzystać z domyślnej wartości $\eta = 0.001$\cite{UczenieMaszynowe2018}. To z kolei sprawia, że Adam jest w praktyce prostszy w użyciu od metody gradientu prostego.
+
+    \subsection{Wybór hiperparametrów procesu uczenia sieci neuronowej}
+
+    Do estymacji za pomocą algorytmu genetycznego wybrano następujący zestaw hiperparametrów:
+    \begin{itemize}
+        \item liczba jednostek (neuronów) w warstwie ukrytej `1' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `1' (min. 0.01, max. 0.5)
+        \item liczba jednostek dla warstwie ukrytej `2' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `2' (min. 0.01, max. 0.5)
+        \item liczba jednostek dla warstwie ukrytej `3' (min.10, max.200)
+        \item współczynnik porzucenia (ang. \textit{dropout}) dla warstwy ukrytej `3' (min. 0.01, max. 0.5)
+        \item rozmiar minigrupy (ang. \textit{batch size}); (min.100, max.400)
+    \end{itemize}
+
+    \bigskip
+
+    W przypadku pozostały hiperparametrów zdecydowano się na przyjęcie zalecanych wartości domyślnych (optymalizator Adam: $\eta = 0.001$, $\beta_{1} = 0.9$, $\beta_{2} = 0.999$, $\epsilon = 10^{-7}$; normalizacja wsadowa: $moment = 0.99$).
+
+    \subsection{Wybór rodziców z wykorzystaniem selekcji proporcjonalnej (ang. \textit{Fitness Proportionate Selection / FPS})}
+
+    Selekcja proporcjonalna (ang. \textit{Fitness Proportionate Selection / FPS}) lub inaczej selekcja ruletkowa (ang. \textit{Roulette Wheel Selection}) jest popularną metodą wykorzystywaną do wyboru odpowiednich osobników (rodziców) do rekombinacji (krzyżowania). Autorem oryginalnego konceptu był J.H Holland z Massachusetts Institute of Technology. Selekcja polega na losowaniu osobnika z prawdopodobieństwem równym stosunkowi absolutnej wartości jego metryki dopasowania (ang. \textit{fitness}) $f_{i}$ do sumy wartości absolutnych metryk dopasowań dla całej populacji $\sum_{j=1}^{\mu} f_{j}$\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Wzór na prawdopodobieństwo wylosowania pojedynczego osobnika prezentuje się następująco: \\
+        \begin{equation}
+            \label{eq:fitness_proportionate_selection}
+            P_{FPS}(i) = \frac{\lvert f_{i} \rvert}{\sum_{j=1}^{\mu} \lvert f_{j} \rvert}
+        \end{equation}
+    \end{minipage}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{proportional_selection}
+        \caption{Obrazowy przykład działania selekcji proporcjonalnej.}
+        \label{fig:proportional_selection}
+    \end{figure}
+
+    Okazało się, że selekcja proporcjonalna wyjątkowo dobrze nadaje się do analizy teoretycznej. Niestety bardzo szybko odkryto też jej główne mankamenty\cite{IntroductionToEvolutionaryComputing2015}:
+    \begin{itemize}
+        \item Najlepsze osobniki bardzo szybko przejmują `kontrolę' nad populacją. To powoduje, że zostaje bardzo zawężony obszar poszukiwań najlepszego rozwiązania, a prawdopodobieństwo uzyskania dobrego wyniku jest nikłe. Problem uwidacznia się zwłaszcza we wczesnych generacjach, kiedy wiele losowo utworzonych osobników ma niską wartość metryki dopasowania (ang. \textit{fitness}). Fachowo określa się to terminem przedwczesnej konwergencji (zbiegnięcia) (ang. \textit{premature convergence}).
+        \item Kiedy wartości metryki dopasowania są zbliżone do siebie zanika tak zwana `presja selekcyjna' (ang. \textit{selection pressure}). Rezultatem jest niemal losowa selekcja w kolejnych pokoleniach (generacjach) i bardzo powolna konwergencja (zbieganie) do optymalnego rozwiązania.
+    \end{itemize}
+
+    \bigskip
+
+    Na szczęście opracowane zostały skuteczne techniki zaradcze. Najpopularniejsze to:
+    \begin{itemize}
+        \item `okienkowanie' (ang. \textit{windowing})
+        \item skalowanie sigma (ang. \textit{sigma scaling})
+    \end{itemize}
+
+    \bigskip
+
+    `Okienkowanie' (ang. \textit{windowing}), z którego skorzystano w ramach niniejszej pracy, polega na odejmowaniu od pierwotnej wartości metryki dopasowania  $f_{i}$ wartości $\beta^{t}$ zależnej od przebiegu działania algorytmu i zmiennej w czasie. Przeważnie jest to najmniejsza (lub najgorsza) wartość metryki dopasowania dla całej populacji z kilku wcześniejszych pokoleń\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \begin{equation}
+        \label{eq:new_fitness}
+        f'(i) = f(i) - \beta^{t}
+    \end{equation}
+
+    \subsection{Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover})}
+
+    Krzyżówka z jednym punktem przecięcia (ang. \textit{One Point Crossover}) polega na wyznaczeniu losowego punktu, przez który dzieli się następnie chromosomy rodziców, a z otrzymanych części buduje się finalnie chromosomy potomków. Przykładowo, jeśli chromosomy mają postać ciągów bitowych, pierwszy rodzic to 0010110010, drugi rodzic to 1111010111, a punkt przecięcia został wyznaczony na 4, to w wyniku operacji krzyżowania otrzymamy następujących potomków: 0010010111 i 1111110010\cite{GeneticAlgorithmEssentials2017}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{one_point_crossover}
+        \caption{Obrazowy przykład działania krzyżowania z jednym punktem przecięcia.}
+        \label{fig:one_point_crossover}
+    \end{figure}
+
+    W implementacji algorytmu genetycznego, będącej przedmiotem niniejszej pracy, autor wykorzystał krzyżówkę z dwoma punktami przecięcia. Działa ona na podobnej zasadzie, ale rezultatem jest sześciu potomków o genotypie różnym od rodziców.
+
+    \subsection{Mutacja pełzająca (ang. \textit{Creep Mutation}), niejednorodna (ang. \textit{nonuniform})}
+
+    Mutacja pełzająca (ang. \textit{Creep Mutation}) jest często stosowanym rozwiązaniem dla alleli (parametrów) typu \textit{integer} (całkowitych) lub \textit{float} (zmiennoprzecinkowych). Polega ona na translacji pierwotnej wartości allelu poprzez dodanie niewielkiej (dodatniej lub ujemnej) liczby losowej, tak by rezultat mieścił się w granicach $x_{i}^{'} \in [L_{i}, U_{i}]$\cite{IntroductionToEvolutionaryComputing2015}.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Transformacja wartości parametrów osobnika w ramach mutacji: \\
+        \begin{equation}
+            \label{eq:mutation_transformation}
+            \langle x_{1},\dotsc,x_{n}> \rangle \to \langle x_{1}^{'},\dotsc,x_{n}^{'} \rangle \quad \text{gdzie } x_{i}, x_{i}^{'} \in [L_{i}, U_{i}]
+        \end{equation}
+        \smallskip
+        \begin{tabular}{p{0.08\textwidth}p{0.92\textwidth}}
+            Gdzie: \\
+            $L_{i}$ & dolna granica dla transformacji \\
+            $U_{i}$ & górna granica dla transformacji \\
+        \end{tabular}
+    \end{minipage}
+
+    \bigskip
+
+    Stosować można zarówno mutację jednorodną (ang. \textit{Uniform Mutation}) - opartą o liczby losowe wygenerowane według rozkładu jednorodnego, jak i mutację niejednorodną (ang. \textit{Nonuniform Mutation}) - opartą o rozkład Gaussa (rzadziej o rozkład Cauchego)\cite{IntroductionToEvolutionaryComputing2015}. W przypadku niniejszej pracy zdecydowano się na generowanie przesunięć ($\Delta x_{i}$) w oparciu o rozkład Gaussa, a następnie na ograniczanie wyliczonych nowych wartości parametrów do z góry wyznaczonych granic ($L_{i}, U_{i}$). Do sterowania losowością przesunięć stosuje się odchylenie standardowe $\sigma$, tu określane jako `miara kroku mutacji' (ang. \textit{mutation step size}). Dla niniejszej pracy przyjęto, ze względu na przebieg funkcji gęstości prawdopodobieństwa dla rozkładu Gaussa: $\sigma = (U_{i} - L_{i}) / 6$.
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \setlength\parindent{17pt} Funkcja gęstości prawdopodobieństwa dla rozkładu Gaussa: \\
+        \begin{equation}
+            \label{eq:mutation_probability distribution}
+            p(\Delta x_{i}) = \frac{1}{\sigma \sqrt {2 \pi}} \cdot e \frac{(\Delta x_{i} - \xi)^{2}}{2 \sigma^{2}}
+        \end{equation}
+    \end{minipage}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{standard_deviation_diagram}
+        \caption{Wykres dla rozkładu Gaussa. Jednostka dla osi \textit{x} to odchylenie standardowe ($\sigma$). W odległości $1 \cdot \sigma$ od średniej znajduje się 68.27\% elementów; w odległości $2 \cdot \sigma$ - 95.45\% elementów; w odległości $3 \cdot \sigma$ - 99.73\% elementów. Autor: M.W. Toews (Wikipedia Community).}
+        \label{fig:standard_deviation_diagram}
+    \end{figure}
+
+    W implementacji algorytmu genetycznego, będącej przedmiotem niniejszej pracy, autor poddawał mutacji $\frac{1}{3}$ wybranych losowo cech osobnika.
+
+    \newpage
+
+
+    \section{Rezultaty eksperymentów}
+
+    Wszystkie eksperymenty przeprowadzono w środowisku cloudowym Colab Pro Plus (Google). Wykorzystano biblioteki Pandas i Numpy (wczytanie i przygotowanie danych), Sklearn (przygotowanie zbioru treningowego, walidacyjnego i testowego), wszystkie modele sieci neuronowych zostały stworzone i wytrenowane w TensorFlow Keras (Google).
+
+    \bigskip
+
+    Właściwy przebieg algorytmu ograniczono do 120 pokoleń. Liczbę osobników w populacji ustalono na 20. W każdym pokoleniu 6 najgorszych osobników wymieniano na 6 potomków (powstałych po krzyżówce 2-punktowej i mutacjach). Zbiór treningowy miał 95565 przykładów, a walidacyjny - 23891 (podział w proporcjach 0.8-0.2). Zbiór testowy zawierał 51196 przykładów (podział w proporcjach 0.7-0.3).
+
+    \bigskip
+
+    Funkcją dopasowania była minimalna wartość metryki MSE dla osobnika, wyznaczona dla zbioru walidacyjnego podczas uczenia.
+
+    \bigskip
+
+    Maksymalna liczba epok (pełnych przebiegów po zbiorze treningowym) została wyznaczona na 20. Dla skrócenia czasu nauki pojedynczego modelu skorzystano z mechanizmu Keras Early Stopping (tzw. `wcześniejsze zatrzymanie'). Ustawiono następujące wartości parametrów:
+    \begin{itemize}
+        \item $monitor = val\_loss$ - monitorowana metryka to strata na zbiorze walidacyjnym (MSE walidacyjne)
+        \item $min\_delta = 0.1$ - minimalna wartość poprawy metryki
+        \item $patience = 3$ - cierpliwość w oczekiwaniu na poprawę wyniku (w epokach)
+        \item $mode = min$ - tryb minimalizacji monitorowanej metryki
+    \end{itemize}
+
+    \bigskip
+
+    Dodatkowo do mechanizmu uczącego podpięto Keras CSVLogger - mechanizm logujący, zbierający wartości metryk ze wszystkich epok i zapisujący je do pliku CSV, a także customowy logger stworzony przez autora i podpięty bezpośrednio pod kod dla algorytmu genetycznego, który zapisywał do pliku CSV następujące dane: numer pokolenia, wartość funkcji dopasowania (FF) dla najlepszego osobnika w populacji, wartości poszczególnych parametrów dla najlepszego osobnika, FF dla najgorszego osobnika, wartości poszczególnych parametrów dla najgorszego osobnika, średnia FF, mediana FF, odchylenie standardowe FF\@.
+
+    \bigskip
+
+    Poniżej przedstawiono wykresy ilustrujące przebieg algorytmu genetycznego:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_fitness}
+        \caption{Wykres zmiany wartości metryki MSE dla najlepszego osobnika w trakcie życia populacji.}
+        \label{fig:g_a_best_fitness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_worst_fitness}
+        \caption{Wykres zmiany wartości metryki MSE dla najgorszego osobnika w trakcie życia populacji.}
+        \label{fig:g_a_worst_fitness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_mean_fitness}
+        \caption{Wykres zmiany mediany metryki MSE w trakcie życia populacji.}
+        \label{fig:g_a_mean_fitness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_average_fitness}
+        \caption{Wykres zmiany średniej metryki MSE w trakcie życia populacji.}
+        \label{fig:g_a_average_fitness}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_fitness_standard_deviation}
+        \caption{Wykres zmiany odchylenia standardowego metryki MSE w trakcie życia populacji.}
+        \label{fig:g_a_fitness_standard_deviation}
+    \end{figure}
+
+    Wartość FF dla najlepszego osobnika w ostatnim pokoleniu wyniosła: $\bm{MSE_{valid} = 97.01777648925781}$. Oznaczało to poprawę o 1.7\% w stosunku do najlepszego osobnika z pokolenia `zero' i aż 10.11\% (!) licząc w odniesieniu do najgorszego osobnika z pierwotnej populacji.
+
+    \bigskip
+
+    Szczegółowe wartości wyliczonych parametrów dla najlepszego osobnika prezentują się następująco:
+    \begin{itemize}
+        \item $hidden\_1\_units = 181$
+        \item $hidde\_1\_dropout\_rate = 0.10379824743424901$
+        \item $hidden\_2\_units = 112$
+        \item $hidden\_2\_dropout\_rate = 0.09567409338419407$
+        \item $hidden\_3\_units = 55$
+        \item $hidden\_3\_dropout\_rate = 0.01$
+        \item $batch\_size = 100$
+    \end{itemize}
+
+    \bigskip
+
+    Poniżej przedstawiono wykresy zmiany wartości parametrów dla najlepszego osobnika:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_1_units}
+        \caption{Wykres zmiany wartości liczby jednostek w warstwie ukrytej 1 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_1_units}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_1_dropout_rate}
+        \caption{Wykres zmiany wartości współczynnika porzucenia w warstwie ukrytej 1 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_1_dropout_rate}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_2_units}
+        \caption{Wykres zmiany wartości liczby jednostek w warstwie ukrytej 2 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_2_units}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_2_dropout_rate}
+        \caption{Wykres zmiany wartości współczynnika porzucenia w warstwie ukrytej 2 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_2_dropout_rate}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_3_units}
+        \caption{Wykres zmiany wartości liczby jednostek w warstwie ukrytej 3 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_3_units}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_hidden_3_dropout_rate}
+        \caption{Wykres zmiany wartości współczynnika porzucenia w warstwie ukrytej 3 dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_hidden_3_dropout_rate}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{g_a_best_batch_size}
+        \caption{Wykres zmiany wielkości minigrupy dla najlepszego osobnika w populacji.}
+        \label{fig:g_a_best_batch_size}
+    \end{figure}
+
+    Podczas uczenia dokładnego wyliczonego modelu zwiększono maksymalną liczbę epok do 100. Zmieniono też parametry mechanizmu Keras EarlyStopping:
+    \begin{itemize}
+        \item $min\_delta=0.01$
+        \item $patience=10$
+        \item $restore\_best\_weights=True$ - przywrócenie wartości wag dla połączeń z najlepszego przebiegu
+    \end{itemize}
+
+    \bigskip
+
+    Dodatkowo do poprawy monitoringu i wizualizacji procesu uczenia skorzystano z narzędzia Tensorboard.
+
+    \begin{figure}[H]
+        \centering
+        \frame{\includegraphics[keepaspectratio, width=1.5\textwidth, angle=90]{tensorboard_graph}}
+        \caption{Graf z TensorBoard przedstawiający architekturę wybranej sieci neuronowej.}
+        \label{fig:tensorboard_graph}
+    \end{figure}
+
+    Uzyskano wynik: $\bm{MSE_{valid} = 96,329475402832}$ - poprawa o kolejne 0.71\% (poprawa względem najlepszego z pokolenia `zero' o 2,4\%, a względem najgorszego o 10,75\%).
+
+    \bigskip
+
+    Poniżej przedstawiono wykresy obrazujące przebieg procesu uczenia modelu stworzonego w oparciu o hiperparametry wyznaczone przez algorytm genetyczny:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{f_m_mse_train_valid}
+        \caption{Wykres zestawiający wartości metryk MSE dla zbioru treningowego i walidacyjnego podczas procesu uczenia sieci neuronowej.}
+        \label{fig:f_m_mse_train_valid}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{f_m_mae_train_valid}
+        \caption{Wykres zestawiający wartości metryk MAE dla zbioru treningowego i walidacyjnego podczas procesu uczenia sieci neuronowej.}
+        \label{fig:f_m_mae_train_valid}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{f_m_rmse_train_valid}
+        \caption{Wykres zestawiający wartości metryk RMSE dla zbioru treningowego i walidacyjnego podczas procesu uczenia sieci neuronowej.}
+        \label{fig:f_m_rmse_train_valid}
+    \end{figure}
+
+    Otrzymane wyniki zestawiono z rezultatami otrzymanymi dla mniejszych modeli zaprojektowanych w oparciu o metodę `prób i błędów' i wskazówki z literatury przedmiotu, a także z siecią 2-warstwową zaprojektowaną z wykorzystaniem algorytmu genetycznego. Porównanie przykładowych architektur sieci neuronowych z wybranym modelem:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{table_metrics_values_comparison}
+        \caption{Tabelaryczne zestawienie wartości metryk otrzymanych dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanych na zbiorze testowym.}
+        \label{fig:table_metrics_values_comparison}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{compr_mse}
+        \caption{Zestawienie wartości metryk MSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym. \textbf{    Widać poprawę wyniku o 1.69\% w porównaniu do mniejszego modelu o podobnej architekturze.}}
+        \label{fig:compr_mse}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{compr_mae}
+        \caption{Zestawienie wartości metryk MAE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym. \textbf{Widać poprawę wyniku o 0.85\% w porównaniu do mniejszego modelu o podobnej architekturze.}}
+        \label{fig:compr_mae}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{compr_rmse}
+        \caption{Zestawienie wartości metryk RMSE otrzymanych dla różnych architektur sieci neuronowych (nazwy odnoszą się do liczby neuronów w poszczególnych warstwach ukrytych), uzyskanych na zbiorze testowym.}
+        \label{fig:compr_rmse}
+    \end{figure}
+
+    Najlepsza i najgorsza predykcja:
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+            \hline
+            \multicolumn{2}{|c|}{Najlepsza predykcja} \\
+            \hline
+            Nazwa utworu:                & Basie English - Take 2 \\
+            Artysta:                     & Lester Young           \\
+            Gatunek:                     & Jazz                   \\
+            Rok publikacji:              & 1944                   \\
+            Wartość rzecz. popularności: & 4                      \\
+            Wartość predykcji:           & 4.0000167              \\
+            Błąd absolutny:              & 1.66893005e-05         \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+
+    \bigskip
+
+    \noindent
+    \begin{minipage}[H]{\textwidth}
+        \begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+            \hline
+            \multicolumn{2}{|c|}{Najgorsza predykcja} \\
+            \hline
+            Nazwa utworu:                & Chika Dance \\
+            Artysta:                     & AnimeHub    \\
+            Gatunek:                     & Anime       \\
+            Rok publikacji:              & 2019        \\
+            Wartość rzecz. popularności: & 69          \\
+            Wartość predykcji:           & -7.619051   \\
+            Błąd absolutny:              & 76.61905098 \\
+            \hline
+        \end{tabular}
+    \end{minipage}
+
+    \bigskip
+
+    Losowe przykłady:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{table_real_predictions}
+        \caption{Tabelaryczne zestawienie wartości rzeczywistych dla wybranych przykładów z predykcjami otrzymanymi dla różnych architektur sieci neuronowych (sieć neuronowa 1 (ŚN1): 30 jednostek (u) w warstwie ukrytej 1 (h1), 15 u w h2; ŚN2: h1=40u, h2=20u, h3=40u; ŚN3: h1=201u, h2=177u; ŚN4 (wybrana!): h1=181u, h2=112u, h3=55u), uzyskanymi na zbiorze testowym.}
+        \label{fig:table_real_predictions}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{compr_samples_real_predictions}
+        \caption{Wizualizacja zestawienia wartości rzeczywistych z predykcjami wykonana na podstawie tabeli~\ref{fig:table_real_predictions}.}
+        \label{fig:compr_samples_real_predictions}
+    \end{figure}
+
+    \newpage
+
+
+    \section{Wnioski}
+
+    Dzięki zastosowaniu algorytmu genetycznego udało się poprawić wynik dla modelu 3-warstwowego o 1,69\% licząc w oparciu o metrykę MSE. Wiązało się to ze skonstruowaniem dużo większej sieci od tej stworzonej pierwotnie na etapie \textit{Proof of concept} (pl. sprawdzenie pomysłu).
+
+    \bigskip
+
+    Przy tworzeniu modelu wzięto pod uwagę wyłącznie cechy muzyczne. Na etapie \textit{Proof of concept} podjęto próby włączenia do modelu tytułów utworów poprzez ich transformację z wykorzystaniem techniki \textit{word embedding} (przeliczenie na wartości numeryczne odległości semantycznych między frazami). Dało to poprawę wyniku o około 0.5\% dla metryki MSE, ale z pomysłu wycofano się ze względu na konieczność uproszczenia modelu, a także fakt że użycie wspomnianej techniki wymagałoby znacznego rozbudowania niniejszego opracowania.
+
+    \bigskip
+
+    Kolejnym pomysłem, który rozważano, było wprowadzenie do modelu 4tej i 5tej warstwy ukrytej. Pomysł zarzucono ze względu na brak dostępu do odpowiedniego środowiska wykonawczego. Szacunkowe próby na etapie \textit{Proof of concept} wskazywały jednak, że dodawanie kolejnych warstw ukrytych po 3ciej nie przynosi już znaczącej poprawy wyniku, a przy niekorzystnym układzie liczby jednostek w poszczególnych warstwach może wręcz spowodować jego pogorszenie.
+
+    \bigskip
+
+    Autor niniejszego opracowania uznaje finalny wynik: $\bm{MSE = 93.144}$, $\bm{MAE = 6.737}$, $\bm{RMSE = 9.651}$ za satysfakcjonujący (biorąc uwagę, że cecha szacowana \textit{popularity} była w skali 0--100, to błąd wyniósł dla RMSE 9.651\%, a dla MAE jedynie 6.737\%). Na skalę błędu miały niewątpliwie wpływ następujące czynniki: kampanie promocyjne i sposoby ekspozycji treści przez Spotify, szeroko rozumiane mody, ogólna renoma artysty, jakość warstwy tekstowej utworu. Widać natomiast, że same dane odnośnie warstwy muzycznej są niezwykle cennym nośnikiem informacji, pozwalającym na tworzenie wysokiej jakości predykcji.
+
+    \bigskip
+
+    Podsumowując, algorytm genetyczny okazał się być dobrym narzędziem do optymalizacji architektury i procesu uczenia sieci neuronowych. Trzeba jednak wyraźnie stwierdzić, że ze względu na fakt iż jest to szablon, a nie gotowe narzędzie jego implementacja i dostrojenie wymaga ogromnych nakładów pracy.
+
+    \newpage
+
+
+    \printbibliography
+
+\end{document}
