@@ -38,6 +38,7 @@ class RealMultiPredPlotter(object):
 
         plt.tight_layout()
         plt.savefig('plots\\compr_samples_real_predictions.eps')
+        plt.savefig('plots\\compr_samples_real_predictions.png')
         plt.show()
 
     def choose_rand_color(self) -> tuple:
